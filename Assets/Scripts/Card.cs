@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    /// <summary>
+    /// Identificador del tipo de Carta dentro de un Mazo, cada carta debería tener una ID única.
+    /// </summary>
+    public int UniqueID;
     public bool back;
     public bool test = false;
 
@@ -25,6 +29,11 @@ public class Card : MonoBehaviour
         anim = GetComponent<Animator>();
         starPos = transform.position;
         back = true;
+    }
+
+    private void OnMouseOver()
+    {
+        print("Estoy Hovereando");
     }
 
     public void OnMouseDown()
@@ -71,7 +80,6 @@ public class Card : MonoBehaviour
                 test = true;
             }
         }
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -98,6 +106,5 @@ public class Card : MonoBehaviour
     {
         col.enabled = true;
     }
-
 
 }

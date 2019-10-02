@@ -10,7 +10,7 @@ public class AlineCard : MonoBehaviour
 
     private void Awake()
     {
-        AlingCards();   
+        AlingCards();
     }
 
     public void AlingCards()
