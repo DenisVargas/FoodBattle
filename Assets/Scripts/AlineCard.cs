@@ -10,7 +10,7 @@ public class AlineCard : MonoBehaviour
 
     private void Awake()
     {
-        AlingCards();
+        AlingCards();   
     }
 
     public void AlingCards()
@@ -21,7 +21,7 @@ public class AlineCard : MonoBehaviour
         }
         foreach (var item in cards)
         {
-            item.transform.localPosition = Vector3.zero;
+            item.transform.localPosition = new Vector3(item.transform.position.x, 0, 0);
         }
         int pivot_id = cards.Count / 2;
         Transform pivot = cards[pivot_id];
