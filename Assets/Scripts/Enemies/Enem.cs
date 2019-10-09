@@ -19,6 +19,8 @@ public class Enem : Actor
 
         //Ejecutamos la desición.
 
+        print("Turno del enemigo");
+
         //Terminamos el turno.
         EndTurn();
     }

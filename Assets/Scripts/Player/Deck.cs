@@ -12,11 +12,11 @@ public struct CardTypes
     /// <summary>
     /// La ruta en donde guardamos el scriptable object. (Ignorar si usamos Resources.Load)
     /// </summary>
-    String Path;
+    string Path;
     /// <summary>
     /// El nombre del archivo.
     /// </summary>
-    String Nombre;
+    string Nombre;
     /// <summary>
     /// Índica la cantidad de dicha carta que va a haber en el mazo.
     /// </summary>
@@ -40,8 +40,8 @@ public class Deck : MonoBehaviour
 
     public int TotalCards;
     public int CardTypesAviable;
-    public Queue<Card> DeckCards = new Queue<Card>();
-    public Stack<Card> UsedCards = new Stack<Card>();
+    public Queue<int> DeckCards = new Queue<int>();
+    public Stack<int> UsedCards = new Stack<int>();
 
     public void LoadAllCards()
     {
@@ -82,11 +82,12 @@ public class Deck : MonoBehaviour
 
     public void UseCard(int id)
     {
+        //Selecciono la carta de mi lista de cartas.
         Card toActivate = AviableCards[id];
-        toActivate.ActionCard();
+        toActivate.ActivateCard();
 
         //Añado la carta a la pila de cartas usadas.
-        UsedCards.Push(toActivate);
+        UsedCards.Push(id);
     }
 
     /// <summary>
@@ -96,8 +97,6 @@ public class Deck : MonoBehaviour
     {
         //Llamo la animación que muestra cuando las cartas vuelven al Deck
         while (UsedCards.Count > 0)
-        {
             DeckCards.Enqueue(UsedCards.Pop());
-        }
     }
 }

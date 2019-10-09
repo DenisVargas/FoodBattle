@@ -11,27 +11,26 @@ public class Player : Actor
     public Card Selected;
 
     //Estadísticas del jugador.
-    public int Health;
+    [SerializeField] int _health;
+    public int maxHealth;
 
     //Propios del Combate.
-    public int RemainingActions;
+    public int maxActionsPosible;
+    [SerializeField] int RemainingActions;
 
     private void Awake()
     {
         //Obtener referencias.
 
         //Inicializar cosas
+        _health = maxHealth;
+        combatInterface.PlayerLife = _health;
 
         //Llamar funciones relevantes.
-        deck.LoadAllCards();
+        //deck.LoadAllCards();
 
         //Primer update del estado.
-        if (combatInterface != null)
-        {
-            combatInterface.PlayerLife = Health.ToString();
-            combatInterface.RemainingActions = RemainingActions.ToString();
-            combatInterface.RemainingCards = deck.RemainngCardsAmmount.ToString();
-        }
+        UpdateCombatInterface();
     }
 
     /// <summary>
@@ -40,6 +39,8 @@ public class Player : Actor
     public override void StartTurn()
     {
         //Barajo/Saco cartas del Deck.
+        combatInterface.ShowEndTurnButton(true);
+        RemainingActions = maxActionsPosible;
     }
 
     /// <summary>
@@ -47,15 +48,23 @@ public class Player : Actor
     /// </summary>
     public override void UpdateTurn()
     {
-        
+        UpdateCombatInterface();
     }
 
     /// <summary>
     /// Termina el turno del jugador.
+    /// Utilizado por el botón en canvas que termine el turno.
     /// </summary>
     public override void EndTurn()
     {
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
+        combatInterface.ShowEndTurnButton(false);
+
+        //print("El jugador finalizo el turno.");
+        //Hasta este punto vamos Bien :D
+
+        //LLamo el evento de Actor
+        OnEndTurn(this);
     }
 
     //-----------------------------------------------------------------------------------------------------
@@ -67,7 +76,19 @@ public class Player : Actor
     /// </summary>
     public void ConsumeSelectedCard()
     {
-        if (Selected != null)   deck.UseCard(Selected.UniqueID);
+        if (Selected != null) deck.UseCard(Selected.UniqueID);
     }
 
+    //-----------------------------------------------------------------------------------------------------
+
+    void UpdateCombatInterface()
+    {
+        if (combatInterface != null)
+        {
+            combatInterface.PlayerLife = _health;
+            combatInterface.RemainingActions = RemainingActions.ToString();
+            //Acá falta que el deck esté funcionando.
+            //combatInterface.RemainingCards = deck.RemainngCardsAmmount.ToString();
+        }
+    }
 }

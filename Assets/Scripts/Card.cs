@@ -44,7 +44,7 @@ public class Card : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-        player = GameObject.FindObjectOfType<Player>().GetComponent<Player>();
+        player = FindObjectOfType<Player>().GetComponent<Player>();
 
         attack.SetActive(false);
         starPos = transform.position;
@@ -122,7 +122,7 @@ public class Card : MonoBehaviour
 
     }
 
-    public void ActionCard()
+    public void ActivateCard()
     {
         Debug.Log("ataque");
     }
