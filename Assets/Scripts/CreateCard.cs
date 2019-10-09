@@ -6,10 +6,10 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName ="Nueva Carta", menuName ="Crear Carta")]
 public class CreateCard : ScriptableObject
 {
-    public int damage;
-    public int life;
-    public int cost;
-    public Sprite image;
     public string nameCard;
     public string description;
+    public int cost;
+    public int damage;
+    public int life;
+    public Sprite image;
 }

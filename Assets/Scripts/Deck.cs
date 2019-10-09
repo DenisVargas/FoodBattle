@@ -83,7 +83,7 @@ public class Deck : MonoBehaviour
     public void UseCard(int id)
     {
         Card toActivate = AviableCards[id];
-        toActivate.OnTable();
+        toActivate.ActionCard();
 
         //Añado la carta a la pila de cartas usadas.
         UsedCards.Push(toActivate);

@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Card : MonoBehaviour
 {
+    public CreateCard typeCard;
+
+    public bool lookCard = false;
     public bool back;
     public bool touchScreen = false;
     public bool stopAll = false;
@@ -14,13 +19,23 @@ public class Card : MonoBehaviour
 
     public GameObject attack;
 
+    public Player player;
+
     public int UniqueID;
     private float mZCoord;
+
+    public TextMeshProUGUI nameCard;
+    public TextMeshProUGUI description;
+    public TextMeshProUGUI cost;
+    public TextMeshProUGUI damage;
+    public TextMeshProUGUI life;
+    public Image image;
 
     public Animator anim;
     public Rigidbody rb;
     public BoxCollider col;
 
+    public Transform lookPosition;
     public Transform tablePosition;
     public Transform targetPosition;
 
@@ -29,14 +44,54 @@ public class Card : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-        
+        player = GameObject.FindObjectOfType<Player>().GetComponent<Player>();
+
         attack.SetActive(false);
         starPos = transform.position;
         back = true;
     }
 
+    private void LoadCardVariables()
+    {
+        nameCard.text = typeCard.nameCard;
+        description.text = typeCard.description;
+        cost.text = typeCard.cost.ToString();
+        damage.text = typeCard.damage.ToString();
+        life.text = typeCard.life.ToString();
+        image.sprite = typeCard.image;
+    }
+
+
     private void Update()
     {
+        LoadCardVariables();
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                if (hit.collider.gameObject.layer == 9 && lookCard)
+                {
+                    lookCard = !lookCard;
+                    stopAll = true;
+                }
+                else if (hit.collider.gameObject.layer == 9 && !lookCard)
+                {
+                    lookCard = !lookCard;
+                    stopAll = false;
+                    comingBack = true;
+                }
+            }
+        }*/
+        /*else if (Input.GetMouseButtonUp(0))
+            lookCard = false;*/
+
+        if (lookCard)
+        {
+            transform.position = Vector3.Lerp(transform.position, lookPosition.position, Time.deltaTime * 5);
+        }
+
         if (!back && !stopAll)
         {
             anim.SetBool("Flip", true);
@@ -50,19 +105,24 @@ public class Card : MonoBehaviour
             anim.SetBool("Flip", false);
         }
 
-        if (stopAll)
+        if (stopAll && !lookCard)
         {
             var dist = Vector3.Distance(transform.position, tablePosition.position);
-            if (dist >= 0.2f)
+            if (dist >= 0)
                 transform.position = Vector3.Lerp(transform.position, targetPosition.position, Time.deltaTime * 3f);
         }
         if (comingBack)
         {
-            transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
+            var dist = Vector3.Distance(transform.position, starPos);
+            if (dist >= 0)
+                transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
+            else
+                comingBack = false;
         }
+
     }
 
-    public void OnTable()
+    public void ActionCard()
     {
         Debug.Log("ataque");
     }
@@ -80,11 +140,20 @@ public class Card : MonoBehaviour
         }
     }
 
+    private Vector3 GetMouseAsWorldPoint()
+    {
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = mZCoord;
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
     public void OnMouseDrag()
     {
         if (!stopAll)
         {
+
             transform.position = GetMouseAsWorldPoint() + mOffset;
+            
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -118,6 +187,8 @@ public class Card : MonoBehaviour
             {
                 stopAll = true;
                 GetChildTable();
+                player.Selected = this;
+                player.ConsumeSelectedCard();
                 StartCoroutine(WipAttack());
             }
 
@@ -143,12 +214,6 @@ public class Card : MonoBehaviour
         }
     }
 
-    private Vector3 GetMouseAsWorldPoint()
-    {
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = mZCoord;
-        return Camera.main.ScreenToWorldPoint(mousePoint);
-    }
     IEnumerator WipAttack()
     {
         yield return new WaitForSeconds(1);

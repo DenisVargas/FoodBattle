@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
         Current.StartTurn();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Current.UpdateTurn();

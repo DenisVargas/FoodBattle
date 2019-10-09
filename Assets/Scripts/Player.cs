@@ -67,7 +67,7 @@ public class Player : Actor
     /// </summary>
     public void ConsumeSelectedCard()
     {
-        if (Selected != null) deck.UseCard(Selected.UniqueID);
+        if (Selected != null)   deck.UseCard(Selected.UniqueID);
     }
 
 }
