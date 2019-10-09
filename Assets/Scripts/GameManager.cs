@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Core.Entities;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Actor Current;
-    public Player player;
-    public Actor[] Enemies;
+    public static Actor Current;
+    public static Player player;
+    public static Actor Enemy;
 
     public Queue<Actor> Turns = new Queue<Actor>();
 
@@ -20,15 +22,19 @@ public class GameManager : MonoBehaviour
         player.OnEndTurn += EndCurrentTurn;
         Turns.Enqueue(player);
 
-        Enemies = FindObjectsOfType<Actor>()
-                  .Where(x => x.GetComponent<Enem>() != null)
-                  .ToArray();
+        //Enemies = FindObjectsOfType<Actor>()
+        //          .Where(x => x.GetComponent<Enem>() != null)
+        //          .ToArray();
 
-        foreach (var Enemy in Enemies)
-        {
-            Turns.Enqueue(Enemy);
-            Enemy.OnEndTurn += EndCurrentTurn;
-        }
+        //foreach (var Enemy in Enemies)
+        //{
+        //    Turns.Enqueue(Enemy);
+        //    Enemy.OnEndTurn += EndCurrentTurn;
+        //}
+
+        Enemy = FindObjectOfType<Actor>();
+        Enemy.OnEndTurn = EndCurrentTurn;
+        Turns.Enqueue(Enemy);
 
         Current = GetNextActor();
         Current.StartTurn();
