@@ -12,19 +12,22 @@ using UnityEngine;
      Si queremos tener acceso al Deck lo hacemos vía el Owner.
      Si queremos tener acceso al Manager de Turnos lo hacemos mediante el Singleton -> CombatManager.match
 
+
+    Nota: por ahora solo agregué un tipo de Buff, con el tiempo podriamos ir añadiendo más.
 */
+public enum BuffType
+{
+    DamageReduction
+}
+
 public abstract class Actor : MonoBehaviour
 {
-    public enum BuffType
-    {
-        DamageReduction
-    }
-
 
     //Estado común
     public string ActorName;
     public Deck deck;
     public int Health;
+    public int maxHealth;
     public int Damage;
 
     //Turnos Extas.

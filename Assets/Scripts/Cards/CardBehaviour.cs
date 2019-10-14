@@ -32,7 +32,7 @@ public static class CardBehaviour
         {
             //Reduce en 1 de daño el siguiente turno.
             //TODO: futuro esta función va a recibir un valor extra = cantidad de turnos.
-            Owner.GetBuff(Actor.BuffType.DamageReduction, stats.healAmmount);
+            Owner.GetBuff(BuffType.DamageReduction, stats.healAmmount);
         };
 
         //Carta número 3.

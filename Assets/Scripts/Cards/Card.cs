@@ -39,6 +39,7 @@ public class Card : MonoBehaviour
     public GameObject attack;
     private float mZCoord;
 
+    [Header("HUD")]
     public TextMeshProUGUI nameCard;
     public TextMeshProUGUI description;
     public TextMeshProUGUI cost;
@@ -46,13 +47,13 @@ public class Card : MonoBehaviour
     public TextMeshProUGUI life;
     public Image image;
 
-    public Animator anim;
-    public Rigidbody rb;
-    public BoxCollider col;
-
     public Transform lookPosition;
     public Transform tablePosition;
     public Transform targetPosition;
+
+    Animator anim;
+    Rigidbody rb;
+    BoxCollider col;
 
     private void Awake()
     {

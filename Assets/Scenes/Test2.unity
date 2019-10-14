@@ -228,6 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bfcc6cd492e3b4d95e4e1d43dee2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Current: {fileID: 0}
+  player: {fileID: 0}
+  Enemy: {fileID: 0}
 --- !u!4 &49846431
 Transform:
   m_ObjectHideFlags: 0
@@ -251,6 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51457791}
+  - component: {fileID: 51457790}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Untagged
@@ -258,6 +262,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &51457790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51457789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a198ddfd12b86894b95aade4cd7206b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActorName: Salt Bae
+  deck: {fileID: 0}
+  Health: 100
+  Damage: 10
+  extraTurns: 0
+  DamageReduction: 0
+  HUD: {fileID: 1627305580}
+  MaxHealth: 100
 --- !u!4 &51457791
 Transform:
   m_ObjectHideFlags: 0
@@ -1203,6 +1227,22 @@ PrefabInstance:
       propertyPath: UniqueID
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 11400000, guid: f0dead19ebefa7c4587b3fa08d45747a,
+        type: 2}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Owner
+      value: 
+      objectReference: {fileID: 1552861697}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Rival
+      value: 
+      objectReference: {fileID: 51457790}
     - target: {fileID: 2965838537458835498, guid: e8181167ab46d3045a2545d62da2f10c,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -1267,7 +1307,7 @@ GameObject:
   - component: {fileID: 320951330}
   - component: {fileID: 320951329}
   m_Layer: 0
-  m_Name: TextMeshPro Text
+  m_Name: LifeAmmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2318,12 +2358,12 @@ RectTransform:
   m_GameObject: {fileID: 736629909}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.085365, y: 1.085365, z: 1.9645104}
+  m_LocalScale: {x: 1.0853653, y: 1.0853653, z: 1.9645104}
   m_Children:
   - {fileID: 1699803039}
   - {fileID: 320951328}
   m_Father: {fileID: 2113212748}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2892,7 +2932,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 941992460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552861697}
+        m_MethodName: EndTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &941992460
@@ -3182,6 +3233,22 @@ PrefabInstance:
       propertyPath: lookPosition
       value: 
       objectReference: {fileID: 128404221}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Owner
+      value: 
+      objectReference: {fileID: 1552861697}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Rival
+      value: 
+      objectReference: {fileID: 51457790}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 11400000, guid: b8fd745008af3e64c9c44f71a45cab2a,
+        type: 2}
     - target: {fileID: 2965838537458835498, guid: e8181167ab46d3045a2545d62da2f10c,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -3635,6 +3702,22 @@ PrefabInstance:
       propertyPath: UniqueID
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 26fd4b25fcde1e241b08eb98d9164937,
+        type: 2}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Owner
+      value: 
+      objectReference: {fileID: 1552861697}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Rival
+      value: 
+      objectReference: {fileID: 51457790}
     - target: {fileID: 2965838537458835498, guid: e8181167ab46d3045a2545d62da2f10c,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -4157,14 +4240,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82dd807e33506944b888b12d23286968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerName: 
-  combatInterface: {fileID: 1627305575}
+  ActorName: Gordon Ramsay
   deck: {fileID: 720153187}
-  hand: {fileID: 149282814}
-  _health: 0
+  Health: 100
+  Damage: 10
+  extraTurns: 0
+  DamageReduction: 0
+  HUD: {fileID: 1627305575}
   maxHealth: 0
   maxActionsPosible: 0
-  RemainingActions: 0
+  RemainingActions: 5
 --- !u!4 &1552861698
 Transform:
   m_ObjectHideFlags: 0
@@ -4274,6 +4359,22 @@ PrefabInstance:
       propertyPath: UniqueID
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 55cb22a7e15625743b5a8cff8fd724ad,
+        type: 2}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Owner
+      value: 
+      objectReference: {fileID: 1552861697}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Rival
+      value: 
+      objectReference: {fileID: 51457790}
     - target: {fileID: 2965838537458835498, guid: e8181167ab46d3045a2545d62da2f10c,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -4493,6 +4594,7 @@ GameObject:
   - component: {fileID: 1627305577}
   - component: {fileID: 1627305576}
   - component: {fileID: 1627305575}
+  - component: {fileID: 1627305580}
   m_Layer: 5
   m_Name: '-------------- Canvas -----------'
   m_TagString: Untagged
@@ -4601,6 +4703,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1627305580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627305574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3261005978e174f8e6265db1db2a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: {fileID: 932072056}
+  _health: {fileID: 320951329}
+  _cards: {fileID: 2058783936}
 --- !u!1001 &1649935423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4971,6 +5088,22 @@ PrefabInstance:
       propertyPath: UniqueID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 458b92060b880374c8536ea2d340ba60,
+        type: 2}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Owner
+      value: 
+      objectReference: {fileID: 1552861697}
+    - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: Rival
+      value: 
+      objectReference: {fileID: 51457790}
     - target: {fileID: 2965838537458835498, guid: e8181167ab46d3045a2545d62da2f10c,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -5535,7 +5668,7 @@ RectTransform:
   - {fileID: 759413738}
   - {fileID: 2058783938}
   m_Father: {fileID: 2113212748}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5877,8 +6010,8 @@ RectTransform:
   m_LocalScale: {x: 1.4841999, y: 1.4841999, z: 0.82}
   m_Children:
   - {fileID: 1089247727}
-  - {fileID: 1974704296}
   - {fileID: 736629910}
+  - {fileID: 1974704296}
   - {fileID: 2078389519}
   m_Father: {fileID: 1627305579}
   m_RootOrder: 0

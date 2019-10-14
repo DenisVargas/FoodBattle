@@ -8,11 +8,6 @@ public class Player : Actor
     public event Action OnDefeat = delegate { };
 
     public PlayerHUD HUD;
-    public Deck deck;
-
-    //Estadísticas del jugador.
-    [SerializeField] int _health;
-    public int maxHealth;
 
     //Propios del Combate.
     public int maxActionsPosible;
@@ -23,9 +18,11 @@ public class Player : Actor
         //Obtener referencias.
 
         //Inicializar cosas
-        _health = maxHealth;
+        Health = maxHealth;
+        RemainingActions = maxActionsPosible;
+
         HUD.SetPlayerName(ActorName);
-        HUD.PlayerLife = _health;
+        HUD.PlayerLife = Health;
         HUD.RemainingCards = deck.DeckCards.Count;
         HUD.UsedCards = 0;
 
@@ -79,7 +76,7 @@ public class Player : Actor
     {
         if (HUD != null)
         {
-            HUD.PlayerLife = _health;
+            HUD.PlayerLife = Health;
             HUD.RemainingActions = RemainingActions;
 
             //Acá falta que el deck esté funcionando.
