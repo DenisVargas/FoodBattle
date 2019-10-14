@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class AlineCard : MonoBehaviour
 {
-
     public List<Transform> cards = new List<Transform>();    
     public float distance = 2;
 
     private void Awake()
     {
-        AlingCards();   
+        AlingCards();
     }
 
     public void AlingCards()
@@ -34,6 +33,5 @@ public class AlineCard : MonoBehaviour
             cards[i].transform.position = pivot.transform.position + offset * (i - pivot_id);
         }
         cards.Clear();
-
     }
 }

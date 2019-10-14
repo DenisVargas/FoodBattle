@@ -4,10 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using IA.RandomSelections;
 
+/*
+     Este script se va a encargar de manejar la Deck y la mano del jugador.
+     Solo se va contar las cartas que tenemos dentro del mazo y de repartir la mano.
+     Tambíen, si una carta es utilizada, lo pondra en el "cementerio" y en algún punto
+     devolverá las cartas al mazo principal.
+*/
+
 [Serializable]
 public struct CardTypes
 {
-    //Path, Nombre, Cantidad.
+    //Path, FileName, Cantidad.
 
     /// <summary>
     /// La ruta en donde guardamos el scriptable object. (Ignorar si usamos Resources.Load)
@@ -48,6 +55,7 @@ public class Deck : MonoBehaviour
         CardTypesAviable = Included.Count;
 
         //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included] y creamos una carta por cada uno.
+        // Suscribirse al evento incluido en cada carta.
         //Añadimos un ID único para cada instancia de la carta dentro de [AviableCards]
         //Guardamos los datos dentro de [AviableCards]
 
@@ -80,14 +88,9 @@ public class Deck : MonoBehaviour
         return new List<Card>();
     }
 
-    public void UseCard(int id)
+    public void CardUsed(int UniqueID)
     {
-        //Selecciono la carta de mi lista de cartas.
-        Card toActivate = AviableCards[id];
-        toActivate.ActivateCard();
-
-        //Añado la carta a la pila de cartas usadas.
-        UsedCards.Push(id);
+        // Próximamente... por si necesitamos llevar un registro de que cartas fueron utilizadas.
     }
 
     /// <summary>

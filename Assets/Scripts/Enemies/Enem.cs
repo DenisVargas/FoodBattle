@@ -5,13 +5,22 @@ using UnityEngine;
 
 public class Enem : Actor
 {
-    public WorldSpaceHealthBar healthBar;
+    //Referencias.
+    public EnemyHUD HUD;
 
     //Estado y cosas
+    public string RivalName = "Enemy";
     public int Health;
     public int MaxHealth;
     public float AttackDamage;
     //y mas weas.
+
+    private void Awake()
+    {
+        HUD.SetRivalName(RivalName);
+        HUD.healthDisplay = Health;
+        HUD.cardsDisplay = 20f;
+    }
 
     public void Decide()
     {
@@ -43,4 +52,10 @@ public class Enem : Actor
         base.EndTurn();
         OnEndTurn(this);
     }
+
+    //Esto va a depender del diseño de los efectos de las cartas.
+    //public void ApplyCardEffect()
+    //{
+
+    //}
 }

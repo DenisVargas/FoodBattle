@@ -3,11 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
+/*
+   Este script se va encargar de todo lo que LA CARTA debe hacer.
+   Eso incluye, su activación.
+   El player ni el deck van a tener conocimiento de algun método interno.
+   Va a tener un Evento que se va a disparar cuando la carta es consumida.
+   El deck va a estar suscrito a dicho evento, de esta forma se entera que la carta fue útilizada.
+*/
 
 public class Card : MonoBehaviour
 {
-    public CreateCard typeCard;
+    #region Eventos
+    public event Action<int> OnUseCard = delegate { };
+    public Action<Actor, Actor, CardData> CardEffect = delegate { };
+    //public event Action OnCardIsSeleced = delegate { }; 
+    #endregion
 
+    [Header("Data Fundamental")]
+    public CardData Stats;
+    public Actor Owner;
+    public Actor Rival;
+
+    [Header("Posicionamiento de la carta")]
     public bool lookCard = false;
     public bool back;
     public bool touchScreen = false;
@@ -18,10 +37,6 @@ public class Card : MonoBehaviour
     private Vector3 mOffset;
 
     public GameObject attack;
-
-    public Player player;
-
-    public int UniqueID;
     private float mZCoord;
 
     public TextMeshProUGUI nameCard;
@@ -39,32 +54,29 @@ public class Card : MonoBehaviour
     public Transform tablePosition;
     public Transform targetPosition;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-        player = FindObjectOfType<Player>().GetComponent<Player>();
 
         attack.SetActive(false);
         starPos = transform.position;
         back = true;
+        LoadCardVariables();
     }
-
     private void LoadCardVariables()
     {
-        nameCard.text = typeCard.nameCard;
-        description.text = typeCard.description;
-        cost.text = typeCard.cost.ToString();
-        damage.text = typeCard.damage.ToString();
-        life.text = typeCard.life.ToString();
-        image.sprite = typeCard.image;
+        nameCard.text = Stats.nameCard;
+        description.text = Stats.description;
+        cost.text = Stats.cost.ToString();
+        damage.text = Stats.damage.ToString();
+        life.text = Stats.healAmmount.ToString();
+        image.sprite = Stats.image;
     }
-
 
     private void Update()
     {
-        LoadCardVariables();
         /*if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
@@ -119,12 +131,14 @@ public class Card : MonoBehaviour
             else
                 comingBack = false;
         }
-
     }
 
     public void ActivateCard()
     {
         Debug.Log("ataque");
+        OnUseCard(Stats.ID);
+        CardEffect(Owner, Rival, Stats);
+        //Acá va todos los efectos.
     }
 
     public void OnMouseDown()
@@ -139,59 +153,48 @@ public class Card : MonoBehaviour
             mOffset = transform.position - GetMouseAsWorldPoint();
         }
     }
-
-    private Vector3 GetMouseAsWorldPoint()
-    {
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = mZCoord;
-        return Camera.main.ScreenToWorldPoint(mousePoint);
-    }
-
     public void OnMouseDrag()
     {
         if (!stopAll)
         {
-
             transform.position = GetMouseAsWorldPoint() + mOffset;
-            
+
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.collider.gameObject.layer == 10)
-                {
-                    back = false;
-                    if (!touchScreen)
-                    {
-                        touchScreen = true;
-                    }
-                }
-                else
-                {
-                    back = true;
-                    touchScreen = false;
-                }
+                //Esto es un juego de booleans >:D
+                bool targetHitted = hit.collider.gameObject.layer == 10;
+                back = !targetHitted;
+                touchScreen = targetHitted;
+
+                //if (hit.collider.gameObject.layer == 10)
+                //{
+                //    back = false;
+                //    if (!touchScreen) touchScreen = true;
+                //}
+                //else
+                //{
+                //    back = true;
+                //    touchScreen = false;
+                //}
             }
         }
     }
-
     private void OnMouseUp()
     {
         if (!stopAll)
         {
             if (back)
-            {
                 comingBack = true;
-            }
-            else if (!back && touchScreen)
+            else if (touchScreen)
             {
                 stopAll = true;
                 GetChildTable();
-                player.Selected = this;
-                player.ConsumeSelectedCard();
+                ActivateCard();
+
                 StartCoroutine(WipAttack());
             }
-
         }
     }
 
@@ -212,6 +215,12 @@ public class Card : MonoBehaviour
                 break;
             }
         }
+    }
+    private Vector3 GetMouseAsWorldPoint()
+    {
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = mZCoord;
+        return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
     IEnumerator WipAttack()

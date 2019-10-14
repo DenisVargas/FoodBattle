@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Player : Actor
 {
-    public CombatInterface combatInterface;
+    public event Action OnDefeat = delegate { };
+
+    public PlayerHUD HUD;
     public Deck deck;
-    public Hand hand;
-    public Card Selected;
 
     //Estadísticas del jugador.
     [SerializeField] int _health;
@@ -24,10 +24,16 @@ public class Player : Actor
 
         //Inicializar cosas
         _health = maxHealth;
-        combatInterface.PlayerLife = _health;
+        HUD.SetPlayerName(ActorName);
+        HUD.PlayerLife = _health;
+        HUD.RemainingCards = deck.DeckCards.Count;
+        HUD.UsedCards = 0;
 
         //Llamar funciones relevantes.
         //deck.LoadAllCards();
+
+        //Suscribirse a eventos.
+        
 
         //Primer update del estado.
         UpdateCombatInterface();
@@ -39,7 +45,7 @@ public class Player : Actor
     public override void StartTurn()
     {
         //Barajo/Saco cartas del Deck.
-        combatInterface.ShowEndTurnButton(true);
+        HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;
     }
 
@@ -58,7 +64,7 @@ public class Player : Actor
     public override void EndTurn()
     {
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
-        combatInterface.ShowEndTurnButton(false);
+        HUD.ShowEndTurnButton(false);
 
         //print("El jugador finalizo el turno.");
         //Hasta este punto vamos Bien :D
@@ -69,26 +75,20 @@ public class Player : Actor
 
     //-----------------------------------------------------------------------------------------------------
 
-    // Esto lo llamamos desde afuera como por el canvas por ejemplo.
-    // Básicamente descarta la carta.
-    /// <summary>
-    /// 
-    /// </summary>
-    public void ConsumeSelectedCard()
-    {
-        if (Selected != null) deck.UseCard(Selected.UniqueID);
-    }
-
-    //-----------------------------------------------------------------------------------------------------
-
     void UpdateCombatInterface()
     {
-        if (combatInterface != null)
+        if (HUD != null)
         {
-            combatInterface.PlayerLife = _health;
-            combatInterface.RemainingActions = RemainingActions.ToString();
+            HUD.PlayerLife = _health;
+            HUD.RemainingActions = RemainingActions;
+
             //Acá falta que el deck esté funcionando.
             //combatInterface.RemainingCards = deck.RemainngCardsAmmount.ToString();
         }
+    }
+
+    void Defeat()
+    {
+        OnDefeat();
     }
 }

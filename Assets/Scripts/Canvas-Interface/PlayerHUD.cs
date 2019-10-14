@@ -4,35 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CombatInterface : MonoBehaviour
+public class PlayerHUD : MonoBehaviour
 {
-    //[SerializeField] TMP_Text _playerLife     = null;
-    public CanvasHealthBarr healthBarr;
+    [SerializeField] TMP_Text _playerName = null;
+    [SerializeField] TMP_Text _playerLife     = null;
     [SerializeField] TMP_Text _remaingActions = null;
     [SerializeField] TMP_Text _usedCards      = null;
     [SerializeField] TMP_Text _remainingCards = null;
 
-    [SerializeField] Button EndTurnButton     = null;
+    public Button EndTurnButton     = null;
 
     public float PlayerLife
     {
         set
         {
-            //_playerLife.text = "Lifes: " + value; }
-            healthBarr.UpdateDisplay(value);
+            _playerLife.text = "Lifes: " + value;
         }
     }
-    public string RemainingActions
+    public int RemainingActions
     {
-        set { _remaingActions.text = value; }
+        set { _remaingActions.text = value.ToString(); }
     }
-    public string UsedCards
+    public int UsedCards
     {
-        set { _usedCards.text = value; }
+        set { _usedCards.text = value.ToString(); }
     }
-    public string RemainingCards
+    public int RemainingCards
     {
-        set { _remainingCards.text = value; }
+        set { _remainingCards.text = value.ToString(); }
+    }
+
+    public void SetPlayerName(string playerName)
+    {
+        _playerName.text = playerName;
     }
 
     /// <summary>
@@ -41,6 +45,7 @@ public class CombatInterface : MonoBehaviour
     /// <param name="Enable"></param>
     public void ShowEndTurnButton(bool Enable)
     {
+        //Esto podríamos animarlo.
         EndTurnButton.gameObject.SetActive(Enable);
         //Alternativa
         //EndTurnButton.interactable = Enable;
