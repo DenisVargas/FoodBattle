@@ -19,23 +19,27 @@ public struct CardTypes
     /// <summary>
     /// La ruta en donde guardamos el scriptable object. (Ignorar si usamos Resources.Load)
     /// </summary>
-    string Path;
+    [Tooltip("La ruta en donde esta guardado el correspondiente Scriptable Object que guarda las stats")]
+    public string CompletePath;
     /// <summary>
     /// El nombre del archivo.
     /// </summary>
-    string Nombre;
+    [Tooltip("El nombre del archivo")]
+    public string Nombre;
     /// <summary>
     /// Índica la cantidad de dicha carta que va a haber en el mazo.
     /// </summary>
-    int AmmountInDeck;
+    [Tooltip("Cantidad de cartas que va a haber en el mazo")]
+    public int AmmountInDeck;
 }
 
 [Serializable]
 public class Deck : MonoBehaviour
 {
-    public int RemainngCardsAmmount;
+    public int RemaingCardsAmmount;
     public int UsedCardAmmount;
 
+    [Header("Cartas Incluídas en el Mazo")]
     /// <summary>
     /// Lista de Datos relacionados a las cartas existentes.
     /// </summary>
@@ -45,6 +49,7 @@ public class Deck : MonoBehaviour
     /// </summary>
     public Dictionary<int, Card> AviableCards = new Dictionary<int, Card>();
 
+    [Header("Totales")]
     public int TotalCards;
     public int CardTypesAviable;
     public Queue<int> DeckCards = new Queue<int>();
@@ -54,27 +59,67 @@ public class Deck : MonoBehaviour
     {
         CardTypesAviable = Included.Count;
 
-        //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included] y creamos una carta por cada uno.
-        // Suscribirse al evento incluido en cada carta.
-        //Añadimos un ID único para cada instancia de la carta dentro de [AviableCards]
-        //Guardamos los datos dentro de [AviableCards]
-
         //List<Tuple<int a, int b> donde a = tipo de carta. b = Cantidad para añadir. 
         //Nombre: [ToAddList]
+        List<Tuple<int, int>> ToAddList = new List<Tuple<int, int>>();
 
-		//Calculamos cuantas cartas totales hay dentro del deck.
-			// Por cada item en Included
+        //Por cada objeto incluido en Included.
+        //Calculamos cuantas cartas totales hay dentro del deck.
+        foreach (var includedItem in Included)
+        {
+            //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
+            CardData data = Resources.Load<CardData>(includedItem.CompletePath);
+
+            // creamos una carta por cada uno y le atacheamos su data.
+            Card realCard = new Card();
+            realCard.Stats = data;
+
+            // Suscribirse al evento incluido en cada carta.
+            // Esto permite registrar las cartas que se van activando.
+            realCard.OnUseCard += CardUsed;
+
+            //Le atacheamos el efecto.
+            realCard.CardEffect = CardBehaviour.GetCardBehaviour(data.ID);
+
             // Creo una tupla donde añado { a = cantidad de cartas, b = ID del tipo de carta }
+            Tuple<int, int> AmmountAndType = Tuple.Create(includedItem.AmmountInDeck, data.ID);
+            RemaingCardsAmmount += includedItem.AmmountInDeck;
+
             // Añado la tupla a [ToAddList]
+            ToAddList.Add(AmmountAndType);
+
+            //Guardamos los datos dentro de [AviableCards]
+            AviableCards.Add(data.ID, realCard);
+        }
 
         //A medida que añado de forma aleatoría una carta a la queue, voy reduciendo la cantidad que falta.
 
-		//Mientras [ToAddList].count sea mayor a 0
-			//Creo un numero aleatório que este dentro del rango (1 - [ToAddList.count])
+        //Mientras [ToAddList].count sea mayor a 0
+        while (ToAddList.Count > 0)
+        {
+            //Para referencia:
+            //Tuple<int a, int b> donde:
+            //       a = Cantidad para añadir.
+            //       b = tipo de carta (UniqueID).
+
+            //Creo un numero aleatório que este dentro del rango (1 - [ToAddList.count])
+            int randomIndex = UnityEngine.Random.Range(0, ToAddList.Count);
+            Tuple<int, int> selected = ToAddList[randomIndex];
+
             //Reduzco en 1 la cantidad de cartas que falta añadir de ese tipo.
-            //Si la cantidad de cartas de un tipo particular se vuelve 0, lo sacamos del contenedor ([ToAddList]).
+            Tuple<int, int> reduxedSelected = Tuple.Create(selected.Item1 - 1, selected.Item2);
+
+            //Si la cantidad de cartas de un tipo particular se vuelve 0 lo sacamos del contenedor ([ToAddList]).
+            if (reduxedSelected.Item1 == 0)
+                ToAddList.RemoveAt(randomIndex);
+            //Sino... Remplazo la tupla en dicho indice por la versión reducida.
+            else
+                ToAddList[randomIndex] = reduxedSelected;
+            //Nota: esto es porque las Tuplas son inmutables.
+
             //Añado una carta del tipo que existe dentro del Index resultante 
-            //--> DeckCards.Enqueue(AviableCards[ToAddList[Index].Item2])
+            DeckCards.Enqueue(selected.Item2);
+        }
     }
 
     /// <summary>
@@ -85,12 +130,22 @@ public class Deck : MonoBehaviour
     public List<Card> DrawCards(int ammount = 5)
     {
         //Retorno una lista aleatoria de [Ammount] cantidad de cartas.
-        return new List<Card>();
+        List<Card> drawedCards = new List<Card>();
+        for (int i = 0; i < ammount; i++)
+        {
+            int drawedCardID = DeckCards.Dequeue();
+            RemaingCardsAmmount--;
+            drawedCards.Add(AviableCards[drawedCardID]);
+        }
+
+        return drawedCards;
     }
 
     public void CardUsed(int UniqueID)
     {
-        // Próximamente... por si necesitamos llevar un registro de que cartas fueron utilizadas.
+        // Por si necesitamos llevar un registro de que cartas fueron utilizadas.
+        UsedCards.Push(UniqueID);
+        UsedCardAmmount++;
     }
 
     /// <summary>
