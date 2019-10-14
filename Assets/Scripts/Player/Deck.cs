@@ -5,8 +5,8 @@ using UnityEngine;
 using IA.RandomSelections;
 
 /*
-     Este script se va a encargar de manejar la Deck y la mano del jugador.
-     Solo se va contar las cartas que tenemos dentro del mazo y de repartir la mano.
+     Este script se va a encargar de manejar la Deck y de cierta manera la mano del jugador.
+     Solo va contar las cartas que tenemos dentro del mazo y de repartir la mano.
      Tambíen, si una carta es utilizada, lo pondra en el "cementerio" y en algún punto
      devolverá las cartas al mazo principal.
 */
@@ -17,12 +17,13 @@ public struct CardTypes
     //Path, FileName, Cantidad.
 
     /// <summary>
-    /// La ruta en donde guardamos el scriptable object. (Ignorar si usamos Resources.Load)
+    /// La ruta en donde guardamos el scriptable object.
     /// </summary>
     [Tooltip("La ruta en donde esta guardado el correspondiente Scriptable Object que guarda las stats")]
     public string CompletePath;
     /// <summary>
     /// El nombre del archivo.
+    /// Opcional.
     /// </summary>
     [Tooltip("El nombre del archivo")]
     public string Nombre;
@@ -50,10 +51,10 @@ public class Deck : MonoBehaviour
     public Dictionary<int, Card> AviableCards = new Dictionary<int, Card>();
 
     [Header("Totales")]
-    public int TotalCards;
-    public int CardTypesAviable;
-    public Queue<int> DeckCards = new Queue<int>();
-    public Stack<int> UsedCards = new Stack<int>();
+    public int TotalCards;                             // Se autorrellena. Cantidad de cartas actual en el mazo. Se reduce al sacar nuevas cartas.
+    public int CardTypesAviable;                       // Se autorrellena. Cantidad de tipos de cartas. En nuestro caso cada Carta es un Tipo de carta único.
+    public Queue<int> DeckCards = new Queue<int>();    // Se autorrellena. Cola de cartas en el Mazo, utiliza el ID de cada carta.
+    public Stack<int> UsedCards = new Stack<int>();    // Se autorrellena. Pila de cartas Utilizadas, también utiliza el ID, y va aumentando a medida que activamos cartas.
 
     public void LoadAllCards()
     {
@@ -141,6 +142,10 @@ public class Deck : MonoBehaviour
         return drawedCards;
     }
 
+    /// <summary>
+    /// Registra el uso de una carta.
+    /// </summary>
+    /// <param name="UniqueID"> Identificador único de la carta.</param>
     public void CardUsed(int UniqueID)
     {
         // Por si necesitamos llevar un registro de que cartas fueron utilizadas.
