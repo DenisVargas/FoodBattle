@@ -277,7 +277,7 @@ MonoBehaviour:
   ActorName: Salt Bae
   deck: {fileID: 0}
   Health: 100
-  maxHealth: 0
+  maxHealth: 100
   Damage: 10
   extraTurns: 0
   DamageReduction: 0
@@ -4256,12 +4256,12 @@ MonoBehaviour:
   ActorName: Gordon Ramsay
   deck: {fileID: 720153187}
   Health: 100
-  maxHealth: 0
+  maxHealth: 100
   Damage: 10
   extraTurns: 0
   DamageReduction: 0
   HUD: {fileID: 1627305575}
-  maxActionsPosible: 0
+  maxActionsPosible: 3
   RemainingActions: 5
 --- !u!4 &1552861698
 Transform:

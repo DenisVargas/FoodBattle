@@ -128,6 +128,8 @@ public class Deck : MonoBehaviour
             //Añado una carta del tipo que existe dentro del Index resultante 
             DeckCards.Enqueue(selected.Item2);
         }
+
+        TotalCards = RemaingCardsAmmount;
     }
 
     /// <summary>

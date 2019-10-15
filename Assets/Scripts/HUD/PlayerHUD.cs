@@ -18,7 +18,7 @@ public class PlayerHUD : MonoBehaviour
     {
         set
         {
-            _playerLife.text = "Lifes: " + value;
+            _playerLife.text = value.ToString();
         }
     }
     public int RemainingActions
