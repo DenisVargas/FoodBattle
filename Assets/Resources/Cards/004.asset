@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
-  m_Name: Test2
+  m_Name: 004
   m_EditorClassIdentifier: 
-  nameCard: Segundo Test
-  description: Este es un segundo test para ver como se ve esta carta
+  nameCard: Pancho a las 5am
+  ID: 5
   cost: 1
-  damage: 2
-  life: 15
-  image: {fileID: 21300000, guid: 8a27f003a7c9fd3439efb9ab5ae8d8db, type: 3}
+  damage: 3
+  BuffType: 0
+  healAmmount: 0
+  image: {fileID: 21300000, guid: 26dd7f51b29aeae4ba844176caf0d93b, type: 3}
+  description: 'Para los buenos momentos de bajon antes de ir a dormir.
+
+    Efectos: Roba una carta.'

@@ -277,11 +277,11 @@ MonoBehaviour:
   ActorName: Salt Bae
   deck: {fileID: 0}
   Health: 100
+  maxHealth: 0
   Damage: 10
   extraTurns: 0
   DamageReduction: 0
   HUD: {fileID: 1627305580}
-  MaxHealth: 100
 --- !u!4 &51457791
 Transform:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (5)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -818,7 +818,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (4)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1023,7 +1023,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2312,9 +2312,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6075ef246d4285a40bb802d0a817105a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RemainngCardsAmmount: 5
+  RemaingCardsAmmount: 0
   UsedCardAmmount: 0
-  Included: []
+  Included:
+  - CompletePath: Assets/Resources/Cards/001
+    Nombre: 
+    AmmountInDeck: 5
+  - CompletePath: Assets/Resources/Cards/002
+    Nombre: 
+    AmmountInDeck: 5
+  - CompletePath: Assets/Resources/Cards/003
+    Nombre: 
+    AmmountInDeck: 5
+  - CompletePath: Assets/Resources/Cards/004
+    Nombre: 
+    AmmountInDeck: 5
+  - CompletePath: Assets/Resources/Cards/006
+    Nombre: 
+    AmmountInDeck: 5
   TotalCards: 5
   CardTypesAviable: 5
 --- !u!4 &720153188
@@ -2660,7 +2675,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4105,7 +4120,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4243,11 +4258,11 @@ MonoBehaviour:
   ActorName: Gordon Ramsay
   deck: {fileID: 720153187}
   Health: 100
+  maxHealth: 0
   Damage: 10
   extraTurns: 0
   DamageReduction: 0
   HUD: {fileID: 1627305575}
-  maxHealth: 0
   maxActionsPosible: 0
   RemainingActions: 5
 --- !u!4 &1552861698
@@ -4810,7 +4825,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5243,7 +5258,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (6)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5605,7 +5620,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerTablePositions
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

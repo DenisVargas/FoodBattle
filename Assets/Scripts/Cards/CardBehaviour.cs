@@ -56,6 +56,14 @@ public static class CardBehaviour
             // Pierdes 2 turnos.
             CombatManager.match.AddExtraTurns(Target, 2);
         };
+
+        //Carta número 5.
+        Action<Actor, Actor, CardData> Carta6 = (Actor Owner, Actor Target, CardData stats) =>
+        {
+            //Carta Categoría Rara.
+            // Ganas 1 turno.
+            CombatManager.match.AddExtraTurns(Owner, 1);
+        };
         #endregion
 
         //Añado los comportamientos y los almaceno en el diccionario en orden.
@@ -64,5 +72,6 @@ public static class CardBehaviour
         CardBehaviours.Add(3, Carta3);
         CardBehaviours.Add(4, Carta4);
         CardBehaviours.Add(5, Carta5);
+        CardBehaviours.Add(6, Carta6);
     }
 }

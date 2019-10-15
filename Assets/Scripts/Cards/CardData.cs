@@ -17,6 +17,4 @@ public class CardData : ScriptableObject
     public Sprite image;
     [TextArea]
     public string description;
-
-    public Action<Actor, Actor, CardData> CardEffect = delegate { };
 }

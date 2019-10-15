@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
-  m_Name: Test5
+  m_Name: 001
   m_EditorClassIdentifier: 
-  nameCard: Pancho a las 5am
-  description: Para los buenos momentos de bajon antes de ir a dormir
+  nameCard: Salchicha Furiosa
+  ID: 1
   cost: 1
-  damage: 3
-  life: 4
+  damage: 2
+  BuffType: 0
+  healAmmount: 0
   image: {fileID: 21300000, guid: 26dd7f51b29aeae4ba844176caf0d93b, type: 3}
+  description: "Efectos: Realiza +2 de Da\xF1o al oponente."

@@ -9,6 +9,8 @@ using IA.RandomSelections;
      Solo va contar las cartas que tenemos dentro del mazo y de repartir la mano.
      Tambíen, si una carta es utilizada, lo pondra en el "cementerio" y en algún punto
      devolverá las cartas al mazo principal.
+
+    /// Ejemplo de formato: (Assets/Resources/Text/textFile01.txt) --> Resources.Load<TextAsset>("Text/textFile01");
 */
 
 [Serializable]

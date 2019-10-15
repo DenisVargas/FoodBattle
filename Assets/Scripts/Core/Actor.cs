@@ -17,6 +17,7 @@ using UnityEngine;
 */
 public enum BuffType
 {
+    none,
     DamageReduction
 }
 
@@ -42,6 +43,8 @@ public abstract class Actor : MonoBehaviour
     {
         switch (type)
         {
+            case BuffType.none:
+                break;
             case BuffType.DamageReduction:
                 DamageReduction += Ammount;
                 break;
