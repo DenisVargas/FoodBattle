@@ -23,12 +23,12 @@ public struct CardTypes
     /// </summary>
     [Tooltip("La ruta en donde esta guardado el correspondiente Scriptable Object que guarda las stats")]
     public string CompletePath;
-    /// <summary>
-    /// El nombre del archivo.
-    /// Opcional.
-    /// </summary>
-    [Tooltip("El nombre del archivo")]
-    public string Nombre;
+    ///// <summary>
+    ///// El nombre del archivo.
+    ///// Opcional.
+    ///// </summary>
+    //[Tooltip("El nombre del archivo")]
+    //public string Nombre;
     /// <summary>
     /// Índica la cantidad de dicha carta que va a haber en el mazo.
     /// </summary>
@@ -39,8 +39,12 @@ public struct CardTypes
 [Serializable]
 public class Deck : MonoBehaviour
 {
-    public int RemaingCardsAmmount;
-    public int UsedCardAmmount;
+    [HideInInspector] public int RemaingCardsAmmount;
+    [HideInInspector] public int UsedCardAmmount;
+
+    [Header("Seteos Importantes")]
+    public GameObject CardPrefab;
+    public Transform CardParent;
 
     [Header("Cartas Incluídas en el Mazo")]
     /// <summary>
@@ -73,9 +77,10 @@ public class Deck : MonoBehaviour
             //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
             CardData data = Resources.Load<CardData>(includedItem.CompletePath);
 
-            // creamos una carta por cada uno y le atacheamos su data.
-            Card realCard = new Card();
+            // Creamos una carta por cada uno y le atacheamos su data.
+            Card realCard = Instantiate(CardPrefab, transform.position, Quaternion.identity, CardParent).GetComponent<Card>();
             realCard.Stats = data;
+            realCard.LoadCardDisplayInfo();
 
             // Suscribirse al evento incluido en cada carta.
             // Esto permite registrar las cartas que se van activando.

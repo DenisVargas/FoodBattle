@@ -2314,21 +2314,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RemaingCardsAmmount: 0
   UsedCardAmmount: 0
+  CardPrefab: {fileID: 1676594863372105397, guid: e8181167ab46d3045a2545d62da2f10c,
+    type: 3}
+  CardParent: {fileID: 149282812}
   Included:
-  - CompletePath: Assets/Resources/Cards/001
-    Nombre: 
+  - CompletePath: Cards/001
     AmmountInDeck: 5
-  - CompletePath: Assets/Resources/Cards/002
-    Nombre: 
+  - CompletePath: Cards/002
     AmmountInDeck: 5
-  - CompletePath: Assets/Resources/Cards/003
-    Nombre: 
+  - CompletePath: Cards/003
     AmmountInDeck: 5
-  - CompletePath: Assets/Resources/Cards/004
-    Nombre: 
+  - CompletePath: Cards/004
     AmmountInDeck: 5
-  - CompletePath: Assets/Resources/Cards/006
-    Nombre: 
+  - CompletePath: Cards/006
     AmmountInDeck: 5
   TotalCards: 5
   CardTypesAviable: 5

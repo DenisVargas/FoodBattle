@@ -36,7 +36,7 @@ public class Card : MonoBehaviour
     public Vector3 starPos;
     private Vector3 mOffset;
 
-    public GameObject attack;
+    //public GameObject attack;
     private float mZCoord;
 
     [Header("HUD")]
@@ -61,12 +61,11 @@ public class Card : MonoBehaviour
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
 
-        attack.SetActive(false);
+        //attack.SetActive(false);
         starPos = transform.position;
         back = true;
-        LoadCardVariables();
     }
-    private void LoadCardVariables()
+    public void LoadCardDisplayInfo()
     {
         nameCard.text = Stats.nameCard;
         description.text = Stats.description;
@@ -194,7 +193,7 @@ public class Card : MonoBehaviour
                 GetChildTable();
                 ActivateCard();
 
-                StartCoroutine(WipAttack());
+                //StartCoroutine(WipAttack());
             }
         }
     }
@@ -224,11 +223,11 @@ public class Card : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
-    IEnumerator WipAttack()
-    {
-        yield return new WaitForSeconds(1);
-        attack.SetActive(true);
-        yield return new WaitForSeconds(2);
-        attack.SetActive(false);
-    }
+    //IEnumerator WipAttack()
+    //{
+    //    yield return new WaitForSeconds(1);
+    //    attack.SetActive(true);
+    //    yield return new WaitForSeconds(2);
+    //    attack.SetActive(false);
+    //}
 }

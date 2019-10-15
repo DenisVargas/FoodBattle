@@ -40,6 +40,10 @@ public class CombatManager : MonoBehaviour
         Enemy.OnEndTurn = EndCurrentTurn;
         Turns.Enqueue(Enemy);
 
+        //Fundamental que esto se setee.
+        CardBehaviour.InitCardBehaviourDictionary();
+        player.deck.LoadAllCards();
+
         Current = GetNextActor();
         Current.StartTurn();
     }
