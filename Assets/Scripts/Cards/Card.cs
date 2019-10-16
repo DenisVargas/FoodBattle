@@ -64,7 +64,8 @@ public class Card : MonoBehaviour
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
         inHand = false;
-        starPos = transform.position;
+        //starPos = transform.position;
+        comingBack = true;
         back = true;
     }
     public void LoadCardDisplayInfo()
@@ -89,7 +90,7 @@ public class Card : MonoBehaviour
             {
                 anim.SetBool("ToTable", true);
             }
-            else if (back)
+            else if (comingBack)
             {
                 anim.SetBool("Flip", false);
             }
@@ -115,6 +116,7 @@ public class Card : MonoBehaviour
     public void ActivateCard()
     {
         //Debug.Log("ataque");
+        transform.SetParent(discardPosition);
         OnUseCard(Stats.ID);
         CardEffect(Owner, Rival, Stats);
         //Acá va todos los efectos.
@@ -162,9 +164,11 @@ public class Card : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        print("La wea:" + (touchScreen && CanBeActivated(Stats.cost)));
+
         if (!stopAll)
         {
-            if (back)
+            if (back || !CanBeActivated(Stats.cost))
                 comingBack = true;
             else if (touchScreen && CanBeActivated(Stats.cost))
             {

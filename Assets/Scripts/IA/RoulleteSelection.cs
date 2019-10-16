@@ -24,8 +24,10 @@ namespace IA.RandomSelections
             for (int i = 0; i < newValues.Count; i++)
             {
                 Sum += newValues[i];
+                UnityEngine.MonoBehaviour.print(newValues[i]);
                 if (Sum > RandomIndex) return i;
             }
+            UnityEngine.MonoBehaviour.print(Sum + " index " + RandomIndex);
             return -1;
         }
     }

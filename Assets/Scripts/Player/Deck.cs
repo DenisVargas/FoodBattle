@@ -93,7 +93,7 @@ public class Deck : MonoBehaviour
                 Card realCard = Instantiate(CardPrefab, CardParent.position, Quaternion.identity, CardParent).GetComponent<Card>();
                 realCard.Stats = data;
                 realCard.LoadCardDisplayInfo();
-                realCard.CanBeActivated = (incomingCost) =>  Owner.RemainingActions - incomingCost > 0;
+                realCard.CanBeActivated = (incomingCost) =>  Owner.RemainingActions - incomingCost >= 0;
 
                 addedID++;
                 realCard.UniqueID = addedID;
@@ -110,7 +110,7 @@ public class Deck : MonoBehaviour
                 Cards.Add(Tuple.Create(data.ID, realCard));
             }
 
-            print(DeckCardReferencies.Count);
+            //print(DeckCardReferencies.Count);
 
             // Creo una tupla donde añado { a = cantidad de cartas, b = ID del tipo de carta }
             Tuple<int, int> AmmountAndType = Tuple.Create(includedItem.AmmountInDeck, data.ID);

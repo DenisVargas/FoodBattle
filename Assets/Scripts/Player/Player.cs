@@ -52,6 +52,10 @@ public class Player : Actor
             item.inHand = true;
         }
         hand.AlingCards();
+        /*foreach (var item in test)
+        {
+            item.starPos = item.transform.position;
+        }*/
         //Barajo/Saco cartas del Deck.
         HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;

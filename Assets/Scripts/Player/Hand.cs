@@ -13,7 +13,7 @@ public class Hand : MonoBehaviour
     //public cameraShaker shake;              <- Llamo al script cameraShaker
     void Awake()
     {
-        transform.Rotate(new Vector3(-45, 0, 0));
+        //transform.Rotate(new Vector3(-45, 0, 0));
         AlingCards();
     }
     private void Update()
@@ -54,7 +54,8 @@ public class Hand : MonoBehaviour
         for (int i = 0; i < theHighestIndex; i++)
         {
             cards[i].transform.position = leftPoint;
-            cards[i].transform.position += new Vector3((-i * gapFromOneItemToTheNextOne), 0,0);
+            cards[i].transform.position += new Vector3((-i * gapFromOneItemToTheNextOne), 0, 0);
+            cards[i].GetComponent<Card>().starPos = cards[i].transform.position;
         }
 
     }

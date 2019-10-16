@@ -52,19 +52,21 @@ public class Enem : Actor
         List<float> posibilities = new List<float> { AttackWeight, healWeight };
         int decition = RoulleteSelection.Roll(posibilities);
 
+        print("Weee" + decition);
+
         switch (decition)
         {
-            case 0:
+            case -1:
                 AttackToTarget();
                 break;
-            case 1:
+            case 0:
                 SelfHeal(HealAmmount);
                 break;
             default:
                 break;
         }
 
-        StartCoroutine(DelayedEndTurn(3f));
+        StartCoroutine(DelayedEndTurn(2f));
     }
 
     public override void UpdateTurn()
