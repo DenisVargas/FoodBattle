@@ -43,7 +43,7 @@ public class Enem : Actor
 
     public void Decide()
     {
-        // Calculamos el peso de cada acción.
+        // Calculamos el peso de cada acción. --> A futuro porque ahora solo tenemos 2 Acciones we
 
 
         //Ejecutamos la desición.
