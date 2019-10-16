@@ -90,7 +90,6 @@ public class Enem : Actor
         print("Ataco");
         target.GetDamage(Damage);
 
-        canEndTurn = true;
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
     }
@@ -102,9 +101,13 @@ public class Enem : Actor
         Health += ammount;
         HUD.healthDisplay = Health;
 
-        canEndTurn = true;
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
+    }
+
+    public void AnimEvent_ActionEnded()
+    {
+        canEndTurn = true;
     }
 
     //============================================================================================================================
