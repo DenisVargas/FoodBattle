@@ -15,6 +15,8 @@ public class CombatManager : MonoBehaviour
     public Player player;                 // Referencia al jugador actual.
     public Enem Enemy;                    // Referencia al enemigo actual.
 
+    public Animator HUDAnimations;
+
     public Queue<Actor> Turns = new Queue<Actor>();
 
     private void Awake()
@@ -24,6 +26,8 @@ public class CombatManager : MonoBehaviour
 
         //Player
         player = FindObjectOfType<Player>();
+        player.OnPlayerStartedHisTurn += () =>  HUDAnimations.SetTrigger("PlayerTurn");
+        player.OnPlayerEndedHisTurn += () => HUDAnimations.SetTrigger("EnemyTurn");
         player.OnEndTurn += EndCurrentTurn;
         player.OnPlayerDie += PlayerDefeat;
         Turns.Enqueue(player);

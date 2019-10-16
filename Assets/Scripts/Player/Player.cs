@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : Actor
 {
+    public event Action OnPlayerStartedHisTurn = delegate { };
+    public event Action OnPlayerEndedHisTurn = delegate { };
     public event Action OnPlayerDie = delegate { };
 
     public PlayerHUD HUD;
@@ -42,6 +44,7 @@ public class Player : Actor
     /// </summary>
     public override void StartTurn()
     {
+        OnPlayerStartedHisTurn();
         var test = deck.DrawCards(5);
         foreach (var item in test)
         {
@@ -52,7 +55,6 @@ public class Player : Actor
         //Barajo/Saco cartas del Deck.
         HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;
-
     }
 
     /// <summary>
@@ -70,6 +72,7 @@ public class Player : Actor
     public override void EndTurn()
     {
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
+        OnPlayerEndedHisTurn();
         HUD.ShowEndTurnButton(false);
 
         RemainingActions = maxActionsPosible;

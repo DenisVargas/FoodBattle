@@ -231,6 +231,7 @@ MonoBehaviour:
   Current: {fileID: 0}
   player: {fileID: 0}
   Enemy: {fileID: 0}
+  HUDAnimations: {fileID: 1627305581}
 --- !u!4 &49846431
 Transform:
   m_ObjectHideFlags: 0
@@ -2255,6 +2256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RemaingCardsAmmount: 0
   UsedCardAmmount: 0
+  Owner: {fileID: 0}
   CardPrefab: {fileID: 1676594863372105397, guid: e8181167ab46d3045a2545d62da2f10c,
     type: 3}
   CardParent: {fileID: 1227311747}
@@ -3791,13 +3793,14 @@ GameObject:
   - component: {fileID: 1514134430}
   - component: {fileID: 1514134432}
   - component: {fileID: 1514134431}
+  - component: {fileID: 1514134433}
   m_Layer: 5
   m_Name: TurnoDelRival
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1514134430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3830,7 +3833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3854,6 +3857,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514134429}
   m_CullTransparentMesh: 0
+--- !u!95 &1514134433
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514134429}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eea8a1bdb80ba934c89655245ce5777f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1549342372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4156,6 +4178,7 @@ GameObject:
   - component: {fileID: 1627305576}
   - component: {fileID: 1627305575}
   - component: {fileID: 1627305580}
+  - component: {fileID: 1627305581}
   m_Layer: 5
   m_Name: '-------------- Canvas -----------'
   m_TagString: Untagged
@@ -4286,6 +4309,25 @@ MonoBehaviour:
   _name: {fileID: 932072056}
   _health: {fileID: 320951329}
   _cards: {fileID: 2058783936}
+--- !u!95 &1627305581
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627305574}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26166501262239147af1ab9458a6fdb5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1649935423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5425,13 +5467,14 @@ GameObject:
   - component: {fileID: 2077840288}
   - component: {fileID: 2077840290}
   - component: {fileID: 2077840289}
+  - component: {fileID: 2077840291}
   m_Layer: 5
   m_Name: TuTurno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2077840288
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5464,7 +5507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5488,6 +5531,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077840287}
   m_CullTransparentMesh: 0
+--- !u!95 &2077840291
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077840287}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c1454dfbc9acf4458b6968a62c02dc2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2116256034
 GameObject:
   m_ObjectHideFlags: 0
