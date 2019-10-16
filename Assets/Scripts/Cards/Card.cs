@@ -60,7 +60,6 @@ public class Card : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-
         //attack.SetActive(false);
         starPos = transform.position;
         back = true;
