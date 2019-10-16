@@ -30,7 +30,7 @@ public class Player : Actor
         //deck.LoadAllCards();
 
         //Suscribirse a eventos.
-        
+        deck.OnCardUsed += reduxActions;
 
         //Primer update del estado.
         UpdateCombatInterface();
@@ -70,7 +70,19 @@ public class Player : Actor
         OnEndTurn(this);
     }
 
+    public override void GetDamage(int damage)
+    {
+        Health -= damage;
+        UpdateCombatInterface();
+    }
+
     //-----------------------------------------------------------------------------------------------------
+
+    void reduxActions(int cost)
+    {
+        RemainingActions -= cost;
+        UpdateCombatInterface();
+    }
 
     void UpdateCombatInterface()
     {

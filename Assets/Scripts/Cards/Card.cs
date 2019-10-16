@@ -60,7 +60,6 @@ public class Card : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-        //attack.SetActive(false);
         starPos = transform.position;
         back = true;
     }
@@ -76,28 +75,6 @@ public class Card : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                if (hit.collider.gameObject.layer == 9 && lookCard)
-                {
-                    lookCard = !lookCard;
-                    stopAll = true;
-                }
-                else if (hit.collider.gameObject.layer == 9 && !lookCard)
-                {
-                    lookCard = !lookCard;
-                    stopAll = false;
-                    comingBack = true;
-                }
-            }
-        }*/
-        /*else if (Input.GetMouseButtonUp(0))
-            lookCard = false;*/
-
         if (lookCard)
         {
             transform.position = Vector3.Lerp(transform.position, lookPosition.position, Time.deltaTime * 5);
@@ -221,12 +198,4 @@ public class Card : MonoBehaviour
         mousePoint.z = mZCoord;
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
-
-    //IEnumerator WipAttack()
-    //{
-    //    yield return new WaitForSeconds(1);
-    //    attack.SetActive(true);
-    //    yield return new WaitForSeconds(2);
-    //    attack.SetActive(false);
-    //}
 }

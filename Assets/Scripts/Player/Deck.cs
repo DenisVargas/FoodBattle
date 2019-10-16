@@ -39,6 +39,11 @@ public struct CardTypes
 [Serializable]
 public class Deck : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public event Action<int> OnCardUsed = delegate { };
+
     [HideInInspector] public int RemaingCardsAmmount;
     [HideInInspector] public int UsedCardAmmount;
 
@@ -54,7 +59,8 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Datos cargados de las cartas, ordenadas por su [UniqueID].
     /// </summary>
-    public Dictionary<int, Card> AviableCards = new Dictionary<int, Card>();
+    public Dictionary<int, CardData> AviableCards = new Dictionary<int, CardData>();
+    public Dictionary<int, Card> DeckCardReferencies = new Dictionary<int, Card>();
 
     [Header("Totales")]
     public int TotalCards;                             // Se autorrellena. Cantidad de cartas actual en el mazo. Se reduce al sacar nuevas cartas.
@@ -77,17 +83,20 @@ public class Deck : MonoBehaviour
             //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
             CardData data = Resources.Load<CardData>(includedItem.CompletePath);
 
-            // Creamos una carta por cada uno y le atacheamos su data.
-            Card realCard = Instantiate(CardPrefab, transform.position, Quaternion.identity, CardParent).GetComponent<Card>();
-            realCard.Stats = data;
-            realCard.LoadCardDisplayInfo();
+            for (int i = 0; i < includedItem.AmmountInDeck; i++)
+            {
+                // Creamos una carta por cada uno y le atacheamos su data.
+                Card realCard = Instantiate(CardPrefab, transform.position, Quaternion.identity, CardParent).GetComponent<Card>();
+                realCard.Stats = data;
+                realCard.LoadCardDisplayInfo();
 
-            // Suscribirse al evento incluido en cada carta.
-            // Esto permite registrar las cartas que se van activando.
-            realCard.OnUseCard += CardUsed;
+                // Suscribirse al evento incluido en cada carta.
+                // Esto permite registrar las cartas que se van activando.
+                realCard.OnUseCard += CardUsed;
 
-            //Le atacheamos el efecto.
-            realCard.CardEffect = CardBehaviour.GetCardBehaviour(data.ID);
+                //Le atacheamos el efecto.
+                realCard.CardEffect = CardBehaviour.GetCardBehaviour(data.ID);
+            }
 
             // Creo una tupla donde añado { a = cantidad de cartas, b = ID del tipo de carta }
             Tuple<int, int> AmmountAndType = Tuple.Create(includedItem.AmmountInDeck, data.ID);
@@ -97,7 +106,7 @@ public class Deck : MonoBehaviour
             ToAddList.Add(AmmountAndType);
 
             //Guardamos los datos dentro de [AviableCards]
-            AviableCards.Add(data.ID, realCard);
+            AviableCards.Add(data.ID, data);
         }
 
         //A medida que añado de forma aleatoría una carta a la queue, voy reduciendo la cantidad que falta.
@@ -145,7 +154,7 @@ public class Deck : MonoBehaviour
         {
             int drawedCardID = DeckCards.Dequeue();
             RemaingCardsAmmount--;
-            drawedCards.Add(AviableCards[drawedCardID]);
+            drawedCards.Add(DeckCardReferencies[drawedCardID]);
         }
 
         return drawedCards;
@@ -160,6 +169,8 @@ public class Deck : MonoBehaviour
         // Por si necesitamos llevar un registro de que cartas fueron utilizadas.
         UsedCards.Push(UniqueID);
         UsedCardAmmount++;
+
+        OnCardUsed(AviableCards[UniqueID].cost);
     }
 
     /// <summary>
