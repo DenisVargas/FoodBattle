@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 001
   m_EditorClassIdentifier: 
-  nameCard: Salchicha Furiosa
+  nameCard: Teniente Bacon
   ID: 1
   cost: 1
   damage: 2
   BuffType: 0
   healAmmount: 0
-  image: {fileID: 21300000, guid: 26dd7f51b29aeae4ba844176caf0d93b, type: 3}
+  image: {fileID: 21300000, guid: d69d02da13b844745b91f5e039c781b4, type: 3}
   description: "Efectos: Realiza +2 de Da\xF1o al oponente."
