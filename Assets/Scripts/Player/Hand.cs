@@ -5,15 +5,77 @@ using UnityEngine;
 //Es la "Mano del jugador"
 public class Hand : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Transform> cards = new List<Transform>();
+    public Transform node1;
+    public Transform node2;
+    private Vector3 startPost;
+
+    void Awake()
     {
-        
+        transform.Rotate(new Vector3(-45, 0, 0));
+        AlingCards();
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AlingCards();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AlingCards()
     {
-        
+
+        cards.Clear();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                cards.Add(transform.GetChild(i));
+            }
+        }
+        foreach (var item in cards)
+        {
+            item.transform.localPosition = Vector3.zero;
+        }
+        var leftPoint = node1.position;
+        var rightPoint = node2.position;
+
+        var delta = (leftPoint - rightPoint).magnitude;
+        var howMany = cards.Count;
+        var howManyGapsBetweenCards = howMany - 1;
+        var theHighestIndex = howMany;
+        var gapFromOneItemToTheNextOne = delta / howManyGapsBetweenCards;
+        for (int i = 0; i < theHighestIndex; i++)
+        {
+            cards[i].transform.position = leftPoint;
+            cards[i].transform.position += new Vector3((-i * gapFromOneItemToTheNextOne), 0,0);
+        }
+
     }
+    /*public void AlingCards()
+    {
+        float cont = 0f;
+        float spacing = 1.7f;
+
+        cards.Clear();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                cards.Add(transform.GetChild(i));
+            }
+        }
+        foreach (var item in cards)
+        {
+            item.transform.localPosition = Vector3.zero;
+        }
+        int numberOfCards = cards.Count;
+        foreach (var item in cards)
+        {
+            item.transform.position = new Vector3(-numberOfCards + cont - 2, item.transform.position.y, item.transform.position.z);
+            cont += spacing;
+
+        }
+    }*/
 }
