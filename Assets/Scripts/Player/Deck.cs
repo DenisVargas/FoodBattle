@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using IA.RandomSelections;
 
@@ -39,15 +40,13 @@ public struct CardTypes
 [Serializable]
 public class Deck : MonoBehaviour
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public event Action<int> OnCardUsed = delegate { };
 
     [HideInInspector] public int RemaingCardsAmmount;
     [HideInInspector] public int UsedCardAmmount;
 
     [Header("Seteos Importantes")]
+    [HideInInspector] public Player Owner;
     public GameObject CardPrefab;
     public Transform CardParent;
 
@@ -57,9 +56,12 @@ public class Deck : MonoBehaviour
     /// </summary>
     public List<CardTypes> Included = new List<CardTypes>();
     /// <summary>
-    /// Datos cargados de las cartas, ordenadas por su [UniqueID].
+    /// Datos cargados de los tipos de cartas, ordenadas por su [ID].
     /// </summary>
     public Dictionary<int, CardData> AviableCards = new Dictionary<int, CardData>();
+    /// <summary>
+    /// Datos cargados de las cartas concretas, ordenadas por su [UniqueID]
+    /// </summary>
     public Dictionary<int, Card> DeckCardReferencies = new Dictionary<int, Card>();
 
     [Header("Totales")]
@@ -74,10 +76,12 @@ public class Deck : MonoBehaviour
 
         //List<Tuple<int a, int b> donde a = tipo de carta. b = Cantidad para añadir. 
         //Nombre: [ToAddList]
-        List<Tuple<int, int>> ToAddList = new List<Tuple<int, int>>();
+        List<Tuple<int, int>> ToAddList = new List<Tuple<int, int>>();      // Lista de tipos y cantidad de cartas que se tienen que añadir.
+        List<Tuple<int, Card>> Cards = new List<Tuple<int, Card>>();        // Lista de cartas reales que fueron generadas e instanciadas.
 
         //Por cada objeto incluido en Included.
         //Calculamos cuantas cartas totales hay dentro del deck.
+        int addedID = 0;
         foreach (var includedItem in Included)
         {
             //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
@@ -89,6 +93,10 @@ public class Deck : MonoBehaviour
                 Card realCard = Instantiate(CardPrefab, CardParent.position, Quaternion.identity, CardParent).GetComponent<Card>();
                 realCard.Stats = data;
                 realCard.LoadCardDisplayInfo();
+                realCard.CanBeActivated = (incomingCost) =>  Owner.RemainingActions - incomingCost > 0;
+
+                addedID++;
+                realCard.UniqueID = addedID;
 
                 // Suscribirse al evento incluido en cada carta.
                 // Esto permite registrar las cartas que se van activando.
@@ -96,7 +104,13 @@ public class Deck : MonoBehaviour
 
                 //Le atacheamos el efecto.
                 realCard.CardEffect = CardBehaviour.GetCardBehaviour(data.ID);
+
+                //Lo añadimos al diccionario
+                DeckCardReferencies.Add(realCard.UniqueID, realCard);
+                Cards.Add(Tuple.Create(data.ID, realCard));
             }
+
+            print(DeckCardReferencies.Count);
 
             // Creo una tupla donde añado { a = cantidad de cartas, b = ID del tipo de carta }
             Tuple<int, int> AmmountAndType = Tuple.Create(includedItem.AmmountInDeck, data.ID);
@@ -134,8 +148,21 @@ public class Deck : MonoBehaviour
                 ToAddList[randomIndex] = reduxedSelected;
             //Nota: esto es porque las Tuplas son inmutables.
 
-            //Añado una carta del tipo que existe dentro del Index resultante 
-            DeckCards.Enqueue(selected.Item2);
+            //Añado una carta del tipo que existe dentro del Index resultante
+            Card primeraCarta = null;
+            for (int i = 0; i < Cards.Count; i++)
+            {
+                if (selected.Item2 == Cards[i].Item1)
+                {
+                    primeraCarta = Cards[i].Item2;
+                    Cards.RemoveAt(i);
+                    break;
+                }
+                else
+                    continue;
+            }
+
+            DeckCards.Enqueue(primeraCarta.UniqueID);
         }
 
         TotalCards = RemaingCardsAmmount;
@@ -154,7 +181,6 @@ public class Deck : MonoBehaviour
         {
             int drawedCardID = DeckCards.Dequeue();
             RemaingCardsAmmount--;
-            Debug.Log(DeckCardReferencies.Keys.Count);
             drawedCards.Add(DeckCardReferencies[drawedCardID]);
         }
 
@@ -171,7 +197,7 @@ public class Deck : MonoBehaviour
         UsedCards.Push(UniqueID);
         UsedCardAmmount++;
 
-        OnCardUsed(AviableCards[UniqueID].cost);
+        OnCardUsed(DeckCardReferencies[UniqueID].Stats.cost);
     }
 
     /// <summary>

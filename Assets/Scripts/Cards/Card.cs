@@ -18,6 +18,7 @@ public class Card : MonoBehaviour
     #region Eventos
     public event Action<int> OnUseCard = delegate { };
     public Action<Actor, Actor, CardData> CardEffect = delegate { };
+    public Func<int, bool> CanBeActivated;
     //public event Action OnCardIsSeleced = delegate { }; 
     #endregion
 
@@ -25,6 +26,7 @@ public class Card : MonoBehaviour
     public CardData Stats;
     public Actor Owner;
     public Actor Rival;
+    public int UniqueID;
 
     [Header("Posicionamiento de la carta")]
     public bool lookCard = false;
@@ -164,7 +166,7 @@ public class Card : MonoBehaviour
         {
             if (back)
                 comingBack = true;
-            else if (touchScreen)
+            else if (touchScreen && CanBeActivated(Stats.cost))
             {
                 stopAll = true;
                 ActivateCard();

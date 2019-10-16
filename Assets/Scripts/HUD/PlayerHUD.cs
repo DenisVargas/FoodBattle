@@ -12,15 +12,12 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] TMP_Text _usedCards      = null;
     [SerializeField] TMP_Text _remainingCards = null;
 
-    public Button EndTurnButton   = null;
+    public GameObject EndTurnButton;
 
 
     public float PlayerLife
     {
-        set
-        {
-            _playerLife.text = value.ToString();
-        }
+        set { _playerLife.text = value.ToString(); }
     }
     public int RemainingActions
     {
@@ -47,7 +44,7 @@ public class PlayerHUD : MonoBehaviour
     public void ShowEndTurnButton(bool Enable)
     {
         //Esto podríamos animarlo.
-        EndTurnButton.gameObject.SetActive(Enable);
+        EndTurnButton.SetActive(Enable);
         //Alternativa
         //EndTurnButton.interactable = Enable;
     }

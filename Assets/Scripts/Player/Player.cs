@@ -11,11 +11,12 @@ public class Player : Actor
 
     //Propios del Combate.
     public int maxActionsPosible;
-    [SerializeField] int RemainingActions;
+    public int RemainingActions;
 
     private void Awake()
     {
-        //Obtener referencias.
+        //Obtener y setear referencias.
+        deck.Owner = this;
 
         //Inicializar cosas
         Health = maxHealth;
@@ -70,6 +71,9 @@ public class Player : Actor
     {
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
         HUD.ShowEndTurnButton(false);
+
+        RemainingActions = maxActionsPosible;
+        UpdateCombatInterface();
 
         //print("El jugador finalizo el turno.");
         //Hasta este punto vamos Bien :D
