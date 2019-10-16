@@ -38,9 +38,9 @@ public class Enem : Actor
     public override void StartTurn()
     {
         //Decido que carajos hacer con mi vida.
+        OnStartTurn(this);
         print("Empezó el Turno del enemigo");
         Decide();
-        OnStartTurn(this);
     }
 
     public void Decide()
@@ -63,6 +63,8 @@ public class Enem : Actor
             default:
                 break;
         }
+
+        StartCoroutine(DelayedEndTurn(3f));
     }
 
     public override void UpdateTurn()
@@ -124,5 +126,11 @@ public class Enem : Actor
 
         if (Health <= 0)
             OnEnemyDie();
+    }
+
+    IEnumerator DelayedEndTurn(float Seconds)
+    {
+        yield return new WaitForSeconds(Seconds);
+        EndTurn();
     }
 }
