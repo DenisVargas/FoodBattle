@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : Actor
 {
-    public event Action OnDefeat = delegate { };
+    public event Action OnPlayerDie = delegate { };
 
     public PlayerHUD HUD;
 
@@ -74,6 +74,9 @@ public class Player : Actor
     {
         Health -= damage;
         UpdateCombatInterface();
+
+        if (Health >= 0)
+            OnPlayerDie();
     }
 
     //-----------------------------------------------------------------------------------------------------
@@ -98,6 +101,6 @@ public class Player : Actor
 
     void Defeat()
     {
-        OnDefeat();
+        OnPlayerDie();
     }
 }

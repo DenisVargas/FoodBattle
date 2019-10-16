@@ -6,6 +6,8 @@ using IA.RandomSelections;
 
 public class Enem : Actor
 {
+    public Action OnEnemyDie = delegate { };
+
     //Referencias.
     public EnemyHUD HUD;
     public Player target;
@@ -119,5 +121,8 @@ public class Enem : Actor
 
         Health -= damage;
         HUD.healthDisplay = Health;
+
+        if (Health <= 0)
+            OnEnemyDie();
     }
 }

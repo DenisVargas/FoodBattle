@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Core.Entities;
 using TMPro;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class CombatManager : MonoBehaviour
         //Player
         player = FindObjectOfType<Player>();
         player.OnEndTurn += EndCurrentTurn;
+        player.OnPlayerDie += PlayerDefeat;
         Turns.Enqueue(player);
 
         //Enemies = FindObjectsOfType<Actor>()
@@ -38,6 +40,7 @@ public class CombatManager : MonoBehaviour
 
         Enemy = FindObjectOfType<Enem>();
         Enemy.OnEndTurn = EndCurrentTurn;
+        Enemy.OnEnemyDie += PlayerWin;
         Turns.Enqueue(Enemy);
 
         //Fundamental que esto se setee.
@@ -53,14 +56,16 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public void PlayerWin()
     {
-
+        //Ahora mismo va a ser de golpe.
+        SceneManager.LoadScene(1);
     }
     /// <summary>
     /// Cuando el jugador pierde, pasa algo.
     /// </summary>
     public void PlayerDefeat()
     {
-
+        //Ahora mismo va a ser de golpe.
+        SceneManager.LoadScene(2);
     }
 
     /// <summary>
