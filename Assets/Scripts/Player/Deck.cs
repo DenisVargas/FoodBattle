@@ -86,7 +86,7 @@ public class Deck : MonoBehaviour
             for (int i = 0; i < includedItem.AmmountInDeck; i++)
             {
                 // Creamos una carta por cada uno y le atacheamos su data.
-                Card realCard = Instantiate(CardPrefab, transform.position, Quaternion.identity, CardParent).GetComponent<Card>();
+                Card realCard = Instantiate(CardPrefab, CardParent.position, Quaternion.identity, CardParent).GetComponent<Card>();
                 realCard.Stats = data;
                 realCard.LoadCardDisplayInfo();
 
@@ -154,6 +154,7 @@ public class Deck : MonoBehaviour
         {
             int drawedCardID = DeckCards.Dequeue();
             RemaingCardsAmmount--;
+            Debug.Log(DeckCardReferencies.Keys.Count);
             drawedCards.Add(DeckCardReferencies[drawedCardID]);
         }
 

@@ -12,7 +12,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] TMP_Text _usedCards      = null;
     [SerializeField] TMP_Text _remainingCards = null;
 
-    public Button EndTurnButton     = null;
+    public Button EndTurnButton   = null;
+
 
     public float PlayerLife
     {

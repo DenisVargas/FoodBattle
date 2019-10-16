@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Cards.meta
 guid: b3854739f79519a4e91dc44867e0ff73
+=======
+guid: d87851c6870ac944487835fbea58880f
+>>>>>>> 8e97d7ec0b03963769be7b2291f172dd67671071:Assets/Cards.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

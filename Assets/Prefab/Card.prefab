@@ -441,25 +441,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d575e51f5d6beac40a3829341cbf29be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeCard: {fileID: 0}
+  Stats: {fileID: 0}
+  Owner: {fileID: 0}
+  Rival: {fileID: 0}
   lookCard: 0
   back: 0
   touchScreen: 0
   stopAll: 0
   comingBack: 0
   starPos: {x: 0, y: 0, z: 0}
-  attack: {fileID: 0}
-  player: {fileID: 0}
-  UniqueID: 1
   nameCard: {fileID: 3818530641372655045}
   description: {fileID: 5058429838739699824}
   cost: {fileID: 1176635292928503563}
   damage: {fileID: 6224537058578622425}
   life: {fileID: 2965838537458835498}
   image: {fileID: 8415829431950629971}
-  anim: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   lookPosition: {fileID: 0}
   tablePosition: {fileID: 0}
   targetPosition: {fileID: 0}
@@ -1086,6 +1082,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676594863372105396}
     m_Modifications:
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1130,10 +1146,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD
-      objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.64
@@ -1149,6 +1161,10 @@ PrefabInstance:
     - target: {fileID: 400010, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 400010, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1193,7 +1209,7 @@ PrefabInstance:
     - target: {fileID: 2300008, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f645e6b3b9ce774eac098a934c0dfd2, type: 2}
+      objectReference: {fileID: 2100000, guid: bc28499e787ce8a47b6bdc694692c044, type: 2}
     - target: {fileID: 2300010, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
