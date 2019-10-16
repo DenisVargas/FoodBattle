@@ -41,9 +41,17 @@ public class Player : Actor
     /// </summary>
     public override void StartTurn()
     {
+        var test = deck.DrawCards(5);
+        foreach (var item in test)
+        {
+            item.transform.SetParent(hand.transform);
+            item.inHand = true;
+        }
+        hand.AlingCards();
         //Barajo/Saco cartas del Deck.
         HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;
+
     }
 
     /// <summary>
