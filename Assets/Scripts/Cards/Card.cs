@@ -54,7 +54,6 @@ public class Card : MonoBehaviour
     Animator anim;
     Rigidbody rb;
     BoxCollider col;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

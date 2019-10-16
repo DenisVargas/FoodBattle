@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149483651780318, guid: a7b8c6cc9bfdb4d45a68517821f246a6, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4149483651780318, guid: a7b8c6cc9bfdb4d45a68517821f246a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Current: {fileID: 0}
   player: {fileID: 0}
-  Enemies: []
+  Enemy: {fileID: 0}
 --- !u!4 &49846431
 Transform:
   m_ObjectHideFlags: 0
@@ -256,10 +256,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a198ddfd12b86894b95aade4cd7206b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
+  ActorName: 
+  deck: {fileID: 0}
   Health: 0
-  MaxHealth: 0
-  AttackDamage: 0
+  maxHealth: 0
+  Damage: 0
+  extraTurns: 0
+  DamageReduction: 0
+  HUD: {fileID: 0}
+  target: {fileID: 0}
+  cardAmmount: 20
+  HealAmmount: 0
+  AttackWeight: 0
+  healWeight: 0
 --- !u!4 &51457791
 Transform:
   m_ObjectHideFlags: 0
@@ -287,7 +296,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (5)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -360,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4316840790912696, guid: 7cd627a1919ab7748980fbcec674e6a0, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4316840790912696, guid: 7cd627a1919ab7748980fbcec674e6a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -544,6 +553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b416fa8eff8744387e85c22de2397e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cards: []
+  node1: {fileID: 0}
+  node2: {fileID: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +638,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (4)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -831,7 +843,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -904,7 +916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4416000180188846, guid: e63f6cfdb152e03478e17e66e6dc046e, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4416000180188846, guid: e63f6cfdb152e03478e17e66e6dc046e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1459,7 +1471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4803816504470030, guid: 7796e5e8ea6331043b117257a041c92d, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4803816504470030, guid: 7796e5e8ea6331043b117257a041c92d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1528,7 +1540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f384f4f7e3fdf9443ac804982dc65b54, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f384f4f7e3fdf9443ac804982dc65b54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1671,7 +1683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4592001905311546, guid: acbc7238c9c191d4d8aff4ab3a575a69, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4592001905311546, guid: acbc7238c9c191d4d8aff4ab3a575a69, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1928,7 +1940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4543715722740260, guid: 733c9f99aae6b2a4387b2583f86820e3, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4543715722740260, guid: 733c9f99aae6b2a4387b2583f86820e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1985,8 +1997,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6075ef246d4285a40bb802d0a817105a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RemainngCardsAmmount: 5
+  RemaingCardsAmmount: 0
   UsedCardAmmount: 0
+  CardPrefab: {fileID: 0}
+  CardParent: {fileID: 0}
   Included: []
   TotalCards: 5
   CardTypesAviable: 5
@@ -2333,7 +2347,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2945,7 +2959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024848340353542, guid: 3d17997aaf2fc33409ffa2305a0d2dfa, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4024848340353542, guid: 3d17997aaf2fc33409ffa2305a0d2dfa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3014,7 +3028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4786487018906418, guid: b540476b589f10f46abb067b58e9e698, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4786487018906418, guid: b540476b589f10f46abb067b58e9e698, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3071,7 +3085,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4056181294732604, guid: 6eb85e11fa7e236498f71c3ed6de0cb9, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4056181294732604, guid: 6eb85e11fa7e236498f71c3ed6de0cb9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3519,7 +3533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4517759716199774, guid: c8b63a757cfc15c40a46b3d1a93f140b, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4517759716199774, guid: c8b63a757cfc15c40a46b3d1a93f140b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3635,7 +3649,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3768,11 +3782,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82dd807e33506944b888b12d23286968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatInterface: {fileID: 1627305575}
+  ActorName: 
   deck: {fileID: 720153187}
-  hand: {fileID: 149282814}
-  Selected: {fileID: 0}
   Health: 0
+  maxHealth: 0
+  Damage: 0
+  extraTurns: 0
+  DamageReduction: 0
+  HUD: {fileID: 0}
+  maxActionsPosible: 0
   RemainingActions: 0
 --- !u!4 &1552861698
 Transform:
@@ -4049,7 +4067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4297064017948486, guid: d15472a0ad9a62e49a54ad28cabd11cb, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4297064017948486, guid: d15472a0ad9a62e49a54ad28cabd11cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4109,10 +4127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08540cca8116b5c40906eaa6ab72e207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerName: {fileID: 0}
   _playerLife: {fileID: 2058783936}
   _remaingActions: {fileID: 1886921585}
   _usedCards: {fileID: 204702389}
   _remainingCards: {fileID: 910286705}
+  EndTurnButton: {fileID: 0}
 --- !u!114 &1627305576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4240,7 +4260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4803934733476274, guid: 573c24db696ae0b4091b43e2066b558d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4803934733476274, guid: 573c24db696ae0b4091b43e2066b558d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4281,7 +4301,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4688,7 +4708,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position (6)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4761,7 +4781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4746999718155162, guid: da39b72aa18fa5e48b10d7ec95000d35, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4746999718155162, guid: da39b72aa18fa5e48b10d7ec95000d35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4990,7 +5010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4992508771860762, guid: 4097a285d710b744b9ff6cb685207bae, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4992508771860762, guid: 4097a285d710b744b9ff6cb685207bae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5030,7 +5050,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerTablePositions
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

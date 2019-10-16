@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -282,6 +282,11 @@ MonoBehaviour:
   extraTurns: 0
   DamageReduction: 0
   HUD: {fileID: 1627305580}
+  target: {fileID: 0}
+  cardAmmount: 20
+  HealAmmount: 0
+  AttackWeight: 0
+  healWeight: 0
 --- !u!4 &51457791
 Transform:
   m_ObjectHideFlags: 0
@@ -1763,6 +1768,7 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
+  - component: {fileID: 534669907}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1844,6 +1850,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db3576a0d9a59594ca5eb88c24cedb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &534669907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa6b2e65ec838d48a138aecd1760105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &541899680
@@ -5109,7 +5127,7 @@ MonoBehaviour:
   _remaingActions: {fileID: 1886921585}
   _usedCards: {fileID: 204702389}
   _remainingCards: {fileID: 910286705}
-  EndTurnButton: {fileID: 941992459}
+  EndTurnButton: {fileID: 0}
 --- !u!114 &1627305576
 MonoBehaviour:
   m_ObjectHideFlags: 0
