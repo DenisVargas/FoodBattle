@@ -27,6 +27,7 @@ public abstract class Actor : MonoBehaviour
     //Estado común
     public string ActorName;
     public Deck deck;
+    public Hand hand;
     public int Health;
     public int maxHealth;
     public int Damage;

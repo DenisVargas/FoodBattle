@@ -32,6 +32,7 @@ public class Card : MonoBehaviour
     public bool touchScreen = false;
     public bool stopAll = false;
     public bool comingBack = false;
+    public bool inHand = false;
 
     public Vector3 starPos;
     private Vector3 mOffset;
@@ -47,9 +48,7 @@ public class Card : MonoBehaviour
     public TextMeshProUGUI life;
     public Image image;
 
-    public Transform lookPosition;
-    public Transform tablePosition;
-    public Transform targetPosition;
+    public Transform discardPosition;
 
     Animator anim;
     Rigidbody rb;
@@ -57,9 +56,13 @@ public class Card : MonoBehaviour
 
     private void Awake()
     {
+        discardPosition = GameObject.Find("DeckDiscard").GetComponent<Transform>();
+        Owner = FindObjectOfType<Player>();
+        Rival = FindObjectOfType<Enem>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
+        inHand = false;
         starPos = transform.position;
         back = true;
     }
@@ -75,43 +78,42 @@ public class Card : MonoBehaviour
 
     private void Update()
     {
-        if (lookCard)
+        if (inHand)
         {
-            transform.position = Vector3.Lerp(transform.position, lookPosition.position, Time.deltaTime * 5);
-        }
+            if (!back && !stopAll)
+            {
+                anim.SetBool("Flip", true);
+            }
+            else if (!back && stopAll)
+            {
+                anim.SetBool("ToTable", true);
+            }
+            else if (back)
+            {
+                anim.SetBool("Flip", false);
+            }
 
-        if (!back && !stopAll)
-        {
-            anim.SetBool("Flip", true);
+            if (stopAll && !lookCard)
+            {
+                var dist = Vector3.Distance(transform.position, discardPosition.position);
+                if (dist >= 0)
+                    transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
+            }
+            if (comingBack)
+            {
+                var dist = Vector3.Distance(transform.position, starPos);
+                if (dist >= 0)
+                    transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
+                else
+                    comingBack = false;
+            }
         }
-        else if(!back && stopAll)
-        {
-            anim.SetBool("ToTable", true);
-        }
-        else if (back)
-        {
-            anim.SetBool("Flip", false);
-        }
-
-        if (stopAll && !lookCard)
-        {
-            var dist = Vector3.Distance(transform.position, tablePosition.position);
-            if (dist >= 0)
-                transform.position = Vector3.Lerp(transform.position, targetPosition.position, Time.deltaTime * 3f);
-        }
-        if (comingBack)
-        {
-            var dist = Vector3.Distance(transform.position, starPos);
-            if (dist >= 0)
-                transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
-            else
-                comingBack = false;
-        }
+        
     }
 
     public void ActivateCard()
     {
-        Debug.Log("ataque");
+        //Debug.Log("ataque");
         OnUseCard(Stats.ID);
         CardEffect(Owner, Rival, Stats);
         //Acá va todos los efectos.
@@ -166,7 +168,6 @@ public class Card : MonoBehaviour
             else if (touchScreen)
             {
                 stopAll = true;
-                GetChildTable();
                 ActivateCard();
 
                 //StartCoroutine(WipAttack());
@@ -174,24 +175,6 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void GetChildTable()
-    {
-        List<Transform> childs = new List<Transform>();
-        for (int i = 0; i < tablePosition.childCount; i++)
-        {
-            childs.Add(tablePosition.GetChild(i));
-        }
-        foreach (var item in childs)
-        {
-            if (!item.GetComponent<PositionTable>().inUse)
-            {
-                targetPosition = item.transform;
-                item.GetComponent<PositionTable>().inUse = true;
-                item.GetComponent<PositionTable>().cardInUse = this;
-                break;
-            }
-        }
-    }
     private Vector3 GetMouseAsWorldPoint()
     {
         Vector3 mousePoint = Input.mousePosition;
