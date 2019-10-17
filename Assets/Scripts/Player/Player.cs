@@ -11,6 +11,8 @@ public class Player : Actor
 
     public PlayerHUD HUD;
 
+    public cameraShaker shake;
+
     //Propios del Combate.
     public int maxActionsPosible;
     public int RemainingActions;
@@ -45,7 +47,7 @@ public class Player : Actor
     public override void StartTurn()
     {
         OnPlayerStartedHisTurn();
-        var test = deck.DrawCards(5);
+        var test = deck.DrawCards(3);
         foreach (var item in test)
         {
             item.transform.SetParent(hand.transform);
@@ -92,6 +94,7 @@ public class Player : Actor
     public override void GetDamage(int damage)
     {
         Health -= damage;
+        StartCoroutine(shake.Shake(.30f, 0.9f));
         UpdateCombatInterface();
 
         if (Health <= 0)

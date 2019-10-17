@@ -9,6 +9,8 @@ public class CardPreview : MonoBehaviour
     private Card cardSelected;
     public TextMeshProUGUI cardName;
     public TextMeshProUGUI description;
+    public TextMeshProUGUI cost;
+    public TextMeshProUGUI damage;
     public Image imageCard;
     private Animator anim;
     public bool isSelected;
@@ -29,6 +31,8 @@ public class CardPreview : MonoBehaviour
             isSelected = true;
             cardName.text = cardSelected.nameCard.text;
             description.text = cardSelected.description.text;
+            cost.text = cardSelected.cost.text;
+            damage.text = cardSelected.damage.text;
             imageCard.sprite = cardSelected.image.sprite;
         }
         else

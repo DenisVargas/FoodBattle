@@ -59,7 +59,7 @@ public class Enem : Actor
 
         switch (decition)
         {
-            case 1:
+            case -1:
                 AttackToTarget();
                 break;
             case 0:
@@ -108,6 +108,7 @@ public class Enem : Actor
         //Me curo.
         print("Me curo");
         Health += ammount;
+        Health = Mathf.Clamp(Health, 0, maxHealth);
         HUD.healthDisplay = Health;
 
         cardAmmount--;
@@ -125,8 +126,8 @@ public class Enem : Actor
     {
         // Aplico resistencias.
         // Hago el cálculo de daño recibido.
-        StartCoroutine(shake.Shake(.30f, 0.9f));
         Health -= damage;
+        StartCoroutine(shake.Shake(.30f, 0.9f));
         HUD.healthDisplay = Health;
 
         if (Health <= 0)

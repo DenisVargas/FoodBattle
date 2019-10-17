@@ -164,8 +164,6 @@ public class Card : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        print("La wea:" + (touchScreen && CanBeActivated(Stats.cost)));
-
         if (!stopAll)
         {
             if (back || !CanBeActivated(Stats.cost))
