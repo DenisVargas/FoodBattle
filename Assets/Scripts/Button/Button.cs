@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Button : MonoBehaviour
 {
-    public void tryAgain(string TryAgain)
+    public void LoadScene(int SceneIndex)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneIndex);
     }
-    public void exitApplication (string Exit)
+    public void exitApplication()
     {
         Application.Quit();
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 774661840}
   - component: {fileID: 774661843}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Button_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ RectTransform:
   m_Children:
   - {fileID: 1655009532}
   m_Father: {fileID: 1531346309}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -273,7 +273,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 774661843}
         m_MethodName: exitApplication
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 1531346307}
   - component: {fileID: 1531346306}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: '------Canvas-------'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,6 +492,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1772824915}
   - {fileID: 2141647627}
   - {fileID: 1784128574}
   - {fileID: 774661839}
@@ -723,12 +724,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772824912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -959.99994, y: -540.1647, z: 0}
+  m_LocalScale: {x: 1.756633, y: 1.756633, z: 1.756633}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1531346309}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1784128573
 GameObject:
@@ -742,10 +743,9 @@ GameObject:
   - component: {fileID: 1784128577}
   - component: {fileID: 1784128576}
   - component: {fileID: 1784128575}
-  - component: {fileID: 1784128579}
   - component: {fileID: 1784128578}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button_TryAgain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +764,7 @@ RectTransform:
   m_Children:
   - {fileID: 349357810}
   m_Father: {fileID: 1531346309}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -812,8 +812,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1784128578}
-        m_MethodName: tryAgain
-        m_Mode: 5
+        m_MethodName: LoadScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -873,21 +873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e925236c5adab549a21e22ebc6d6ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1784128579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784128573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85bfcc6cd492e3b4d95e4e1d43dee2e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Current: {fileID: 0}
-  player: {fileID: 0}
-  Enemy: {fileID: 0}
 --- !u!1 &2141647626
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,7 +903,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1531346309}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
