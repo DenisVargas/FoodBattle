@@ -42,27 +42,24 @@ public class Enem : Actor
     {
         //Decido que carajos hacer con mi vida.
         OnStartTurn(this);
-        print("Empezó el Turno del enemigo");
-        Decide();
+        StartCoroutine(DelayedChoose(1.5f));
     }
 
     public void Decide()
     {
         // Calculamos el peso de cada acción. --> A futuro porque ahora solo tenemos 2 Acciones we
-
+        float healImportance =  (1 - (Health / maxHealth)) * healWeight; // Cuanto menos vida tenga, mas alta es su importancia.
 
         //Ejecutamos la desición.
-        List<float> posibilities = new List<float> { AttackWeight, healWeight };
+        List<float> posibilities = new List<float> { AttackWeight, healImportance };
         int decition = RoulleteSelection.Roll(posibilities);
-
-        print("Weee" + decition);
 
         switch (decition)
         {
-            case -1:
+            case 0:
                 AttackToTarget();
                 break;
-            case 0:
+            case 1:
                 SelfHeal(HealAmmount);
                 break;
             default:
@@ -88,7 +85,6 @@ public class Enem : Actor
         base.EndTurn();
         OnEndTurn(this);
         canEndTurn = false;
-        print("Turno del Player");
     }
 
     //====================================================== Actions =============================================================
@@ -96,7 +92,7 @@ public class Enem : Actor
     public void AttackToTarget()
     {
         //Activo la animación o lo que sea.
-        print("Ataco");
+        print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
         target.GetDamage(Damage);
 
         cardAmmount--;
@@ -106,7 +102,7 @@ public class Enem : Actor
     public void SelfHeal(int ammount)
     {
         //Me curo.
-        print("Me curo");
+        print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
         Health += ammount;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         HUD.healthDisplay = Health;
@@ -132,6 +128,12 @@ public class Enem : Actor
 
         if (Health <= 0)
             OnEnemyDie();
+    }
+
+    IEnumerator DelayedChoose(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Decide();
     }
 
     IEnumerator DelayedEndTurn(float Seconds)

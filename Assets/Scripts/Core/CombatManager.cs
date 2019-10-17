@@ -104,6 +104,7 @@ public class CombatManager : MonoBehaviour
 
         Current = GetNextActor();
         Current.StartTurn();
+        print(string.Format("Turno de {0}", Current.ActorName));
     }
 
     void Update()
