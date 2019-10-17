@@ -59,7 +59,7 @@ public class Enem : Actor
 
         switch (decition)
         {
-            case -1:
+            case 1:
                 AttackToTarget();
                 break;
             case 0:

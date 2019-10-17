@@ -12,7 +12,7 @@ namespace IA.RandomSelections
         public static int Roll(IEnumerable<float> NumberCollection)
         {
             float Sum = 0;
-            float RandomIndex = UnityEngine.Random.Range(0f, 1f);
+            float RandomIndex = UnityEngine.Random.Range(0, 1);
             foreach (var Numero in NumberCollection)
                 Sum += Numero;
 
@@ -25,6 +25,7 @@ namespace IA.RandomSelections
             {
                 Sum += newValues[i];
                 UnityEngine.MonoBehaviour.print(newValues[i]);
+                UnityEngine.MonoBehaviour.print("devuelve " + i);
                 if (Sum > RandomIndex) return i;
             }
             UnityEngine.MonoBehaviour.print(Sum + " index " + RandomIndex);
