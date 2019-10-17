@@ -94,7 +94,7 @@ public class Player : Actor
         Health -= damage;
         UpdateCombatInterface();
 
-        if (Health >= 0)
+        if (Health <= 0)
             OnPlayerDie();
     }
 
