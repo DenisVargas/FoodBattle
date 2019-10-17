@@ -22,6 +22,9 @@ public class Enem : Actor
     public float AttackWeight;
     public float healWeight;
 
+    //feedback camara
+    public cameraShaker shake;
+
     bool executedAction = false;
     bool canEndTurn = false;
 
@@ -122,7 +125,7 @@ public class Enem : Actor
     {
         // Aplico resistencias.
         // Hago el cálculo de daño recibido.
-
+        StartCoroutine(shake.Shake(.30f, 0.9f));
         Health -= damage;
         HUD.healthDisplay = Health;
 

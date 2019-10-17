@@ -9,8 +9,7 @@ public class Hand : MonoBehaviour
     public List<Transform> cards = new List<Transform>();
     public Transform node1;
     public Transform node2;
-    private Vector3 startPost;
-    //public cameraShaker shake;              <- Llamo al script cameraShaker
+    private Vector3 startPost;          
     void Awake()
     {
         //transform.Rotate(new Vector3(-45, 0, 0));
@@ -22,9 +21,6 @@ public class Hand : MonoBehaviour
         {
             AlingCards();
         }
-        /*if (Input.GetKeyDown(KeyCode.U)){
-        StartCoroutine(shake.Shake(.15f, .4f));          <---- "supuestamente tiembla la camara pero no pude con el error que me pausa pero deberia funcionar
-        }*/
     }
    
 
