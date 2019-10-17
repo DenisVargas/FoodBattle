@@ -66,4 +66,14 @@ public class ActionFeedbackHUD : MonoBehaviour
         Titulo_Turnos.text = originalValues[6];
         Cantidad_Turnos.text = originalValues[7];
     }
+
+    public void AnimEvent_StartActionFeedback()
+    {
+        //No Puedo seguir con el loop del juego.
+    }
+
+    public void AnimEvent_EndActionFeedback()
+    {
+        //Puedo seguir con el loop del juego.
+    }
 }
