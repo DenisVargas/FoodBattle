@@ -39,22 +39,22 @@ public static class CardBehaviour
         Action<Actor, Actor, CardData> Carta3 = (Actor Owner, Actor Target, CardData stats) =>
         {
             //Restaura 2 de salud en el turno.
-            Owner.Health += 2;
+            Owner.heal(2);
         };
 
         //Carta número 4.
         Action<Actor, Actor, CardData> Carta4 = (Actor Owner, Actor Target, CardData stats) =>
         {
             // Roba 1 carta.
-            Owner.deck.DrawCards(1);
+            Owner.DrawCards(1);
         };
 
         //Carta número 5.
         Action<Actor, Actor, CardData> Carta5 = (Actor Owner, Actor Target, CardData stats) =>
         {
             //Carta Categoría Rara.
-            // Pierdes 2 turnos.
-            CombatManager.match.AddExtraTurns(Target, 2);
+            // Pierdes 2 turnos --> El enemigo gana 2 turnos extra.
+            Target.AddExtraTurn(2);
         };
 
         //Carta número 5.
@@ -62,7 +62,7 @@ public static class CardBehaviour
         {
             //Carta Categoría Rara.
             // Ganas 1 turno.
-            CombatManager.match.AddExtraTurns(Owner, 1);
+            Owner.AddExtraTurn(1);
         };
         #endregion
 

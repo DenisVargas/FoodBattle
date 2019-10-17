@@ -15,7 +15,8 @@ public class CombatManager : MonoBehaviour
     public Player player;                 // Referencia al jugador actual.
     public Enem Enemy;                    // Referencia al enemigo actual.
 
-    public Animator HUDAnimations;
+    public Animator HUDAnimations;        // Contiene las animaciones del Canvas.
+    public ActionFeedbackHUD FeedbackHUD;
 
     public Queue<Actor> Turns = new Queue<Actor>();
 
@@ -23,6 +24,9 @@ public class CombatManager : MonoBehaviour
     {
         if (match == null) match = this;
         else Destroy(this);
+
+        //Suscribimos a eventos.
+        FeedbackHUD.InformExecuteActions += CanExecuteAction;
 
         //Player
         player = FindObjectOfType<Player>();
@@ -61,7 +65,7 @@ public class CombatManager : MonoBehaviour
     public void PlayerWin()
     {
         //Ahora mismo va a ser de golpe.
-        SceneManager.LoadScene(1);
+        StartCoroutine(DelayedLoadScene(3f, 1));
     }
     /// <summary>
     /// Cuando el jugador pierde, pasa algo.
@@ -69,7 +73,7 @@ public class CombatManager : MonoBehaviour
     public void PlayerDefeat()
     {
         //Ahora mismo va a ser de golpe.
-        SceneManager.LoadScene(2);
+        StartCoroutine(DelayedLoadScene(4f, 2));
     }
 
     /// <summary>
@@ -107,8 +111,23 @@ public class CombatManager : MonoBehaviour
         print(string.Format("Turno de {0}", Current.ActorName));
     }
 
+    /// <summary>
+    /// Informa al actor actual, si puede o no ejecutar Acciones.
+    /// </summary>
+    /// <param name="enable">¿Puede ejecutar acciones?</param>
+    public void CanExecuteAction(bool enable)
+    {
+        Current.CanExecuteActions = enable;
+    }
+
     void Update()
     {
         Current.UpdateTurn();
+    }
+
+    IEnumerator DelayedLoadScene(float seconds, int scene)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(scene);
     }
 }

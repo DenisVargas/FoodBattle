@@ -82,18 +82,10 @@ public class Card : MonoBehaviour
     {
         if (inHand)
         {
-            if (!back && !stopAll)
-            {
-                anim.SetBool("Flip", true);
-            }
-            else if (!back && stopAll)
-            {
-                anim.SetBool("ToTable", true);
-            }
+            if (!back)
+                anim.SetBool(stopAll ? "ToTable" : "Flip", true);
             else if (comingBack)
-            {
                 anim.SetBool("Flip", false);
-            }
 
             if (stopAll && !lookCard)
             {
@@ -118,8 +110,9 @@ public class Card : MonoBehaviour
         //Debug.Log("ataque");
         transform.SetParent(discardPosition);
         OnUseCard(Stats.ID);
-        CardEffect(Owner, Rival, Stats);
+
         //Acá va todos los efectos.
+        CardEffect(Owner, Rival, Stats);
     }
 
     public void OnMouseDown()
@@ -148,17 +141,6 @@ public class Card : MonoBehaviour
                 bool targetHitted = hit.collider.gameObject.layer == 10;
                 back = !targetHitted;
                 touchScreen = targetHitted;
-
-                //if (hit.collider.gameObject.layer == 10)
-                //{
-                //    back = false;
-                //    if (!touchScreen) touchScreen = true;
-                //}
-                //else
-                //{
-                //    back = true;
-                //    touchScreen = false;
-                //}
             }
         }
     }
@@ -172,8 +154,6 @@ public class Card : MonoBehaviour
             {
                 stopAll = true;
                 ActivateCard();
-
-                //StartCoroutine(WipAttack());
             }
         }
     }

@@ -11,6 +11,8 @@ public class Enem : Actor
     //Referencias.
     public EnemyHUD HUD;
     public Player target;
+    public GameObject GetHitPrefab;
+    public GameObject GetHitParticleParent;
 
     //Estado y cosas
     public int cardAmmount = 20;
@@ -25,8 +27,20 @@ public class Enem : Actor
     //feedback camara
     public cameraShaker shake;
 
+    bool _canExecuteActionM = false;
     bool executedAction = false;
     bool canEndTurn = false;
+
+    public override bool CanExecuteActions
+    {
+        get => _canExecuteActionM;
+        set
+        {
+            _canExecuteActionM = value;
+            canEndTurn = _canExecuteActionM;
+        }
+    }
+
 
     private void Awake()
     {
@@ -60,7 +74,7 @@ public class Enem : Actor
                 AttackToTarget();
                 break;
             case 1:
-                SelfHeal(HealAmmount);
+                heal(HealAmmount);
                 break;
             default:
                 break;
@@ -72,18 +86,19 @@ public class Enem : Actor
     public override void UpdateTurn()
     {
         //print("UpdateEnemigo");
-        base.UpdateTurn();
         OnUpdateTurn();
 
         //Terminamos el turno.
-        if (canEndTurn)
-            EndTurn();
+        //if (canEndTurn)
+        //    EndTurn();
     }
 
     public override void EndTurn()
     {
         base.EndTurn();
         OnEndTurn(this);
+
+        CanExecuteActions = false;
         canEndTurn = false;
     }
 
@@ -99,23 +114,6 @@ public class Enem : Actor
         HUD.cardsDisplay = cardAmmount;
     }
 
-    public void SelfHeal(int ammount)
-    {
-        //Me curo.
-        print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
-        Health += ammount;
-        Health = Mathf.Clamp(Health, 0, maxHealth);
-        HUD.healthDisplay = Health;
-
-        cardAmmount--;
-        HUD.cardsDisplay = cardAmmount;
-    }
-
-    public void AnimEvent_ActionEnded()
-    {
-        canEndTurn = true;
-    }
-
     //============================================================================================================================
 
     public override void GetDamage(int damage)
@@ -124,10 +122,30 @@ public class Enem : Actor
         // Hago el cálculo de daño recibido.
         Health -= damage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
+        var particle = Instantiate(GetHitPrefab, GetHitParticleParent.transform, false);
+        Destroy(particle, 3f);
         HUD.healthDisplay = Health;
+
+        CombatManager.match.FeedbackHUD.SetDamage("Daño Infligido:", damage);
+        CombatManager.match.HUDAnimations.SetTrigger("PlayerMakesDamage");
 
         if (Health <= 0)
             OnEnemyDie();
+    }
+
+    public override void heal(int Ammount)
+    {
+        //Me curo.
+        print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
+        Health += Ammount;
+        Health = Mathf.Clamp(Health, 0, maxHealth);
+        HUD.healthDisplay = Health;
+
+        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
+        CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
+
+        cardAmmount--;
+        HUD.cardsDisplay = cardAmmount;
     }
 
     IEnumerator DelayedChoose(float seconds)

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ActionFeedbackHUD : MonoBehaviour
 {
+    public event Action<bool> InformExecuteActions = delegate { };
+
     public TMP_Text Titulo_Daño;
     public TMP_Text Cantidad_Daño;
     public TMP_Text Titulo_Energia;
@@ -70,10 +73,12 @@ public class ActionFeedbackHUD : MonoBehaviour
     public void AnimEvent_StartActionFeedback()
     {
         //No Puedo seguir con el loop del juego.
+        InformExecuteActions(false);
     }
 
     public void AnimEvent_EndActionFeedback()
     {
         //Puedo seguir con el loop del juego.
+        InformExecuteActions(true);
     }
 }

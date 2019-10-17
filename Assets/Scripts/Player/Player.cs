@@ -16,6 +16,25 @@ public class Player : Actor
     //Propios del Combate.
     public int maxActionsPosible;
     public int RemainingActions;
+    bool _interactable = false;
+
+    /// <summary>
+    /// Determina si este Actor puede intereactuar con el juego en este momento.
+    /// [True] Blockea el uso de las cartas.
+    /// [False] Habilita el uso de las cartas.
+    /// </summary>
+    public override bool CanExecuteActions
+    {
+        get => _interactable;
+        set
+        {
+            _interactable = value;
+            if (_interactable)
+                EnableInteraction();
+            else
+                DisableInteractions();
+        }
+    }
 
     private void Awake()
     {
@@ -40,6 +59,10 @@ public class Player : Actor
         //Primer update del estado.
         UpdateCombatInterface();
     }
+
+    //========================================= OVERRIDES =============================================================
+
+    #region Turnos
 
     /// <summary>
     /// Inicia el turno del jugador.
@@ -91,17 +114,60 @@ public class Player : Actor
         OnEndTurn(this);
     }
 
+    #endregion
+
     public override void GetDamage(int damage)
     {
         Health -= damage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
         UpdateCombatInterface();
 
+        CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", damage);
+        CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsDamage");
+
         if (Health <= 0)
             OnPlayerDie();
     }
 
+    public override void heal(int Ammount)
+    {
+        Health += Ammount;
+        UpdateCombatInterface();
+
+        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
+        CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsHealed");
+    }
+
+    public override void AddExtraTurn(int Ammount)
+    {
+        base.AddExtraTurn(Ammount);
+        CombatManager.match.FeedbackHUD.SetTurns("Turnos:", Ammount > 0 ? Ammount : -Ammount);
+    }
+
+    public override void ModifyEnergy(int Ammount)
+    {
+        CombatManager.match.FeedbackHUD.SetEnergy("Energía:", -Ammount);
+        CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
+    }
+
     //-----------------------------------------------------------------------------------------------------
+
+
+    /// <summary>
+    /// Deshabilita la interacción.
+    /// </summary>
+    void DisableInteractions()
+    {
+        // No puedo seleccionar cartas.
+    }
+
+    /// <summary>
+    /// Habilita la interacción.
+    /// </summary>
+    void EnableInteraction()
+    {
+        //Puedo seleccionar las cartas.
+    }
 
     void reduxActions(int cost)
     {

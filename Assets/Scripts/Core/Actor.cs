@@ -23,7 +23,6 @@ public enum BuffType
 
 public abstract class Actor : MonoBehaviour
 {
-
     //Estado común
     public string ActorName;
     public Deck deck;
@@ -35,6 +34,9 @@ public abstract class Actor : MonoBehaviour
     //Turnos Extas.
     public int extraTurns = 0;
     public int DamageReduction = 0;
+
+    //Propiedades.
+    public virtual bool CanExecuteActions { get; set; }
 
     //Eventos Comunes.
     public Action<Actor> OnStartTurn = delegate { };
@@ -59,8 +61,15 @@ public abstract class Actor : MonoBehaviour
     public virtual void StartTurn() { }
     public virtual void UpdateTurn() { }
     public virtual void EndTurn() { }
-    public virtual void GetDamage(int damage)
+
+    //Efectos Aplicables.
+    public virtual void GetDamage(int damage) { }
+    public virtual void heal(int Ammount) { }
+    public virtual void AddExtraTurn(int Ammount)
     {
-        //Acá van los cálulos de reducción de daño.
+        extraTurns += Ammount;
+        CombatManager.match.AddExtraTurns(this, Ammount);
     }
+    public virtual void ModifyEnergy(int Ammount) { }
+    public virtual void DrawCards(int Ammount) { }
 }
