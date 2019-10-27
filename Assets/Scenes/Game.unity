@@ -2900,7 +2900,7 @@ MonoBehaviour:
     AmmountInDeck: 5
   - CompletePath: Cards/004
     AmmountInDeck: 5
-  - CompletePath: Cards/006
+  - CompletePath: Cards/005
     AmmountInDeck: 5
   TotalCards: 5
   CardTypesAviable: 5
