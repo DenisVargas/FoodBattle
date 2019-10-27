@@ -5,28 +5,15 @@ using UnityEngine;
 //Es la "Mano del jugador"
 public class Hand : MonoBehaviour
 {
-    
+
     public List<Transform> cards = new List<Transform>();
     public Transform node1;
     public Transform node2;
     private Vector3 startPost;          
-    void Awake()
-    {
-        //transform.Rotate(new Vector3(-45, 0, 0));
-        AlingCards();
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            AlingCards();
-        }
-    }
-   
+    
 
     public void AlingCards()
     {
-
         cards.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -37,7 +24,7 @@ public class Hand : MonoBehaviour
         }
         foreach (var item in cards)
         {
-            item.transform.localPosition = Vector3.zero;
+            item.transform.position = Vector3.zero;
         }
         var leftPoint = node1.position;
         var rightPoint = node2.position;
@@ -52,7 +39,7 @@ public class Hand : MonoBehaviour
             cards[i].transform.position = leftPoint;
             cards[i].transform.position += new Vector3((-i * gapFromOneItemToTheNextOne), 0, 0);
             cards[i].GetComponent<Card>().starPos = cards[i].transform.position;
+            cards[i].GetComponent<Card>().inHand = true;
         }
-
     }
 }

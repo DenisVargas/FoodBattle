@@ -32,7 +32,7 @@ public static class CardBehaviour
         {
             //Reduce en 1 de daño el siguiente turno.
             //TODO: futuro esta función va a recibir un valor extra = cantidad de turnos.
-            Owner.GetBuff(BuffType.DamageReduction, stats.healAmmount);
+            Owner.GetBuff(BuffType.DamageReduction, 1);
         };
 
         //Carta número 3.
@@ -57,7 +57,7 @@ public static class CardBehaviour
             Target.AddExtraTurn(2);
         };
 
-        //Carta número 5.
+        //Carta número 6.
         Action<Actor, Actor, CardData> Carta6 = (Actor Owner, Actor Target, CardData stats) =>
         {
             //Carta Categoría Rara.

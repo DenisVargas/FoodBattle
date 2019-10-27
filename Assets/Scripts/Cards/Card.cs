@@ -47,7 +47,6 @@ public class Card : MonoBehaviour
     public TextMeshProUGUI description;
     public TextMeshProUGUI cost;
     public TextMeshProUGUI damage;
-    public TextMeshProUGUI life;
     public Image image;
 
     public Transform discardPosition;
@@ -68,13 +67,13 @@ public class Card : MonoBehaviour
         comingBack = true;
         back = true;
     }
+
     public void LoadCardDisplayInfo()
     {
         nameCard.text = Stats.nameCard;
         description.text = Stats.description;
         cost.text = Stats.cost.ToString();
         damage.text = Stats.damage.ToString();
-        life.text = Stats.healAmmount.ToString();
         image.sprite = Stats.image;
     }
 
@@ -104,6 +103,7 @@ public class Card : MonoBehaviour
         }
         
     }
+
 
     public void ActivateCard()
     {

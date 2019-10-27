@@ -13,7 +13,6 @@ public class CardData : ScriptableObject
     public int damage;
 
     public BuffType BuffType;
-    public int healAmmount;
     public Sprite image;
     [TextArea]
     public string description;

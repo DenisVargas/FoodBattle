@@ -118,7 +118,9 @@ public class Player : Actor
 
     public override void GetDamage(int damage)
     {
-        Health -= damage;
+        int realDamage = damage - DamageReduction;
+        DamageReduction = 0;
+        Health -= realDamage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
         UpdateCombatInterface();
 
@@ -127,6 +129,16 @@ public class Player : Actor
 
         if (Health <= 0)
             OnPlayerDie();
+    }
+
+    public override void DrawCards(int Ammount)
+    {
+        var cardsDraws = deck.DrawCards(Ammount);
+        foreach (var item in cardsDraws)
+        {
+            item.transform.SetParent(hand.transform);
+        }
+        hand.AlingCards();
     }
 
     public override void heal(int Ammount)
