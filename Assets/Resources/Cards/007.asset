@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 007
   m_EditorClassIdentifier: 
-  nameCard: Ejercito de Papas Fritas
+  nameCard: Coronel Pochoclon
   ID: 7
-  cost: 2
+  cost: 4
   damage: 1
   BuffType: 0
-  healAmmount: 0
   image: {fileID: 0}
-  description: "Durante 3 turnos inflije 1 de da\xF1o al enemigo."
+  description: "Inflije +1 de da\xF1o por cada turno que tengas esta carta en mano"

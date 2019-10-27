@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 014
   m_EditorClassIdentifier: 
-  nameCard: Salsa Bandito
+  nameCard: Teniente Carne
   ID: 14
   cost: 5
-  damage: 0
-  BuffType: 0
-  healAmmount: 20
-  image: {fileID: 0}
-  description: Restaura toda la vida faltante, pierdes 2 turnos.
+  damage: 4
+  BuffType: 1
+  image: {fileID: 21300000, guid: 0598658074957b445b17498c2d8a7cda, type: 3}
+  description: "Reduce 4 de da\xF1o, por 4 turnos."

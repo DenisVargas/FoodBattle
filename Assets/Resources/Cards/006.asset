@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
-  m_Name: 016
+  m_Name: 006
   m_EditorClassIdentifier: 
-  nameCard: La protuberancia
-  ID: 16
-  cost: 4
-  damage: 2
-  BuffType: 1
-  healAmmount: 2
-  image: {fileID: 21300000, guid: 086d64f87001ced4ba1e89f06bff027b, type: 3}
-  description: "Inflije 2 de da\xF1o, restaura 2 de salud, reduce 2 de da\xF1o, roba
-    1 carta, pierdes 3 turnos.\r\n"
+  nameCard: Ejercito de Papas Fritas
+  ID: 6
+  cost: 2
+  damage: 1
+  BuffType: 0
+  image: {fileID: 0}
+  description: "Durante 3 turnos inflije 1 de da\xF1o al enemigo."
