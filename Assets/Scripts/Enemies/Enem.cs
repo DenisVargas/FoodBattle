@@ -126,9 +126,7 @@ public class Enem : Actor
     {
         // Aplico resistencias.
         // Hago el cálculo de daño recibido.
-        int realDamage = damage - DamageReduction;
-        DamageReduction = 0;
-        Health -= realDamage;
+        Health -= damage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
         au.clip = dmg;
         au.Play();
