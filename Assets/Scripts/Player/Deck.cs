@@ -40,8 +40,6 @@ public struct CardTypes
 [Serializable]
 public class Deck : MonoBehaviour
 {
-    public event Action<int> OnCardUsed = delegate { };
-
     [HideInInspector] public int RemaingCardsAmmount;
     [HideInInspector] public int UsedCardAmmount;
 
@@ -196,8 +194,6 @@ public class Deck : MonoBehaviour
         // Por si necesitamos llevar un registro de que cartas fueron utilizadas.
         UsedCards.Push(UniqueID);
         UsedCardAmmount++;
-
-        OnCardUsed(DeckCardReferencies[UniqueID].Stats.cost);
     }
 
     /// <summary>

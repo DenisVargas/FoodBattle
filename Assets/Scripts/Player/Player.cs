@@ -53,9 +53,6 @@ public class Player : Actor
         //Llamar funciones relevantes.
         //deck.LoadAllCards();
 
-        //Suscribirse a eventos.
-        deck.OnCardUsed += reduxActions;
-
         //Primer update del estado.
         UpdateCombatInterface();
     }
@@ -158,6 +155,7 @@ public class Player : Actor
 
     public override void ModifyEnergy(int Ammount)
     {
+        reduxActions(Ammount);
         CombatManager.match.FeedbackHUD.SetEnergy("Energía:", -Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
     }
@@ -181,6 +179,10 @@ public class Player : Actor
         //Puedo seleccionar las cartas.
     }
 
+    /// <summary>
+    /// Reduce las acciones posibles consumiento puntos de Energía.
+    /// </summary>
+    /// <param name="cost">Los puntos de energía que consume la acción.</param>
     void reduxActions(int cost)
     {
         RemainingActions -= cost;
