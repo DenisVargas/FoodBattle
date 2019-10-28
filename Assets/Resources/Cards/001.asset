@@ -15,7 +15,9 @@ MonoBehaviour:
   nameCard: Teniente Bacon
   ID: 1
   cost: 1
-  damage: 2
+  damage: 8
+  HealAmmount: 0
   BuffType: 0
+  buffAmmount: 0
   image: {fileID: 21300000, guid: d69d02da13b844745b91f5e039c781b4, type: 3}
   description: "Efectos: Realiza +8 de Da\xF1o al oponente."
