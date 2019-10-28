@@ -9,22 +9,35 @@ public class Enem : Actor
     public Action OnEnemyDie = delegate { };
 
     //Referencias.
+    [Header("Referencias")]
     public EnemyHUD HUD;
     public Player target;
     public GameObject GetHitPrefab;
     public GameObject GetHitParticleParent;
 
     //Estado y cosas
+    [Header("Estado y Cosas")]
     public int cardAmmount = 20;
 
     //weas
+    [Header("Weas")]
     public int HealAmmount;
 
+    //animacion de cartas
+    [Header("Animacion de Cartas")]
+    public Transform ShowCard;
+    public bool isShowing;
+    public List<Card> cardsEnemy = new List<Card>();
+    public GameObject deckEnemy;
+    public Card cardSelected;
+
     //Pesos de cada acción.
+    [Header("Pesos de cada accion")]
     public float AttackWeight;
     public float healWeight;
 
     //feedback camara
+    [Header("Feedback Camara")]
     public cameraShaker shake;
     public AudioSource au;
     public AudioClip dmg;
@@ -50,6 +63,8 @@ public class Enem : Actor
     {
         au = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>();
+        for (int i = 0; i < deckEnemy.transform.childCount; i++)
+            cardsEnemy.Add(deckEnemy.transform.GetChild(i).GetComponent<Card>());
         Health = maxHealth;
 
         HUD.SetRivalName(ActorName);
@@ -93,6 +108,21 @@ public class Enem : Actor
         //print("UpdateEnemigo");
         OnUpdateTurn();
 
+
+        if (isShowing)
+        {
+            if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position)>= 1f)
+            {
+                cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, ShowCard.transform.position, Time.deltaTime);
+                cardSelected.anim.Play("EnemyAttack");
+            }
+            else
+            {
+                cardSelected.transform.parent = null;
+                isShowing = false;
+                cardSelected = null;
+            }
+        }
         //Terminamos el turno.
         //if (canEndTurn)
         //    EndTurn();
@@ -114,7 +144,9 @@ public class Enem : Actor
         //Activo la animación o lo que sea.
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
         target.GetDamage(Damage);
-        
+
+        cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
+        isShowing = true;
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
@@ -149,6 +181,9 @@ public class Enem : Actor
         HUD.healthDisplay = Health;
         au.clip = hlth;
         au.Play();
+
+        cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
+        isShowing = true;
 
         CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");

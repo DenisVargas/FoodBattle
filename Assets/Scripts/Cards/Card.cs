@@ -54,7 +54,7 @@ public class Card : MonoBehaviour
 
     public Transform discardPosition;
 
-    Animator anim;
+    public Animator anim;
     Rigidbody rb;
     BoxCollider col;
     private void Awake()

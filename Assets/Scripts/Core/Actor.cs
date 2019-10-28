@@ -24,7 +24,9 @@ public enum BuffType
 
 public abstract class Actor : MonoBehaviour
 {
+    [Header("Actor Variables")]
     //Estado común
+    [Header("Estado Comun")]
     public string ActorName;
     public Deck deck;
     public Hand hand;
@@ -32,7 +34,8 @@ public abstract class Actor : MonoBehaviour
     public int maxHealth;
     public int Damage;
 
-    //Turnos Extas.
+    //Turnos Extras.
+    [Header("Turnos Extras")]
     public int extraTurns = 0;
     public int DamageReduction = 0;
     public int DamageIncrease = 0;
