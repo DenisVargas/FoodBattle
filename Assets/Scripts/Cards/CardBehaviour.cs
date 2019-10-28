@@ -26,8 +26,11 @@ public static class CardBehaviour
             //El player consume Energía.
             Owner.ModifyEnergy(stats.cost);
 
+            //Modificadores de daño.
+            int realDamage = stats.damage + Owner.DamageIncrease;
+
             //Inflige 2 puntos de daño al oponente.
-            Target.GetDamage(stats.damage);
+            Target.GetDamage(realDamage);
         };
 
         //Carta número 2.
@@ -68,20 +71,71 @@ public static class CardBehaviour
             Owner.ModifyEnergy(stats.cost);
 
             //Carta Categoría Rara.
-            // Pierdes 2 turnos --> El enemigo gana 2 turnos extra.
-            Target.AddExtraTurn(2);
+            //Añade un buffo de Daño +1;
+            Owner.GetBuff(BuffType.DamageIncrease, stats.buffAmmount);
         };
 
-        //Carta número 6.
-        Action<Actor, Actor, CardData> Carta6 = (Actor Owner, Actor Target, CardData stats) =>
+        //Carta número 8.
+        Action<Actor, Actor, CardData> Carta8 = (Actor Owner, Actor Target, CardData stats) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.cost);
 
-            //Carta Categoría Rara.
-            // Ganas 1 turno.
+            //Owner recibe 4 de daño.
+            Owner.GetDamage(stats.damage);
+
+            //Owner gana 1 turno.
             Owner.AddExtraTurn(1);
         };
+
+        //Carta número 9.
+        Action<Actor, Actor, CardData> Carta9 = (Actor Owner, Actor Target, CardData stats) =>
+        {
+            //El player consume Energía.
+            Owner.ModifyEnergy(stats.cost);
+
+            //+2 Vida, +1 carta
+            Owner.heal(stats.HealAmmount);
+            Owner.DrawCards(1);
+        };
+
+        //Carta número 13.
+        Action<Actor, Actor, CardData> Carta13 = (Actor Owner, Actor Target, CardData stats) =>
+        {
+            //El player consume Energía.
+            Owner.ModifyEnergy(stats.cost);
+
+            //Obtenemos toda la vida restante. Perdemos 2 turnos.
+            Owner.RestoreAllHealth();
+            Target.AddExtraTurn(stats.damage);
+        };
+
+        //Carta número 15.
+        Action<Actor, Actor, CardData> Carta15 = (Actor Owner, Actor Target, CardData stats) =>
+        {
+            //El player consume Energía.
+            Owner.ModifyEnergy(stats.cost);
+
+            //+2 Daño (Target), +2 Salud, +2 Reducción de Daño, +1 Carta, -3 Turnos
+            Owner.heal(stats.damage);
+            Owner.GetBuff(BuffType.DamageReduction, stats.damage);
+            Owner.DrawCards(1);
+
+            //Modificadores de daño.
+            int realDamage = stats.damage + Owner.DamageIncrease;
+
+            Target.GetDamage(realDamage);
+            Target.AddExtraTurn(3);
+        };
+        #endregion
+
+        #region Utility
+        ////Carta número {}.
+        //Action<Actor, Actor, CardData> Carta{ } = (Actor Owner, Actor Target, CardData stats) =>
+        //{
+        //    //El player consume Energía.
+        //    Owner.ModifyEnergy(stats.cost);
+        //}; 
         #endregion
 
         //Añado los comportamientos y los almaceno en el diccionario en orden.
@@ -90,6 +144,10 @@ public static class CardBehaviour
         CardBehaviours.Add(3, Carta3);
         CardBehaviours.Add(4, Carta4);
         CardBehaviours.Add(5, Carta5);
-        CardBehaviours.Add(6, Carta6);
+        //CardBehaviours.Add(6, Carta6);
+        CardBehaviours.Add(8, Carta8);
+        CardBehaviours.Add(9, Carta9);
+        CardBehaviours.Add(13, Carta13);
+        CardBehaviours.Add(15, Carta15);
     }
 }

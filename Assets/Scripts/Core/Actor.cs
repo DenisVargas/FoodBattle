@@ -18,7 +18,8 @@ using UnityEngine;
 public enum BuffType
 {
     none,
-    DamageReduction
+    DamageReduction,
+    DamageIncrease
 }
 
 public abstract class Actor : MonoBehaviour
@@ -34,6 +35,7 @@ public abstract class Actor : MonoBehaviour
     //Turnos Extas.
     public int extraTurns = 0;
     public int DamageReduction = 0;
+    public int DamageIncrease = 0;
 
     //Propiedades.
     public virtual bool CanExecuteActions { get; set; }
@@ -51,6 +53,9 @@ public abstract class Actor : MonoBehaviour
             case BuffType.DamageReduction:
                 DamageReduction += Ammount;
                 break;
+            case BuffType.DamageIncrease:
+                DamageIncrease += Ammount;
+                break;
             default:
                 break;
         }
@@ -65,6 +70,8 @@ public abstract class Actor : MonoBehaviour
     //Efectos Aplicables.
     public virtual void GetDamage(int damage) { }
     public virtual void heal(int Ammount) { }
+    public virtual void RestoreAllHealth() { }
+    public virtual void AddExtraEnergy(int Ammount) { }
     public virtual void AddExtraTurn(int Ammount)
     {
         extraTurns += Ammount;

@@ -142,6 +142,19 @@ public class Player : Actor
         hand.AlingCards();
     }
 
+    public override void RestoreAllHealth()
+    {
+        Health = maxHealth;
+    }
+
+    public override void AddExtraEnergy(int Ammount)
+    {
+        RemainingActions++;
+        UpdateCombatInterface();
+        CombatManager.match.FeedbackHUD.SetEnergy("Energía: +", Ammount);
+        CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
+    }
+
     public override void heal(int Ammount)
     {
         Health += Ammount;

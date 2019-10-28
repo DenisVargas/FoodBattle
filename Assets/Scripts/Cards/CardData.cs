@@ -11,8 +11,10 @@ public class CardData : ScriptableObject
     public int ID;
     public int cost;
     public int damage;
+    public int HealAmmount;
 
     public BuffType BuffType;
+    public int buffAmmount;
     public Sprite image;
     [TextArea]
     public string description;

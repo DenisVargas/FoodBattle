@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using IA.RandomSelections;
+using Random = UnityEngine.Random;
 
 /*
      Este script se va a encargar de manejar la Deck y de cierta manera la mano del jugador.
@@ -164,6 +165,34 @@ public class Deck : MonoBehaviour
         }
 
         TotalCards = RemaingCardsAmmount;
+    }
+
+    /// <summary>
+    /// Baraja y mezcla el Deck;
+    /// </summary>
+    public void ShuffleDeck()
+    {
+        //Armo una lista con todas las cartas de la queue.
+        List<int> CardRep = new List<int>();
+        int elements = DeckCards.Count;
+        for (int i = 0; i < elements; i++)
+            CardRep.Add(DeckCards.Dequeue());
+
+        for (int i = 0; i < CardRep.Count; i++)
+        {
+            //Random Index entre el rango de cartas que queda.
+            int randomIndex = Random.Range(0, CardRep.Count);
+            int elementB = CardRep[randomIndex];
+
+            //Swapeo los elementos.
+            CardRep[randomIndex] = CardRep[i];
+            CardRep[i] = elementB;
+        }
+
+        //Reseteo deckCards. ReColoco cada carta.
+        DeckCards = new Queue<int>();
+        foreach (var item in CardRep)
+            DeckCards.Enqueue(item);
     }
 
     /// <summary>
