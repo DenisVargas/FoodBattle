@@ -3,7 +3,18 @@ guid: a198ddfd12b86894b95aade4cd7206b8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - deck: {instanceID: 0}
+  - hand: {instanceID: 0}
+  - HUD: {instanceID: 0}
+  - target: {instanceID: 0}
+  - GetHitPrefab: {instanceID: 0}
+  - GetHitParticleParent: {instanceID: 0}
+  - shake: {instanceID: 0}
+  - au: {instanceID: 0}
+  - dmg: {instanceID: 0}
+  - hlth: {instanceID: 0}
+  - clickCart: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

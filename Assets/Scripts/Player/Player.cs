@@ -12,6 +12,9 @@ public class Player : Actor
     public PlayerHUD HUD;
 
     public cameraShaker shake;
+    public AudioSource ad;
+    public AudioClip life;
+    public AudioClip hit;
 
     //Propios del Combate.
     public int maxActionsPosible;
@@ -40,7 +43,7 @@ public class Player : Actor
     {
         //Obtener y setear referencias.
         deck.Owner = this;
-
+        ad = GetComponent<AudioSource>();
         //Inicializar cosas
         Health = maxHealth;
         RemainingActions = maxActionsPosible;
@@ -123,9 +126,10 @@ public class Player : Actor
         Health -= realDamage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
         UpdateCombatInterface();
-
         CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", damage);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsDamage");
+        ad.clip = hit;
+        ad.Play();
 
         if (Health <= 0)
             OnPlayerDie();
@@ -145,9 +149,10 @@ public class Player : Actor
     {
         Health += Ammount;
         UpdateCombatInterface();
-
         CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsHealed");
+        ad.clip = life;
+        ad.Play();
     }
 
     public override void AddExtraTurn(int Ammount)

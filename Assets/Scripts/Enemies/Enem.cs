@@ -26,6 +26,10 @@ public class Enem : Actor
 
     //feedback camara
     public cameraShaker shake;
+    public AudioSource au;
+    public AudioClip dmg;
+    public AudioClip hlth;
+
 
     bool _canExecuteActionM = false;
     bool executedAction = false;
@@ -44,6 +48,7 @@ public class Enem : Actor
 
     private void Awake()
     {
+        au = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>();
         Health = maxHealth;
 
@@ -109,6 +114,7 @@ public class Enem : Actor
         //Activo la animación o lo que sea.
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
         target.GetDamage(Damage);
+        
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
@@ -122,13 +128,14 @@ public class Enem : Actor
         // Hago el cálculo de daño recibido.
         Health -= damage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
+        au.clip = dmg;
+        au.Play();
         var particle = Instantiate(GetHitPrefab, GetHitParticleParent.transform, false);
         Destroy(particle, 3f);
         HUD.healthDisplay = Health;
 
         CombatManager.match.FeedbackHUD.SetDamage("Daño Infligido:", damage);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerMakesDamage");
-
         if (Health <= 0)
             OnEnemyDie();
     }
@@ -140,6 +147,8 @@ public class Enem : Actor
         Health += Ammount;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         HUD.healthDisplay = Health;
+        au.clip = hlth;
+        au.Play();
 
         CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
