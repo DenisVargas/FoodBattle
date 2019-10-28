@@ -123,7 +123,7 @@ public class Player : Actor
         Health -= realDamage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
         UpdateCombatInterface();
-        CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", damage);
+        CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", realDamage);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsDamage");
         ad.clip = hit;
         ad.Play();
