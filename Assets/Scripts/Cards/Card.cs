@@ -39,6 +39,9 @@ public class Card : MonoBehaviour
     public Vector3 starPos;
     private Vector3 mOffset;
 
+    public AudioSource ni;
+    public AudioClip clickCard;
+
     //public GameObject attack;
     private float mZCoord;
 
@@ -56,6 +59,7 @@ public class Card : MonoBehaviour
     BoxCollider col;
     private void Awake()
     {
+        ni = GetComponent<AudioSource>();
         discardPosition = GameObject.Find("DeckDiscard").GetComponent<Transform>();
         Owner = FindObjectOfType<Player>();
         Rival = FindObjectOfType<Enem>();
@@ -125,6 +129,8 @@ public class Card : MonoBehaviour
             back = true;
             mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
             mOffset = transform.position - GetMouseAsWorldPoint();
+                ni.clip = clickCard;
+                ni.Play();
         }
     }
     public void OnMouseDrag()
