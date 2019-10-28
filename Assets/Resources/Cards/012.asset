@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 012
   m_EditorClassIdentifier: 
-  nameCard: TostadaQuemada
+  nameCard: Hamburgega Guerrillera
   ID: 12
   cost: 0
   damage: 0
