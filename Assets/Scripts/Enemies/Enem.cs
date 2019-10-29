@@ -26,9 +26,11 @@ public class Enem : Actor
     //animacion de cartas
     [Header("Animacion de Cartas")]
     public Transform ShowCard;
-    public bool isShowing;
+    public Transform discardDeck;
+    public int cardStateShow;
     public List<Card> cardsEnemy = new List<Card>();
-    public GameObject deckEnemy;
+    public Transform handEnemy;
+    public Transform enemyDeck;
     public Card cardSelected;
 
     //Pesos de cada acción.
@@ -63,8 +65,9 @@ public class Enem : Actor
     {
         au = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>();
-        for (int i = 0; i < deckEnemy.transform.childCount; i++)
-            cardsEnemy.Add(deckEnemy.transform.GetChild(i).GetComponent<Card>());
+        for (int i = 0; i < handEnemy.transform.childCount; i++)
+            cardsEnemy.Add(handEnemy.transform.GetChild(i).GetComponent<Card>());
+        cardStateShow = 0;
         Health = maxHealth;
 
         HUD.SetRivalName(ActorName);
@@ -100,7 +103,6 @@ public class Enem : Actor
                 break;
         }
 
-        StartCoroutine(DelayedEndTurn(2f));
     }
 
     public override void UpdateTurn()
@@ -109,7 +111,7 @@ public class Enem : Actor
         OnUpdateTurn();
 
 
-        if (isShowing)
+        if (cardStateShow == 1)
         {
             if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position)>= 1f)
             {
@@ -118,9 +120,32 @@ public class Enem : Actor
             }
             else
             {
+                cardStateShow = 2;
+            }
+        }
+        else if (cardStateShow == 2)
+        {
+            if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 1f)
+            {
+                cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
+            }
+            else
+            {
+                StartCoroutine(ShowCardWait(3f));
+            }
+        }
+        else if (cardStateShow == 3)
+        {
+            if (Vector3.Distance(cardSelected.transform.position, handEnemy.transform.position) >= 1f)
+            {
+                cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, handEnemy.transform.position, Time.deltaTime * 5);
+            }
+            else
+            {
                 cardSelected.transform.parent = null;
-                isShowing = false;
                 cardSelected = null;
+                cardStateShow = 0;
+                StartCoroutine(DelayedEndTurn(2f));
             }
         }
         //Terminamos el turno.
@@ -145,8 +170,10 @@ public class Enem : Actor
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
         target.GetDamage(Damage);
 
-        cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
-        isShowing = true;
+        var randomNumber = UnityEngine.Random.Range(0, cardsEnemy.Count);
+        cardSelected = cardsEnemy[randomNumber];
+        cardsEnemy.RemoveAt(randomNumber);
+        cardStateShow = 1;
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
@@ -183,13 +210,20 @@ public class Enem : Actor
         au.Play();
 
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
-        isShowing = true;
+        cardStateShow = 1;
 
         CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
+    }
+
+    IEnumerator ShowCardWait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        cardSelected.transform.position = enemyDeck.transform.position;
+        cardStateShow = 3;
     }
 
     IEnumerator DelayedChoose(float seconds)
