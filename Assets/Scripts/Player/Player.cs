@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class Player : Actor
 {
-    public event Action OnPlayerStartedHisTurn = delegate { };
-    public event Action OnPlayerEndedHisTurn = delegate { };
-    public event Action OnPlayerDie = delegate { };
-
     public PlayerHUD HUD;
 
     public cameraShaker shake;
+
+    [Header("Audio")]
     public AudioSource ad;
     public AudioClip life;
     public AudioClip hit;
@@ -21,6 +19,8 @@ public class Player : Actor
     public int maxActionsPosible;
     public int RemainingActions;
     bool _interactable = false;
+
+    //========================================= PROPIEDADES ===========================================================
 
     /// <summary>
     /// Determina si este Actor puede intereactuar con el juego en este momento.
@@ -39,6 +39,8 @@ public class Player : Actor
                 DisableInteractions();
         }
     }
+
+    //========================================= FUNCIONES DE UNITY ====================================================
 
     private void Awake()
     {
@@ -70,7 +72,9 @@ public class Player : Actor
     /// </summary>
     public override void StartTurn()
     {
-        OnPlayerStartedHisTurn();
+        OnStartTurn();
+        RemainingActions = maxActionsPosible;
+
         var test = deck.DrawCards(3);
         foreach (var item in test)
         {
@@ -86,7 +90,6 @@ public class Player : Actor
         HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;
     }
-
     /// <summary>
     /// Se llama en vez de Update.
     /// </summary>
@@ -94,22 +97,18 @@ public class Player : Actor
     {
         UpdateCombatInterface();
     }
-
     /// <summary>
     /// Termina el turno del jugador.
     /// Utilizado por el botón en canvas que termine el turno.
     /// </summary>
     public override void EndTurn()
     {
+        //print("El jugador finalizo el turno.");
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
-        OnPlayerEndedHisTurn();
         HUD.ShowEndTurnButton(false);
 
-        RemainingActions = maxActionsPosible;
+        RemainingActions = 0;
         UpdateCombatInterface();
-
-        //print("El jugador finalizo el turno.");
-        //Hasta este punto vamos Bien :D
 
         //LLamo el evento de Actor
         OnEndTurn(this);
@@ -117,11 +116,16 @@ public class Player : Actor
 
     #endregion
 
+    //Sistema de Daño.
     public override void GetDamage(int damage)
     {
+        //Calculo del daño real recibido.
         int realDamage = damage - DamageReduction;
-        DamageReduction = 0;
         Health -= realDamage;
+
+        DamageReduction = 0;                        //Reseteo.
+
+        //Feedback.
         StartCoroutine(shake.Shake(.30f, 0.9f));
         UpdateCombatInterface();
         CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", realDamage);
@@ -129,9 +133,33 @@ public class Player : Actor
         ad.clip = hit;
         ad.Play();
 
+        //Condición de Derrota.
         if (Health <= 0)
-            OnPlayerDie();
+            OnActorDies();
     }
+
+    #region Interacción
+
+    /// <summary>
+    /// Habilita las interacciones de este jugador.
+    /// </summary>
+    public override void EnableInteraction()
+    {
+        //Le decimos al deck que todas las cartas deben ser seleccionables.
+        base.EnableInteraction();
+    }
+    /// <summary>
+    /// Des-abilita las interacciones de este jugador.
+    /// </summary>
+    public override void DisableInteractions()
+    {
+        //Le decimos al deck que todas las cartas deben dejar de ser seleccionables.
+        base.DisableInteractions();
+    } 
+
+    #endregion
+
+    #region Efectos Aplicables.
 
     public override void DrawCards(int Ammount)
     {
@@ -142,12 +170,10 @@ public class Player : Actor
         }
         hand.AlingCards();
     }
-
     public override void RestoreAllHealth()
     {
         Health = maxHealth;
     }
-
     public override void AddExtraEnergy(int Ammount)
     {
         RemainingActions++;
@@ -155,7 +181,6 @@ public class Player : Actor
         CombatManager.match.FeedbackHUD.SetEnergy("Energía: +", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
     }
-
     public override void heal(int Ammount)
     {
         Health += Ammount;
@@ -165,13 +190,15 @@ public class Player : Actor
         ad.clip = life;
         ad.Play();
     }
-
     public override void AddExtraTurn(int Ammount)
     {
         base.AddExtraTurn(Ammount);
+
+        ad.clip = extraTurn;
+        ad.Play();
+
         CombatManager.match.FeedbackHUD.SetTurns("Turnos:", Ammount > 0 ? Ammount : -Ammount);
     }
-
     public override void ModifyEnergy(int Ammount)
     {
         reduxActions(Ammount);
@@ -179,24 +206,9 @@ public class Player : Actor
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
     }
 
-    //-----------------------------------------------------------------------------------------------------
+    #endregion
 
-
-    /// <summary>
-    /// Deshabilita la interacción.
-    /// </summary>
-    void DisableInteractions()
-    {
-        // No puedo seleccionar cartas.
-    }
-
-    /// <summary>
-    /// Habilita la interacción.
-    /// </summary>
-    void EnableInteraction()
-    {
-        //Puedo seleccionar las cartas.
-    }
+    //------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Reduce las acciones posibles consumiento puntos de Energía.
@@ -208,22 +220,15 @@ public class Player : Actor
         UpdateCombatInterface();
     }
 
+    /// <summary>
+    /// Refresca el Display del HUD para este jugador.
+    /// </summary>
     void UpdateCombatInterface()
     {
         if (HUD != null)
         {
             HUD.PlayerLife = Health;
             HUD.RemainingActions = RemainingActions;
-        ad.clip = extraTurn;
-        ad.Play();
-
-            //Acá falta que el deck esté funcionando.
-            //combatInterface.RemainingCards = deck.RemainngCardsAmmount.ToString();
         }
-    }
-
-    void Defeat()
-    {
-        OnPlayerDie();
     }
 }

@@ -24,8 +24,12 @@ public enum BuffType
 
 public abstract class Actor : MonoBehaviour
 {
-    [Header("Actor Variables")]
-    //Estado común
+    //Eventos Comunes.
+    public Action OnStartTurn = delegate { };
+    public Action OnUpdateTurn = delegate { };
+    public Action<Actor> OnEndTurn = delegate { };
+    public Action OnActorDies = delegate { };
+
     [Header("Estado Comun")]
     public string ActorName;
     public Deck deck;
@@ -34,18 +38,40 @@ public abstract class Actor : MonoBehaviour
     public int maxHealth;
     public int Damage;
 
-    //Turnos Extras.
     [Header("Turnos Extras")]
     public int extraTurns = 0;
     public int DamageReduction = 0;
     public int DamageIncrease = 0;
 
-    //Propiedades.
-    public virtual bool CanExecuteActions { get; set; }
+    //=============================== Propiedades ==============================================
 
-    //Eventos Comunes.
-    public Action<Actor> OnStartTurn = delegate { };
-    public Action OnUpdateTurn = delegate { };
+    public virtual bool CanExecuteActions { get; set; }
+    public virtual bool CanEndTurn { get; set; }
+
+    //============================== Turnos ======================================================
+
+    public virtual void StartTurn() { }
+    public virtual void UpdateTurn() { }
+    public virtual void EndTurn() { }
+
+    //============================ Interacción ===================================================
+
+    /// <summary>
+    /// Deshabilita la interacción.
+    /// </summary>
+    public virtual void DisableInteractions()
+    {
+        // No puedo seleccionar cartas.
+    }
+    /// <summary>
+    /// Habilita la interacción.
+    /// </summary>
+    public virtual void EnableInteraction()
+    {
+        //Puedo seleccionar las cartas.
+    }
+
+    //=============================== Efectos Aplicables =========================================
 
     public void GetBuff(BuffType type, int Ammount)
     {
@@ -63,14 +89,6 @@ public abstract class Actor : MonoBehaviour
                 break;
         }
     }
-
-    public Action<Actor> OnEndTurn = delegate { };
-
-    public virtual void StartTurn() { }
-    public virtual void UpdateTurn() { }
-    public virtual void EndTurn() { }
-
-    //Efectos Aplicables.
     public virtual void GetDamage(int damage) { }
     public virtual void heal(int Ammount) { }
     public virtual void RestoreAllHealth() { }

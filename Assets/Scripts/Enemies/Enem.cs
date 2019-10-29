@@ -79,7 +79,7 @@ public class Enem : Actor
     public override void StartTurn()
     {
         //Decido que carajos hacer con mi vida.
-        OnStartTurn(this);
+        OnStartTurn();
         StartCoroutine(DelayedChoose(1.5f));
     }
 
@@ -103,7 +103,6 @@ public class Enem : Actor
             default:
                 break;
         }
-
     }
 
     public override void UpdateTurn()
@@ -156,10 +155,12 @@ public class Enem : Actor
 
     public override void EndTurn()
     {
-        base.EndTurn();
         OnEndTurn(this);
+
+        //Feedback
         au.clip = turn;
         au.Play();
+
         CanExecuteActions = false;
         canEndTurn = false;
     }
@@ -188,17 +189,23 @@ public class Enem : Actor
         // Aplico resistencias.
         // Hago el cálculo de daño recibido.
         Health -= damage;
+
+        //Feedback
+        HUD.healthDisplay = Health;
         StartCoroutine(shake.Shake(.30f, 0.9f));
         var particle = Instantiate(GetHitPrefab, GetHitParticleParent.transform, false);
         Destroy(particle, 3f);
-        HUD.healthDisplay = Health;
-
         CombatManager.match.FeedbackHUD.SetDamage("Daño Infligido:", damage);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerMakesDamage");
         au.clip = dmg;
         au.Play();
+
+        //Condición de victoria para el Player.
         if (Health <= 0)
+        {
+            //Digo que no puedo terminar mi turno.
             OnEnemyDie();
+        }
     }
 
     public override void heal(int Ammount)
