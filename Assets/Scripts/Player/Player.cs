@@ -15,6 +15,7 @@ public class Player : Actor
     public AudioSource ad;
     public AudioClip life;
     public AudioClip hit;
+    public AudioClip extraTurn;
 
     //Propios del Combate.
     public int maxActionsPosible;
@@ -213,6 +214,8 @@ public class Player : Actor
         {
             HUD.PlayerLife = Health;
             HUD.RemainingActions = RemainingActions;
+        ad.clip = extraTurn;
+        ad.Play();
 
             //Acá falta que el deck esté funcionando.
             //combatInterface.RemainingCards = deck.RemainngCardsAmmount.ToString();

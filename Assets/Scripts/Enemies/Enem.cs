@@ -44,6 +44,7 @@ public class Enem : Actor
     public AudioSource au;
     public AudioClip dmg;
     public AudioClip hlth;
+    public AudioClip turn;
 
 
     bool _canExecuteActionM = false;
@@ -157,7 +158,8 @@ public class Enem : Actor
     {
         base.EndTurn();
         OnEndTurn(this);
-
+        au.clip = turn;
+        au.Play();
         CanExecuteActions = false;
         canEndTurn = false;
     }
@@ -187,14 +189,14 @@ public class Enem : Actor
         // Hago el cálculo de daño recibido.
         Health -= damage;
         StartCoroutine(shake.Shake(.30f, 0.9f));
-        au.clip = dmg;
-        au.Play();
         var particle = Instantiate(GetHitPrefab, GetHitParticleParent.transform, false);
         Destroy(particle, 3f);
         HUD.healthDisplay = Health;
 
         CombatManager.match.FeedbackHUD.SetDamage("Daño Infligido:", damage);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerMakesDamage");
+        au.clip = dmg;
+        au.Play();
         if (Health <= 0)
             OnEnemyDie();
     }

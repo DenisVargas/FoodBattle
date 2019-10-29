@@ -14,11 +14,15 @@ public class CardPreview : MonoBehaviour
     public Image imageCard;
     private Animator anim;
     public bool isSelected;
+    //public AudioSource s;
+    //public AudioClip collision;      quise poner algun sonido cuando el mouse apoya a la carta 
+    //                                  y que sepa que aparece una carta al lado de la pantalla
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         isSelected = false;
+        //s = GetComponent<AudioSource>();
     }
 
     void Update()
