@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameCard: Ejercito de Papas Fritas
   ID: 6
-  cost: 2
+  cost: 1
   damage: 1
+  HealAmmount: 0
   BuffType: 0
+  buffAmmount: 0
   image: {fileID: 0}
-  description: "Iinflije 1 de da\xF1o al enemigo. (3 turnos)"
+  description: "Esta inflige +1 de da\xF1o por cada carta de \"Ejercito de papas fritas\"
+    que tengas en mano "
