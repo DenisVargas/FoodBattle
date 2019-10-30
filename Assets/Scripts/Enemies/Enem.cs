@@ -74,6 +74,8 @@ public class Enem : Actor
         HUD.SetRivalName(ActorName);
         HUD.healthDisplay = Health;
         HUD.cardsDisplay = cardAmmount;
+        hand.AlingCards();
+        deck.LoadAllCards();
     }
 
     public override void StartTurn()
@@ -120,29 +122,26 @@ public class Enem : Actor
             }
             else
             {
-                cardStateShow = 2;
+                cardSelected.canBeShowed = true;
+                StartCoroutine(WaitCard(3f));
             }
         }
         else if (cardStateShow == 2)
         {
             if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 1f)
-            {
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
-            }
             else
-            {
-                StartCoroutine(ShowCardWait(3f));
-            }
+                StartCoroutine(WaitCardToDeck(2f));
         }
         else if (cardStateShow == 3)
         {
             if (Vector3.Distance(cardSelected.transform.position, handEnemy.transform.position) >= 1f)
-            {
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, handEnemy.transform.position, Time.deltaTime * 5);
-            }
             else
             {
-                cardSelected.transform.parent = null;
+                cardSelected.canBeShowed = false;
+                cardSelected.Stats = null;
+                hand.AlingCards();
                 cardSelected = null;
                 cardStateShow = 0;
                 StartCoroutine(DelayedEndTurn(2f));
@@ -171,12 +170,14 @@ public class Enem : Actor
     {
         //Activo la animación o lo que sea.
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
-        target.GetDamage(Damage);
 
         var randomNumber = UnityEngine.Random.Range(0, cardsEnemy.Count);
         cardSelected = cardsEnemy[randomNumber];
         cardsEnemy.RemoveAt(randomNumber);
+        cardSelected.Stats = (CardData)Resources.Load("Cards/001");
         cardStateShow = 1;
+        cardSelected.LoadCardDisplayInfo();
+        target.GetDamage(cardSelected.Stats.damage);
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
@@ -210,28 +211,39 @@ public class Enem : Actor
 
     public override void heal(int Ammount)
     {
+        cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
+        cardStateShow = 1;
+        cardSelected.Stats = (CardData)Resources.Load("Cards/003");
+        cardSelected.LoadCardDisplayInfo();
+
         //Me curo.
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
-        Health += Ammount;
+        Health += cardSelected.Stats.buffAmmount;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         HUD.healthDisplay = Health;
         au.clip = hlth;
         au.Play();
 
-        cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
-        cardStateShow = 1;
 
-        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", Ammount);
+        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", cardSelected.Stats.buffAmmount);
         CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
     }
 
-    IEnumerator ShowCardWait(float seconds)
+    IEnumerator WaitCard(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        cardStateShow = 2;
+    }
+
+    IEnumerator WaitCardToDeck(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        cardSelected.anim.SetTrigger("BackToIdle");
         cardSelected.transform.position = enemyDeck.transform.position;
+        cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 180, 0));
         cardStateShow = 3;
     }
 
