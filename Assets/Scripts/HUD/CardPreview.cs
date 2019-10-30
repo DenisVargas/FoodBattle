@@ -29,7 +29,7 @@ public class CardPreview : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9) && hit.transform.GetComponent<Card>().canBeShowed)
         {
             cardSelected = hit.transform.GetComponent<Card>();
             isSelected = true;

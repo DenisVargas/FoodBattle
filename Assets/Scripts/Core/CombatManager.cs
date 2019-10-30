@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager match;    // Singleton de la Clase.
+
     public Actor Current;                 // Referencia al Actor Activo en este momento.
     public Player player;                 // Referencia al jugador actual.
     public Enem Enemy;                    // Referencia al enemigo actual.
@@ -30,23 +31,22 @@ public class CombatManager : MonoBehaviour
 
         //Player
         player = FindObjectOfType<Player>();
-        player.OnPlayerStartedHisTurn += () =>  HUDAnimations.SetTrigger("PlayerTurn");
-        player.OnPlayerEndedHisTurn += () => HUDAnimations.SetTrigger("EnemyTurn");
+        player.OnStartTurn += () => 
+        {
+            SetNotificationState(false);
+            HUDAnimations.SetTrigger("PlayerTurn");
+        };
         player.OnEndTurn += EndCurrentTurn;
-        player.OnPlayerDie += PlayerDefeat;
+        player.OnActorDies += PlayerDefeat;
         Turns.Enqueue(player);
 
-        //Enemies = FindObjectsOfType<Actor>()
-        //          .Where(x => x.GetComponent<Enem>() != null)
-        //          .ToArray();
-
-        //foreach (var Enemy in Enemies)
-        //{
-        //    Turns.Enqueue(Enemy);
-        //    Enemy.OnEndTurn += EndCurrentTurn;
-        //}
-
+        //Enemigo.
         Enemy = FindObjectOfType<Enem>();
+        Enemy.OnStartTurn += () =>
+        {
+            SetNotificationState(false);
+            HUDAnimations.SetTrigger("EnemyTurn");
+        };
         Enemy.OnEndTurn = EndCurrentTurn;
         Enemy.OnEnemyDie += PlayerWin;
         Turns.Enqueue(Enemy);
@@ -57,6 +57,15 @@ public class CombatManager : MonoBehaviour
 
         Current = GetNextActor();
         Current.StartTurn();
+    }
+
+    /// <summary>
+    /// Le "Avisa" al actor correspondiente que no puede realizar acciones hasta que el estado cambie a activo.
+    /// </summary>
+    /// <param name="active">Estado actual de la notificación.</param>
+    public void SetNotificationState(bool active)
+    {
+        Current.CanExecuteActions = active;
     }
 
     /// <summary>

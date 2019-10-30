@@ -32,9 +32,10 @@ public class Card : MonoBehaviour
     public bool lookCard = false;
     public bool back;
     public bool touchScreen = false;
-    public bool stopAll = false;
+    public bool isInteractuable = false;
     public bool comingBack = false;
     public bool inHand = false;
+    public bool canBeShowed;
 
     public Vector3 starPos;
     private Vector3 mOffset;
@@ -61,7 +62,7 @@ public class Card : MonoBehaviour
     {
         ni = GetComponent<AudioSource>();
         discardPosition = GameObject.Find("DeckDiscard").GetComponent<Transform>();
-        Owner = FindObjectOfType<Player>();
+        Owner = GetComponentInParent<Actor>();
         Rival = FindObjectOfType<Enem>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
@@ -83,26 +84,30 @@ public class Card : MonoBehaviour
 
     private void Update()
     {
-        if (inHand)
+        if (Owner.ActorName == "Gordon Ramsay")
         {
-            if (!back)
-                anim.SetBool(stopAll ? "ToTable" : "Flip", true);
-            else if (comingBack)
-                anim.SetBool("Flip", false);
+            canBeShowed = true;
+            if (inHand)
+            {
+                if (!back)
+                    anim.SetBool(isInteractuable ? "ToTable" : "Flip", true);
+                else if (comingBack)
+                    anim.SetBool("Flip", false);
 
-            if (stopAll && !lookCard)
-            {
-                var dist = Vector3.Distance(transform.position, discardPosition.position);
-                if (dist >= 0)
-                    transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
-            }
-            if (comingBack)
-            {
-                var dist = Vector3.Distance(transform.position, starPos);
-                if (dist >= 0)
-                    transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
-                else
-                    comingBack = false;
+                if (isInteractuable && !lookCard)
+                {
+                    var dist = Vector3.Distance(transform.position, discardPosition.position);
+                    if (dist >= 0)
+                        transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
+                }
+                if (comingBack)
+                {
+                    var dist = Vector3.Distance(transform.position, starPos);
+                    if (dist >= 0)
+                        transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
+                    else
+                        comingBack = false;
+                }
             }
         }
         
@@ -121,45 +126,54 @@ public class Card : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (!stopAll)
+        if (Owner.ActorName == "Gordon Ramsay")
         {
-            starPos = transform.position;
-            comingBack = false;
-            touchScreen = false;
-            back = true;
-            mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
-            mOffset = transform.position - GetMouseAsWorldPoint();
+            if (!isInteractuable)
+            {
+                starPos = transform.position;
+                comingBack = false;
+                touchScreen = false;
+                back = true;
+                mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
+                mOffset = transform.position - GetMouseAsWorldPoint();
                 ni.clip = clickCard;
                 ni.Play();
+            }
         }
     }
     public void OnMouseDrag()
     {
-        if (!stopAll)
+        if (Owner.ActorName == "Gordon Ramsay")
         {
-            transform.position = GetMouseAsWorldPoint() + mOffset;
-
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (!isInteractuable)
             {
-                //Esto es un juego de booleans >:D
-                bool targetHitted = hit.collider.gameObject.layer == 10;
-                back = !targetHitted;
-                touchScreen = targetHitted;
+                transform.position = GetMouseAsWorldPoint() + mOffset;
+
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                {
+                    //Esto es un juego de booleans >:D
+                    bool targetHitted = hit.collider.gameObject.layer == 10;
+                    back = !targetHitted;
+                    touchScreen = targetHitted;
+                }
             }
         }
     }
     private void OnMouseUp()
     {
-        if (!stopAll)
+        if (Owner.ActorName == "Gordon Ramsay")
         {
-            if (back || !CanBeActivated(Stats.cost))
-                comingBack = true;
-            else if (touchScreen && CanBeActivated(Stats.cost))
+            if (!isInteractuable)
             {
-                stopAll = true;
-                ActivateCard();
+                if (back || !CanBeActivated(Stats.cost))
+                    comingBack = true;
+                else if (touchScreen && CanBeActivated(Stats.cost))
+                {
+                    isInteractuable = true;
+                    ActivateCard();
+                }
             }
         }
     }
