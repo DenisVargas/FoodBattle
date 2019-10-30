@@ -32,6 +32,7 @@ public class Card : MonoBehaviour
     public bool lookCard = false;
     public bool back;
     public bool touchScreen = false;
+    public bool stopAll = false;
     public bool isInteractuable = false;
     public bool comingBack = false;
     public bool inHand = false;
@@ -90,11 +91,11 @@ public class Card : MonoBehaviour
             if (inHand)
             {
                 if (!back)
-                    anim.SetBool(isInteractuable ? "ToTable" : "Flip", true);
+                    anim.SetBool(stopAll ? "ToTable" : "Flip", true);
                 else if (comingBack)
                     anim.SetBool("Flip", false);
 
-                if (isInteractuable && !lookCard)
+                if (stopAll && !lookCard)
                 {
                     var dist = Vector3.Distance(transform.position, discardPosition.position);
                     if (dist >= 0)
@@ -128,16 +129,19 @@ public class Card : MonoBehaviour
     {
         if (Owner.ActorName == "Gordon Ramsay")
         {
-            if (!isInteractuable)
+            if (isInteractuable)
             {
-                starPos = transform.position;
-                comingBack = false;
-                touchScreen = false;
-                back = true;
-                mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
-                mOffset = transform.position - GetMouseAsWorldPoint();
-                ni.clip = clickCard;
-                ni.Play();
+                if (!stopAll)
+                {
+                    starPos = transform.position;
+                    comingBack = false;
+                    touchScreen = false;
+                    back = true;
+                    mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
+                    mOffset = transform.position - GetMouseAsWorldPoint();
+                    ni.clip = clickCard;
+                    ni.Play();
+                }
             }
         }
     }
@@ -145,18 +149,21 @@ public class Card : MonoBehaviour
     {
         if (Owner.ActorName == "Gordon Ramsay")
         {
-            if (!isInteractuable)
+            if (isInteractuable)
             {
-                transform.position = GetMouseAsWorldPoint() + mOffset;
-
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                if (!stopAll)
                 {
-                    //Esto es un juego de booleans >:D
-                    bool targetHitted = hit.collider.gameObject.layer == 10;
-                    back = !targetHitted;
-                    touchScreen = targetHitted;
+                    transform.position = GetMouseAsWorldPoint() + mOffset;
+
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    {
+                        //Esto es un juego de booleans >:D
+                        bool targetHitted = hit.collider.gameObject.layer == 10;
+                        back = !targetHitted;
+                        touchScreen = targetHitted;
+                    }
                 }
             }
         }
@@ -165,14 +172,17 @@ public class Card : MonoBehaviour
     {
         if (Owner.ActorName == "Gordon Ramsay")
         {
-            if (!isInteractuable)
+            if (isInteractuable)
             {
-                if (back || !CanBeActivated(Stats.cost))
-                    comingBack = true;
-                else if (touchScreen && CanBeActivated(Stats.cost))
+                if (!stopAll)
                 {
-                    isInteractuable = true;
-                    ActivateCard();
+                    if (back || !CanBeActivated(Stats.cost))
+                        comingBack = true;
+                    else if (touchScreen && CanBeActivated(Stats.cost))
+                    {
+                        stopAll = true;
+                        ActivateCard();
+                    }
                 }
             }
         }

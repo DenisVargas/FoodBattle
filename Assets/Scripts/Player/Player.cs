@@ -147,6 +147,7 @@ public class Player : Actor
     {
         //Le decimos al deck que todas las cartas deben ser seleccionables.
         base.EnableInteraction();
+        hand.HandControl(false);
     }
     /// <summary>
     /// Des-abilita las interacciones de este jugador.
@@ -155,6 +156,7 @@ public class Player : Actor
     {
         //Le decimos al deck que todas las cartas deben dejar de ser seleccionables.
         base.DisableInteractions();
+        hand.HandControl(true);
     } 
 
     #endregion
