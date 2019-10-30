@@ -19,6 +19,6 @@ MonoBehaviour:
   HealAmmount: 0
   BuffType: 0
   buffAmmount: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 03af4c58622d93f429632d78c235e3a8, type: 3}
   description: "Esta inflige +1 de da\xF1o por cada carta de \"Ejercito de papas fritas\"
     que tengas en mano "

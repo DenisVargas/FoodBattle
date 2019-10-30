@@ -100,4 +100,6 @@ public abstract class Actor : MonoBehaviour
     }
     public virtual void ModifyEnergy(int Ammount) { }
     public virtual void DrawCards(int Ammount) { }
+
+
 }

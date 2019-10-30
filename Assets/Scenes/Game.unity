@@ -3954,23 +3954,25 @@ MonoBehaviour:
   CardParent: {fileID: 1227311747}
   Included:
   - CompletePath: Cards/001
-    AmmountInDeck: 5
+    AmmountInDeck: 4
   - CompletePath: Cards/002
-    AmmountInDeck: 4
+    AmmountInDeck: 2
   - CompletePath: Cards/003
-    AmmountInDeck: 4
+    AmmountInDeck: 2
   - CompletePath: Cards/004
-    AmmountInDeck: 4
+    AmmountInDeck: 2
   - CompletePath: Cards/005
-    AmmountInDeck: 4
+    AmmountInDeck: 2
   - CompletePath: Cards/008
-    AmmountInDeck: 3
+    AmmountInDeck: 2
   - CompletePath: Cards/009
     AmmountInDeck: 3
   - CompletePath: Cards/013
     AmmountInDeck: 2
   - CompletePath: Cards/015
     AmmountInDeck: 1
+  - CompletePath: Cards/006
+    AmmountInDeck: 10
   TotalCards: 5
   CardTypesAviable: 5
 --- !u!4 &720153188

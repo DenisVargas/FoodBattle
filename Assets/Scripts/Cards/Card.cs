@@ -29,7 +29,6 @@ public class Card : MonoBehaviour
     public int UniqueID;
 
     [Header("Posicionamiento de la carta")]
-    public bool lookCard = false;
     public bool back;
     public bool touchScreen = false;
     public bool stopAll = false;
@@ -76,6 +75,7 @@ public class Card : MonoBehaviour
 
     public void LoadCardDisplayInfo()
     {
+        this.name = Stats.nameCard;
         nameCard.text = Stats.nameCard;
         description.text = Stats.description;
         cost.text = Stats.cost.ToString();
@@ -95,7 +95,7 @@ public class Card : MonoBehaviour
                 else if (comingBack)
                     anim.SetBool("Flip", false);
 
-                if (stopAll && !lookCard)
+                if (stopAll)
                 {
                     var dist = Vector3.Distance(transform.position, discardPosition.position);
                     if (dist >= 0)
@@ -117,12 +117,12 @@ public class Card : MonoBehaviour
 
     public void ActivateCard()
     {
+        //Acá va todos los efectos.
+        CardEffect(Owner, Rival, Stats);
         //Debug.Log("ataque");
         transform.SetParent(discardPosition);
         OnUseCard(Stats.ID);
 
-        //Acá va todos los efectos.
-        CardEffect(Owner, Rival, Stats);
     }
 
     public void OnMouseDown()

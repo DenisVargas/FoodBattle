@@ -147,7 +147,7 @@ public class Player : Actor
     {
         //Le decimos al deck que todas las cartas deben ser seleccionables.
         base.EnableInteraction();
-        hand.HandControl(false);
+        hand.HandControl(true);
     }
     /// <summary>
     /// Des-abilita las interacciones de este jugador.
@@ -156,8 +156,41 @@ public class Player : Actor
     {
         //Le decimos al deck que todas las cartas deben dejar de ser seleccionables.
         base.DisableInteractions();
-        hand.HandControl(true);
-    } 
+        hand.HandControl(false);
+    }
+
+    public List<Card> SearchCardType(CardData tipoCarta)
+    {
+        List<Card> carta = new List<Card>();
+        List<Card> allTypeCards = new List<Card>();
+        for (int i = 0; i <= transform.childCount-1; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                carta.Add(hand.transform.GetChild(i).GetComponent<Card>());
+            }
+        }
+        foreach (var item in carta)
+        {
+            if (item.Stats.ID == tipoCarta.ID)
+            {
+                allTypeCards.Add(item);
+            }
+        }
+        Debug.Log(allTypeCards.Count);
+        return allTypeCards;
+    }
+
+    public void DiscardCard(List<Card> cardsToDiscard)
+    {
+        foreach (var item in cardsToDiscard)
+        {
+            item.stopAll = true;
+            item.comingBack = false;
+            item.transform.SetParent(item.discardPosition);
+
+        }
+    }
 
     #endregion
 

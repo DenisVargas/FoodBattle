@@ -54,7 +54,7 @@ public class CombatManager : MonoBehaviour
         //Fundamental que esto se setee.
         CardBehaviour.InitCardBehaviourDictionary();
         player.deck.LoadAllCards();
-
+        player.deck.ShuffleDeck();
         Current = GetNextActor();
         Current.StartTurn();
     }

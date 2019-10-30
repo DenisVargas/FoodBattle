@@ -51,7 +51,7 @@ public static class CardBehaviour
             Owner.ModifyEnergy(stats.cost);
 
             //Restaura 2 de salud en el turno.
-            Owner.heal(2);
+            Owner.heal(stats.buffAmmount);
         };
 
         //Carta número 4.
@@ -73,6 +73,19 @@ public static class CardBehaviour
             //Carta Categoría Rara.
             //Añade un buffo de Daño +1;
             Owner.GetBuff(BuffType.DamageIncrease, stats.buffAmmount);
+        };
+
+        //Carta número 6.
+        Action<Actor, Actor, CardData> Carta6 = (Actor Owner, Actor Target, CardData stats) =>
+        {
+            //El player consume Energía.
+            Owner.ModifyEnergy(stats.cost);
+
+            //Carta Combo
+            var cantCards = Owner.GetComponent<Player>().SearchCardType(stats);
+            Debug.Log(cantCards.Count);
+            Target.GetDamage(stats.damage + stats.damage * cantCards.Count);
+            Owner.GetComponent<Player>().DiscardCard(cantCards);
         };
 
         //Carta número 8.
@@ -144,7 +157,7 @@ public static class CardBehaviour
         CardBehaviours.Add(3, Carta3);
         CardBehaviours.Add(4, Carta4);
         CardBehaviours.Add(5, Carta5);
-        //CardBehaviours.Add(6, Carta6);
+        CardBehaviours.Add(6, Carta6);
         CardBehaviours.Add(8, Carta8);
         CardBehaviours.Add(9, Carta9);
         CardBehaviours.Add(13, Carta13);

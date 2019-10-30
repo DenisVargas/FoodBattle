@@ -131,7 +131,7 @@ public class Enem : Actor
             if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 1f)
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
             else
-                StartCoroutine(WaitCardToDeck(2f));
+                StartCoroutine(WaitCardToDeck(1f));
         }
         else if (cardStateShow == 3)
         {
