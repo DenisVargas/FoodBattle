@@ -73,12 +73,14 @@ public class ActionFeedbackHUD : MonoBehaviour
     public void AnimEvent_StartActionFeedback()
     {
         //No Puedo seguir con el loop del juego.
+        print(string.Format("No Puede Ejecutar acciones\nAnimEvent_StartActionFeedback() desde ActionFeedbackHud --> CombatManager"));
         InformExecuteActions(false);
     }
 
     public void AnimEvent_EndActionFeedback()
     {
         //Puedo seguir con el loop del juego.
+        print(string.Format("Puede Ejecutar acciones\nAnimEvent_EndActionFeedback desde ActionFeedbackHud --> CombatManager"));
         InformExecuteActions(true);
     }
 }
