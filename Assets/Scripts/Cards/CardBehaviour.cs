@@ -82,10 +82,10 @@ public static class CardBehaviour
             Owner.ModifyEnergy(stats.cost);
 
             //Carta Combo
-            var cantCards = Owner.GetComponent<Player>().SearchCardType(stats);
-            Debug.Log(cantCards.Count);
+            List<Card> cantCards = Owner.GetComponent<Player>().SearchCardType(stats);
+            Owner.hand.DiscardCard(cantCards);
+
             Target.GetDamage(stats.damage + stats.damage * cantCards.Count);
-            Owner.GetComponent<Player>().DiscardCard(cantCards);
         };
 
         //Carta número 8.

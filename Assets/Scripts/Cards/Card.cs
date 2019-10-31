@@ -122,7 +122,6 @@ public class Card : MonoBehaviour
         //Debug.Log("ataque");
         transform.SetParent(discardPosition);
         OnUseCard(Stats.ID);
-
     }
 
     public void OnMouseDown()

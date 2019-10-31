@@ -5,8 +5,9 @@ using UnityEngine;
 //Es la "Mano del jugador"
 public class Hand : MonoBehaviour
 {
-
     public List<Transform> cards = new List<Transform>();
+    public List<Card> hand = new List<Card>();
+
     public Transform node1;
     public Transform node2;
     private Vector3 startPost;          
@@ -25,6 +26,27 @@ public class Hand : MonoBehaviour
         foreach (var item in cards)
         {
             item.GetComponent<Card>().isInteractuable = activate;
+        }
+    }
+
+    public void GetDrawedCards(Deck deck, int Ammount)
+    {
+        foreach (var item in deck.DrawCards(Ammount))
+        {
+            item.transform.SetParent(transform);
+            item.inHand = true;
+            hand.Add(item);
+        }
+        AlingCards();
+    }
+
+    public void DiscardCard(List<Card> cardsToDiscard)
+    {
+        foreach (var item in cardsToDiscard)
+        {
+            item.stopAll = true;
+            item.comingBack = false;
+            item.transform.SetParent(item.discardPosition);
         }
     }
 

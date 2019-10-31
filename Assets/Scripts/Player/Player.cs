@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : Actor
@@ -74,19 +75,7 @@ public class Player : Actor
     {
         OnStartTurn();
         RemainingActions = maxActionsPosible;
-
-        var test = deck.DrawCards(3);
-        foreach (var item in test)
-        {
-            item.transform.SetParent(hand.transform);
-            item.inHand = true;
-        }
-        hand.AlingCards();
-        /*foreach (var item in test)
-        {
-            item.starPos = item.transform.position;
-        }*/
-        //Barajo/Saco cartas del Deck.
+        hand.GetDrawedCards(deck, 4);
         HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;
     }
@@ -161,35 +150,27 @@ public class Player : Actor
 
     public List<Card> SearchCardType(CardData tipoCarta)
     {
-        List<Card> carta = new List<Card>();
-        List<Card> allTypeCards = new List<Card>();
-        for (int i = 0; i <= transform.childCount-1; i++)
-        {
-            if (transform.GetChild(i).gameObject.activeSelf)
-            {
-                carta.Add(hand.transform.GetChild(i).GetComponent<Card>());
-            }
-        }
-        foreach (var item in carta)
-        {
-            if (item.Stats.ID == tipoCarta.ID)
-            {
-                allTypeCards.Add(item);
-            }
-        }
-        Debug.Log(allTypeCards.Count);
-        return allTypeCards;
-    }
+        var cartasDelMismoTipo = hand.hand
+                                 .Where(card => card.Stats.ID == tipoCarta.ID)
+                                 .ToList();
 
-    public void DiscardCard(List<Card> cardsToDiscard)
-    {
-        foreach (var item in cardsToDiscard)
-        {
-            item.stopAll = true;
-            item.comingBack = false;
-            item.transform.SetParent(item.discardPosition);
-
-        }
+        //List<Card> allTypeCards = new List<Card>();
+        //for (int i = 0; i <= transform.childCount-1; i++)
+        //{
+        //    if (transform.GetChild(i).gameObject.activeSelf)
+        //    {
+        //        carta.Add(hand.transform.GetChild(i).GetComponent<Card>());
+        //    }
+        //}
+        //foreach (var item in carta)
+        //{
+        //    if (item.Stats.ID == tipoCarta.ID)
+        //    {
+        //        allTypeCards.Add(item);
+        //    }
+        //}
+        Debug.Log(cartasDelMismoTipo.Count);
+        return cartasDelMismoTipo;
     }
 
     #endregion
