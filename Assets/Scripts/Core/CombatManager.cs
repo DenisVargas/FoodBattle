@@ -52,7 +52,7 @@ public class CombatManager : MonoBehaviour
         Turns.Enqueue(Enemy);
 
         //Fundamental que esto se setee.
-        CardBehaviour.InitCardBehaviourDictionary();
+        //CardBehaviour.InitCardBehaviourDictionary();
         player.deck.LoadAllCards();
         player.deck.ShuffleDeck();
         Current = GetNextActor();

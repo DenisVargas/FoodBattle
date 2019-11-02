@@ -23,8 +23,8 @@ public struct CardTypes
     /// <summary>
     /// La ruta en donde guardamos el scriptable object.
     /// </summary>
-    [Tooltip("La ruta en donde esta guardado el correspondiente Scriptable Object que guarda las stats")]
-    public string CompletePath;
+    [Tooltip("El Unique ID de la carta incluída en este mazo.")]
+    public int IncludedCardID;
     ///// <summary>
     ///// El nombre del archivo.
     ///// Opcional.
@@ -34,7 +34,7 @@ public struct CardTypes
     /// <summary>
     /// Índica la cantidad de dicha carta que va a haber en el mazo.
     /// </summary>
-    [Tooltip("Cantidad de cartas que va a haber en el mazo")]
+    [Tooltip("Cantidad de cartas de dicho tipo que va a haber en el mazo")]
     public int AmmountInDeck;
 }
 
@@ -84,7 +84,7 @@ public class Deck : MonoBehaviour
         foreach (var includedItem in Included)
         {
             //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
-            CardData data = Resources.Load<CardData>(includedItem.CompletePath);
+            CardData data = CardDatabase.GetCardData(includedItem.IncludedCardID);
 
             for (int i = 0; i < includedItem.AmmountInDeck; i++)
             {
@@ -102,7 +102,7 @@ public class Deck : MonoBehaviour
                 realCard.OnUseCard += CardUsed;
 
                 //Le atacheamos el efecto.
-                realCard.CardEffect = CardBehaviour.GetCardBehaviour(data.ID);
+                realCard.CardEffect = CardDatabase.GetCardBehaviour(data.ID);
 
                 //Lo añadimos al diccionario
                 DeckCardReferencies.Add(realCard.UniqueID, realCard);

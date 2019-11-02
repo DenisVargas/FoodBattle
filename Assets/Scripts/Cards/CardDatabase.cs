@@ -1,24 +1,41 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public static class CardBehaviour
+
+public static class CardDatabase
 {
+    const string RelativeDataPath = "Cards/";
+    /// <summary>
+    /// Contiene todos las stats de cada carta del juego.
+    /// </summary>
+    static Dictionary<int, CardData> CardDatas;
+    /// <summary>
+    /// Contiene todos los comportamientos de cada carta del juego.
+    /// </summary>
     static Dictionary<int, Action<Actor, Actor, CardData>> CardBehaviours;
 
-    public static Action<Actor, Actor, CardData> GetCardBehaviour(int UniqueID)
+    static CardDatabase()
     {
-        if (CardBehaviours.ContainsKey(UniqueID))
-            return CardBehaviours[UniqueID];
-        else
-            return null;
-    }
-
-    public static void InitCardBehaviourDictionary()
-    {
+        //Al inicializarse la clase va a cargar toda la data respectivo a las cartas.
+        CardDatas = new Dictionary<int, CardData>();
         CardBehaviours = new Dictionary<int, Action<Actor, Actor, CardData>>();
 
+        LoadAllCardDatas();
+        LoadAllBehaviours();
+    }
+
+    private static void LoadAllCardDatas()
+    {
+        CardData[] data = Resources.LoadAll<CardData>(RelativeDataPath);
+        foreach (var cardData in data)
+            CardDatas.Add(cardData.ID, cardData);
+    }
+    private static void LoadAllBehaviours()
+    {
         #region Comportamientos.
         //Carta número 1.
         Action<Actor, Actor, CardData> Carta1 = (Actor Owner, Actor Target, CardData stats) =>
@@ -162,5 +179,24 @@ public static class CardBehaviour
         CardBehaviours.Add(9, Carta9);
         CardBehaviours.Add(13, Carta13);
         CardBehaviours.Add(15, Carta15);
+    }
+
+    /// <summary>
+    /// Retorna los datos asociados a la carta identificada por el parámetro ID.
+    /// </summary>
+    /// <param name="UniqueID">Identificador único de la carta.</param>
+    /// <returns>Null si la ID no tiene ningun dato asociado.</returns>
+    public static CardData GetCardData(int UniqueID)
+    {
+        return CardDatas.ContainsKey(UniqueID) ? CardDatas[UniqueID] : null;
+    }
+    /// <summary>
+    /// Retorna el comportamiento asociado a la carta identificada por el parámetro ID.
+    /// </summary>
+    /// <param name="UniqueID">Identificador único de la carta.</param>
+    /// <returns>Null si la ID no tiene ningún comportamiento asociado.</returns>
+    public static Action<Actor, Actor, CardData> GetCardBehaviour(int UniqueID)
+    {
+        return CardBehaviours.ContainsKey(UniqueID) ? CardBehaviours[UniqueID] : null;
     }
 }

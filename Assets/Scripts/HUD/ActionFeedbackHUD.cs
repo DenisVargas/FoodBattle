@@ -17,7 +17,6 @@ public class ActionFeedbackHUD : MonoBehaviour
     public TMP_Text Titulo_Turnos;
     public TMP_Text Cantidad_Turnos;
 
-
     string[] originalValues;
     private void Awake()
     {
