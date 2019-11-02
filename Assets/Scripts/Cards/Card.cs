@@ -26,7 +26,7 @@ public class Card : MonoBehaviour
     public CardData Stats;
     public Actor Owner;
     public Actor Rival;
-    public int UniqueID;
+    public int DeckID;
 
     [Header("Posicionamiento de la carta")]
     public bool back;
@@ -75,11 +75,11 @@ public class Card : MonoBehaviour
 
     public void LoadCardDisplayInfo()
     {
-        this.name = Stats.nameCard;
-        nameCard.text = Stats.nameCard;
+        this.name = Stats.CardName;
+        nameCard.text = Stats.CardName;
         description.text = Stats.description;
-        cost.text = Stats.cost.ToString();
-        damage.text = Stats.damage.ToString();
+        cost.text = Stats.Cost.ToString();
+        damage.text = Stats.GetDebuffAmmount(DeBuffType.healthReduction).ToString();
         image.sprite = Stats.image;
     }
 
@@ -175,9 +175,9 @@ public class Card : MonoBehaviour
             {
                 if (!stopAll)
                 {
-                    if (back || !CanBeActivated(Stats.cost))
+                    if (back || !CanBeActivated(Stats.Cost))
                         comingBack = true;
-                    else if (touchScreen && CanBeActivated(Stats.cost))
+                    else if (touchScreen && CanBeActivated(Stats.Cost))
                     {
                         stopAll = true;
                         ActivateCard();

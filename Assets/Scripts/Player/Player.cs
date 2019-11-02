@@ -109,10 +109,10 @@ public class Player : Actor
     public override void GetDamage(int damage)
     {
         //Calculo del daño real recibido.
-        int realDamage = damage - DamageReduction;
+        int realDamage = damage - Armour;
         Health -= realDamage;
 
-        DamageReduction = 0;                        //Reseteo.
+        Armour = 0;                        //Reseteo.
 
         //Feedback.
         StartCoroutine(shake.Shake(.30f, 0.9f));

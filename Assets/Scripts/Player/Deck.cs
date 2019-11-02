@@ -55,28 +55,19 @@ public class Deck : MonoBehaviour
     /// </summary>
     public List<CardTypes> Included = new List<CardTypes>();
     /// <summary>
-    /// Datos cargados de los tipos de cartas, ordenadas por su [ID].
-    /// </summary>
-    public Dictionary<int, CardData> AviableCards = new Dictionary<int, CardData>();
-    /// <summary>
     /// Datos cargados de las cartas concretas, ordenadas por su [UniqueID]
     /// </summary>
     public Dictionary<int, Card> DeckCardReferencies = new Dictionary<int, Card>();
 
     [Header("Totales")]
-    public int TotalCards;                             // Se autorrellena. Cantidad de cartas actual en el mazo. Se reduce al sacar nuevas cartas.
-    public int CardTypesAviable;                       // Se autorrellena. Cantidad de tipos de cartas. En nuestro caso cada Carta es un Tipo de carta único.
+    [HideInInspector] public int TotalCards;                             // Se autorrellena. Cantidad de cartas actual en el mazo. Se reduce al sacar nuevas cartas.
+    [HideInInspector] public int CardTypesAviable;                       // Se autorrellena. Cantidad de tipos de cartas. En nuestro caso cada Carta es un Tipo de carta único.
     public Queue<int> DeckCards = new Queue<int>();    // Se autorrellena. Cola de cartas en el Mazo, utiliza el ID de cada carta.
     public Stack<int> UsedCards = new Stack<int>();    // Se autorrellena. Pila de cartas Utilizadas, también utiliza el ID, y va aumentando a medida que activamos cartas.
 
     public void LoadAllCards()
     {
         CardTypesAviable = Included.Count;
-
-        //List<Tuple<int a, int b> donde a = tipo de carta. b = Cantidad para añadir. 
-        //Nombre: [ToAddList]
-        List<Tuple<int, int>> ToAddList = new List<Tuple<int, int>>();      // Lista de tipos y cantidad de cartas que se tienen que añadir.
-        List<Tuple<int, Card>> Cards = new List<Tuple<int, Card>>();        // Lista de cartas reales que fueron generadas e instanciadas.
 
         //Por cada objeto incluido en Included.
         //Calculamos cuantas cartas totales hay dentro del deck.
@@ -95,73 +86,18 @@ public class Deck : MonoBehaviour
                 realCard.CanBeActivated = (incomingCost) =>  Owner.RemainingActions - incomingCost >= 0;
 
                 addedID++;
-                realCard.UniqueID = addedID;
+                realCard.DeckID = addedID;
 
-                // Suscribirse al evento incluido en cada carta.
-                // Esto permite registrar las cartas que se van activando.
+                // Suscribirse al evento incluido en cada carta. Esto permite registrar las cartas que se van activando.
                 realCard.OnUseCard += CardUsed;
 
                 //Le atacheamos el efecto.
                 realCard.CardEffect = CardDatabase.GetCardBehaviour(data.ID);
 
                 //Lo añadimos al diccionario
-                DeckCardReferencies.Add(realCard.UniqueID, realCard);
-                Cards.Add(Tuple.Create(data.ID, realCard));
+                DeckCardReferencies.Add(realCard.DeckID, realCard); // Lista de cartas reales que fueron generadas e instanciadas.
+                DeckCards.Enqueue(realCard.DeckID);
             }
-
-            //print(DeckCardReferencies.Count);
-
-            // Creo una tupla donde añado { a = cantidad de cartas, b = ID del tipo de carta }
-            Tuple<int, int> AmmountAndType = Tuple.Create(includedItem.AmmountInDeck, data.ID);
-            RemaingCardsAmmount += includedItem.AmmountInDeck;
-
-            // Añado la tupla a [ToAddList]
-            ToAddList.Add(AmmountAndType);
-
-            //Guardamos los datos dentro de [AviableCards]
-            AviableCards.Add(data.ID, data);
-        }
-
-        //A medida que añado de forma aleatoría una carta a la queue, voy reduciendo la cantidad que falta.
-
-        //Mientras [ToAddList].count sea mayor a 0
-        while (ToAddList.Count > 0)
-        {
-            //Para referencia:
-            //Tuple<int a, int b> donde:
-            //       a = Cantidad para añadir.
-            //       b = tipo de carta (UniqueID).
-
-            //Creo un numero aleatório que este dentro del rango (1 - [ToAddList.count])
-            int randomIndex = UnityEngine.Random.Range(0, ToAddList.Count);
-            Tuple<int, int> selected = ToAddList[randomIndex];
-
-            //Reduzco en 1 la cantidad de cartas que falta añadir de ese tipo.
-            Tuple<int, int> reduxedSelected = Tuple.Create(selected.Item1 - 1, selected.Item2);
-
-            //Si la cantidad de cartas de un tipo particular se vuelve 0 lo sacamos del contenedor ([ToAddList]).
-            if (reduxedSelected.Item1 == 0)
-                ToAddList.RemoveAt(randomIndex);
-            //Sino... Remplazo la tupla en dicho indice por la versión reducida.
-            else
-                ToAddList[randomIndex] = reduxedSelected;
-            //Nota: esto es porque las Tuplas son inmutables.
-
-            //Añado una carta del tipo que existe dentro del Index resultante
-            Card primeraCarta = null;
-            for (int i = 0; i < Cards.Count; i++)
-            {
-                if (selected.Item2 == Cards[i].Item1)
-                {
-                    primeraCarta = Cards[i].Item2;
-                    Cards.RemoveAt(i);
-                    break;
-                }
-                else
-                    continue;
-            }
-
-            DeckCards.Enqueue(primeraCarta.UniqueID);
         }
 
         TotalCards = RemaingCardsAmmount;
@@ -194,7 +130,6 @@ public class Deck : MonoBehaviour
         foreach (var item in CardRep)
             DeckCards.Enqueue(item);
     }
-
     /// <summary>
     /// Retorna una cantidad de cartas, el contenido de cada carta es aleatoria.
     /// </summary>
@@ -213,7 +148,6 @@ public class Deck : MonoBehaviour
 
         return drawedCards;
     }
-
     /// <summary>
     /// Registra el uso de una carta.
     /// </summary>
@@ -224,7 +158,6 @@ public class Deck : MonoBehaviour
         UsedCards.Push(UniqueID);
         UsedCardAmmount++;
     }
-
     /// <summary>
     /// Retorna las cartas utilizadas al deck principal.
     /// </summary>

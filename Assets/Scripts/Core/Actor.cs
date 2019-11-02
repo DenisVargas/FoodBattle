@@ -15,12 +15,6 @@ using UnityEngine;
 
     Nota: por ahora solo agregué un tipo de Buff, con el tiempo podriamos ir añadiendo más.
 */
-public enum BuffType
-{
-    none,
-    DamageReduction,
-    DamageIncrease
-}
 
 public abstract class Actor : MonoBehaviour
 {
@@ -40,7 +34,7 @@ public abstract class Actor : MonoBehaviour
 
     [Header("Turnos Extras")]
     public int extraTurns = 0;
-    public int DamageReduction = 0;
+    public int Armour = 0;
     public int DamageIncrease = 0;
 
     //=============================== Propiedades ==============================================
@@ -73,14 +67,14 @@ public abstract class Actor : MonoBehaviour
 
     //=============================== Efectos Aplicables =========================================
 
-    public void GetBuff(BuffType type, int Ammount)
+    public void AddBuff(BuffType type, int Ammount)
     {
         switch (type)
         {
             case BuffType.none:
                 break;
-            case BuffType.DamageReduction:
-                DamageReduction += Ammount;
+            case BuffType.ArmourIncrease:
+                Armour += Ammount;
                 break;
             case BuffType.DamageIncrease:
                 DamageIncrease += Ammount;

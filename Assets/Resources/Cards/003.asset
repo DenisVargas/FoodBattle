@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 003
   m_EditorClassIdentifier: 
-  nameCard: 'Mostaza '
+  CardName: Mostaza
   ID: 3
-  cost: 2
-  damage: 0
-  HealAmmount: 0
-  BuffType: 0
-  buffAmmount: 2
   image: {fileID: 21300000, guid: 626931181dbd65c4a86947698507c106, type: 3}
+  Cost: 1
+  extraTurns: 0
+  extraCards: 0
+  Buffs:
+  - effectTarget: 0
+    BuffType: 1
+    BuffAmmount: 2
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
+  Debuffs: []
   description: 'Efectos: Restaura 2 puntos de salud en el turno.'

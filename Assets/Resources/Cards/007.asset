@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 007
   m_EditorClassIdentifier: 
-  nameCard: Coronel Pochoclon
+  CardName: Coronel Pochoclon
   ID: 7
-  cost: 4
-  damage: 1
-  BuffType: 0
   image: {fileID: 21300000, guid: 53b81de0bb57c05409e22b5473e98c06, type: 3}
+  Cost: 2
+  extraTurns: 0
+  extraCards: 0
+  Buffs: []
+  Debuffs: []
   description: "Inflije +1 de da\xF1o por cada carta que tengas en mano (pierdes un
     turno al usarla)."

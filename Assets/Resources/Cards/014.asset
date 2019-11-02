@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 014
   m_EditorClassIdentifier: 
-  nameCard: Teniente Carne
+  CardName: Teniente Carne
   ID: 14
-  cost: 5
-  damage: 4
-  BuffType: 1
   image: {fileID: 21300000, guid: 0598658074957b445b17498c2d8a7cda, type: 3}
+  Cost: 3
+  extraTurns: 0
+  extraCards: 0
+  Buffs: []
+  Debuffs:
+  - effectTarget: 1
+    DebuffType: 1
+    DebuffAmmount: 4
+    durationType: 2
+    Duration: 4
+    useType: 0
+    Uses: 0
   description: Reduce 4 de armadura (4 turnos)

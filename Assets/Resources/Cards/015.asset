@@ -12,11 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 015
   m_EditorClassIdentifier: 
-  nameCard: La protuberancia
+  CardName: La Protuberancia
   ID: 15
-  cost: 4
-  damage: 2
-  BuffType: 1
   image: {fileID: 21300000, guid: 086d64f87001ced4ba1e89f06bff027b, type: 3}
+  Cost: 3
+  extraTurns: -3
+  extraCards: 1
+  Buffs:
+  - effectTarget: 0
+    BuffType: 1
+    BuffAmmount: 2
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
+  - effectTarget: 0
+    BuffType: 3
+    BuffAmmount: 2
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
+  Debuffs:
+  - effectTarget: 1
+    DebuffType: 0
+    DebuffAmmount: 2
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
   description: "Inflije 2 de da\xF1o, restaura 2 de salud, 2 de armadura, roba 1 carta,
     pierdes 3 turnos.\r\n"

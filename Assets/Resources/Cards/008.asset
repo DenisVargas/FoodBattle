@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 008
   m_EditorClassIdentifier: 
-  nameCard: Barra de mani
+  CardName: Barra de mani
   ID: 8
-  cost: 2
-  damage: 3
-  BuffType: 0
   image: {fileID: 21300000, guid: 3bd772ba34a56e84f9c8d4615261b551, type: 3}
+  Cost: 0
+  extraTurns: 1
+  extraCards: 0
+  Buffs: []
+  Debuffs:
+  - effectTarget: 0
+    DebuffType: 0
+    DebuffAmmount: 3
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
   description: "Te inflijes 3 de da\xF1o pero ganas un turno."

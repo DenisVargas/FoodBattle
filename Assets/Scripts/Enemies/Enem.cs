@@ -177,7 +177,7 @@ public class Enem : Actor
         cardSelected.Stats = (CardData)Resources.Load("Cards/001");
         cardStateShow = 1;
         cardSelected.LoadCardDisplayInfo();
-        target.GetDamage(cardSelected.Stats.damage);
+        target.GetDamage(cardSelected.Stats.GetDebuffAmmount(DeBuffType.healthReduction));
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
@@ -216,16 +216,17 @@ public class Enem : Actor
         cardSelected.Stats = (CardData)Resources.Load("Cards/003");
         cardSelected.LoadCardDisplayInfo();
 
-        //Me curo.
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
-        Health += cardSelected.Stats.buffAmmount;
+
+        //Me curo.
+        int HealAmmount = cardSelected.Stats.GetBuffAmmount(BuffType.Heal);
+        Health += HealAmmount;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         HUD.healthDisplay = Health;
         au.clip = hlth;
         au.Play();
 
-
-        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", cardSelected.Stats.buffAmmount);
+        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", HealAmmount);
         CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
 
         cardAmmount--;
