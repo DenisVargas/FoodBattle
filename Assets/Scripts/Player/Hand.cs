@@ -6,12 +6,11 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     public List<Transform> cards = new List<Transform>();
-    public List<Card> hand = new List<Card>();
+    public Dictionary<int, Card> hand = new Dictionary<int, Card>();
 
     public Transform node1;
     public Transform node2;
-    private Vector3 startPost;          
-    
+    private Vector3 startPost;
 
     public void HandControl(bool activate)
     {
@@ -35,18 +34,24 @@ public class Hand : MonoBehaviour
         {
             item.transform.SetParent(transform);
             item.inHand = true;
-            hand.Add(item);
+            hand.Add(item.DeckID, item);
         }
         AlingCards();
     }
 
-    public void DiscardCard(List<Card> cardsToDiscard)
+    public void DiscardCard(int idCard)
     {
-        foreach (var item in cardsToDiscard)
+        foreach (var item in hand)
         {
-            item.stopAll = true;
-            item.comingBack = false;
-            item.transform.SetParent(item.discardPosition);
+            if (item.Key == idCard)
+            {
+                var carta = item.Value;
+                carta.comingBack = false;
+                carta.stopAll = true;
+                carta.transform.SetParent(carta.discardPosition);
+                hand.Remove(idCard);
+                break;
+            }
         }
     }
 

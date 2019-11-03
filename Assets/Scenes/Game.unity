@@ -3967,7 +3967,7 @@ MonoBehaviour:
   - IncludedCardID: 8
     AmmountInDeck: 2
   - IncludedCardID: 6
-    AmmountInDeck: 3
+    AmmountInDeck: 10
   - IncludedCardID: 8
     AmmountInDeck: 2
   - IncludedCardID: 9

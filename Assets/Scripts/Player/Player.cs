@@ -150,26 +150,9 @@ public class Player : Actor
 
     public List<Card> SearchCardType(CardData tipoCarta)
     {
-        var cartasDelMismoTipo = hand.hand
+        var cartasDelMismoTipo = hand.hand.Values
                                  .Where(card => card.Stats.ID == tipoCarta.ID)
                                  .ToList();
-
-        //List<Card> allTypeCards = new List<Card>();
-        //for (int i = 0; i <= transform.childCount-1; i++)
-        //{
-        //    if (transform.GetChild(i).gameObject.activeSelf)
-        //    {
-        //        carta.Add(hand.transform.GetChild(i).GetComponent<Card>());
-        //    }
-        //}
-        //foreach (var item in carta)
-        //{
-        //    if (item.Stats.ID == tipoCarta.ID)
-        //    {
-        //        allTypeCards.Add(item);
-        //    }
-        //}
-        Debug.Log(cartasDelMismoTipo.Count);
         return cartasDelMismoTipo;
     }
 

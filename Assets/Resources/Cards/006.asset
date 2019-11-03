@@ -19,6 +19,13 @@ MonoBehaviour:
   extraTurns: 0
   extraCards: 0
   Buffs: []
-  Debuffs: []
-  description: "Esta inflige +1 de da\xF1o por cada carta de \"Ejercito de papas fritas\"
+  Debuffs:
+  - effectTarget: 1
+    DebuffType: 0
+    DebuffAmmount: 2
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
+  description: "Esta inflige +2 de da\xF1o por cada carta de \"Ejercito de papas fritas\"
     que tengas en mano."

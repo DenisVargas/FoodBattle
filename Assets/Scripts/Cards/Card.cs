@@ -17,7 +17,7 @@ public class Card : MonoBehaviour
 {
     #region Eventos
     public event Action<int> OnUseCard = delegate { };
-    public Action<Actor, Actor, CardData> CardEffect = delegate { };
+    public Action<Actor, Actor, CardData, int> CardEffect = delegate { };
     public Func<int, bool> CanBeActivated;
     //public event Action OnCardIsSeleced = delegate { }; 
     #endregion
@@ -100,6 +100,8 @@ public class Card : MonoBehaviour
                     var dist = Vector3.Distance(transform.position, discardPosition.position);
                     if (dist >= 0)
                         transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
+                    else
+                        inHand = false;
                 }
                 if (comingBack)
                 {
@@ -111,16 +113,13 @@ public class Card : MonoBehaviour
                 }
             }
         }
-        
     }
 
 
     public void ActivateCard()
     {
         //Acá va todos los efectos.
-        CardEffect(Owner, Rival, Stats);
-        //Debug.Log("ataque");
-        transform.SetParent(discardPosition);
+        CardEffect(Owner, Rival, Stats, DeckID);
         OnUseCard(Stats.ID);
     }
 
@@ -178,10 +177,7 @@ public class Card : MonoBehaviour
                     if (back || !CanBeActivated(Stats.Cost))
                         comingBack = true;
                     else if (touchScreen && CanBeActivated(Stats.Cost))
-                    {
-                        stopAll = true;
                         ActivateCard();
-                    }
                 }
             }
         }
