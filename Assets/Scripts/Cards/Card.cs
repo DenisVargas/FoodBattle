@@ -79,7 +79,7 @@ public class Card : MonoBehaviour
         nameCard.text = Stats.CardName;
         description.text = Stats.description;
         cost.text = Stats.Cost.ToString();
-        damage.text = Stats.GetDebuffAmmount(DeBuffType.healthReduction).ToString();
+        damage.text = Stats.GetDebuff(DeBuffType.healthReduction).Ammount.ToString();
         image.sprite = Stats.image;
     }
 

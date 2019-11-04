@@ -126,7 +126,7 @@ public class CombatManager : MonoBehaviour
     /// <param name="enable">¿Puede ejecutar acciones?</param>
     public void CanExecuteAction(bool enable)
     {
-        print(string.Format("Puede Ejecutar acciones {0} // CombatManager", enable));
+        //print(string.Format("Puede Ejecutar acciones {0} // CombatManager", enable));
         Current.CanExecuteActions = enable;
     }
 

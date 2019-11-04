@@ -38,48 +38,43 @@ public static class CardDatabase
     {
         #region Comportamientos.
         //Carta número 1.
-        Action<Actor, Actor, CardData, int> Carta1 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta1 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //Modificadores de daño.
-            int realDamage = stats.GetDebuffAmmount(DeBuffType.healthReduction) + Owner.DamageIncrease;
+            int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
 
             //Inflige 2 puntos de daño al oponente.
             Target.GetDamage(realDamage);
 
-            Owner.hand.DiscardCard(deckID);
+            Owner.hand.DiscardCard(DeckID);
         };
 
         //Carta número 2.
-        Action<Actor, Actor, CardData, int> Carta2 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta2 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //Reduce en 1 de daño el siguiente turno.
             //TODO: futuro esta función va a recibir un valor extra = cantidad de turnos.
-            Owner.AddBuff(BuffType.ArmourIncrease, 1);
-
-            Owner.hand.DiscardCard(deckID);
+            Owner.AddBuff(stats.GetBuff(BuffType.ArmourIncrease));
         };
 
         //Carta número 3.
-        Action<Actor, Actor, CardData, int> Carta3 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta3 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //Restaura 2 de salud en el turno.
-            Owner.heal(stats.GetBuffAmmount(BuffType.Heal));
-
-            Owner.hand.DiscardCard(deckID);
-
+            Owner.AddBuff(stats.GetBuff(BuffType.Heal));
         };
 
         //Carta número 4.
-        Action<Actor, Actor, CardData, int> Carta4 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta4 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
@@ -87,26 +82,23 @@ public static class CardDatabase
             // Roba 1 carta.
             Owner.DrawCards(stats.extraCards);
 
-            Owner.hand.DiscardCard(deckID);
+            Owner.hand.DiscardCard(DeckID);
 
         };
 
         //Carta número 5.
-        Action<Actor, Actor, CardData, int> Carta5 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta5 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //Carta Categoría Rara.
             //Añade un buffo de Daño +1;
-            Owner.AddBuff(BuffType.DamageIncrease, stats.GetBuffAmmount(BuffType.DamageIncrease));
-
-            Owner.hand.DiscardCard(deckID);
-
+            Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
         };
 
         //Carta número 6.
-        Action<Actor, Actor, CardData, int> Carta6 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta6 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
@@ -114,11 +106,12 @@ public static class CardDatabase
             //Carta Combo
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
 
-            Target.GetDamage((stats.GetDebuffAmmount(DeBuffType.healthReduction) * cantCards.Count));
+            Target.GetDamage((stats.GetDebuff(DeBuffType.healthReduction).Ammount * cantCards.Count));
 
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
 
+            Target.GetDamage((stats.GetDebuff(DeBuffType.healthReduction).Ammount * 2) * cantCards.Count);
         };
 
         //Carta número 7.
@@ -138,68 +131,63 @@ public static class CardDatabase
 
 
         //Carta número 8.
-        Action<Actor, Actor, CardData, int> Carta8 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta8 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //Owner recibe 4 de daño.
-            Owner.GetDamage(stats.GetDebuffAmmount(DeBuffType.healthReduction));
+            Owner.GetDamage(stats.GetDebuff(DeBuffType.healthReduction).Ammount);
 
             //Owner gana 1 turno.
             Owner.AddExtraTurn(1);
 
-            Owner.hand.DiscardCard(deckID);
-
+            Owner.hand.DiscardCard(DeckID);
         };
 
         //Carta número 9.
-        Action<Actor, Actor, CardData, int> Carta9 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta9 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //+2 Vida, +1 carta
-            Owner.heal(stats.GetBuffAmmount(BuffType.Heal));
+            Owner.AddBuff(stats.GetBuff(BuffType.Heal));
             Owner.DrawCards(1);
 
-            Owner.hand.DiscardCard(deckID);
-
+            Owner.hand.DiscardCard(DeckID);
         };
 
         //Carta número 13.
-        Action<Actor, Actor, CardData, int> Carta13 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta13 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //Obtenemos toda la vida restante. Perdemos 2 turnos.
-            Owner.RestoreAllHealth();
+            Owner.AddBuffs(stats.GetAllBuffs());
             Target.AddExtraTurn(stats.extraTurns);
 
-            Owner.hand.DiscardCard(deckID);
-
+            Owner.hand.DiscardCard(DeckID);
         };
 
         //Carta número 15.
-        Action<Actor, Actor, CardData, int> Carta15 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        Action<Actor, Actor, CardData, int> Carta15 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
             //+2 Daño (Target), +2 Salud, +2 Reducción de Daño, +1 Carta, -3 Turnos
-            Owner.heal(stats.GetDebuffAmmount(DeBuffType.healthReduction));
-            Owner.AddBuff(BuffType.ArmourIncrease, stats.GetBuffAmmount(BuffType.ArmourIncrease));
+            Owner.AddBuffs(stats.GetAllBuffs());
             Owner.DrawCards(stats.extraCards);
 
             //Modificadores de daño.
-            int realDamage = stats.GetDebuffAmmount(DeBuffType.healthReduction) + Owner.DamageIncrease;
+            int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
 
             Target.GetDamage(realDamage);
             Target.AddExtraTurn(stats.extraTurns);
 
-            Owner.hand.DiscardCard(deckID);
-
+            Owner.hand.DiscardCard(DeckID);
         };
         #endregion
 

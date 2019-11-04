@@ -43,8 +43,10 @@ public class Player : Actor
 
     //========================================= FUNCIONES DE UNITY ====================================================
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         //Obtener y setear referencias.
         deck.Owner = this;
         ad = GetComponent<AudioSource>();
@@ -99,6 +101,9 @@ public class Player : Actor
         RemainingActions = 0;
         UpdateCombatInterface();
 
+        //Reduzco la cantidad de turnos de mis buffs y debuffs.
+        ReduxActiveEffectsDuration();
+
         //LLamo el evento de Actor
         OnEndTurn(this);
     }
@@ -109,10 +114,9 @@ public class Player : Actor
     public override void GetDamage(int damage)
     {
         //Calculo del daño real recibido.
-        int realDamage = damage - Armour;
+        int damageReduction = GetActiveBuffAmmount(BuffType.ArmourIncrease);
+        int realDamage = damage - damageReduction;
         Health -= realDamage;
-
-        Armour = 0;                        //Reseteo.
 
         //Feedback.
         StartCoroutine(shake.Shake(.30f, 0.9f));
@@ -171,18 +175,18 @@ public class Player : Actor
         }
         hand.AlingCards();
     }
-    public override void RestoreAllHealth()
+    protected override void RestoreAllHealth()
     {
         Health = maxHealth;
     }
-    public override void AddExtraEnergy(int Ammount)
+    protected override void AddExtraEnergy(int Ammount)
     {
         RemainingActions++;
         UpdateCombatInterface();
         CombatManager.match.FeedbackHUD.SetEnergy("Energía: +", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
     }
-    public override void heal(int Ammount)
+    protected override void heal(int Ammount)
     {
         Health += Ammount;
         UpdateCombatInterface();

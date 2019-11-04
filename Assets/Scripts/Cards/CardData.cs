@@ -23,17 +23,24 @@ public class CardData : ScriptableObject
     [TextArea]
     public string description;
 
-    public int GetBuffAmmount(BuffType buffType)
+    public Buff GetBuff(BuffType buffType)
     {
-        var buff = Buffs.Where( b => b.BuffType == buffType).FirstOrDefault();
-        return buff.BuffAmmount;
+        return Buffs.Where(b => b.BuffType == buffType).FirstOrDefault();
     }
-    public int GetDebuffAmmount(DeBuffType deBuffType)
+    public DeBuff GetDebuff(DeBuffType deBuffType)
     {
-        var debuff = Debuffs.Where(db => db.DebuffType == deBuffType).FirstOrDefault();
-        return debuff.DebuffAmmount;
+        return Debuffs.Where(b => b.DebuffType == deBuffType).FirstOrDefault();
+    }
+    public List<Buff> GetAllBuffs()
+    {
+        return Buffs;
+    }
+    public List<DeBuff> GetAllDebuffs()
+    {
+        return Debuffs;
     }
 }
+
 public enum EffectTarget
 {
     owner,
@@ -67,7 +74,7 @@ public struct Buff
 {
     public EffectTarget effectTarget;
     public BuffType BuffType;
-    public int BuffAmmount;
+    public int Ammount;
     public EffectDurationType durationType;
     public int Duration;
     public EffectUseType useType;
@@ -86,7 +93,7 @@ public struct DeBuff
 {
     public EffectTarget effectTarget;
     public DeBuffType DebuffType;
-    public int DebuffAmmount;
+    public int Ammount;
     public EffectDurationType durationType;
     public int Duration;
     public EffectUseType useType;
