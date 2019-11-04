@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using IA.RandomSelections;
 
+/*
+ * NOTAS: 
+ * Por ahora el enemigo solo toma desiciones limitadas, no usa el deck propio.
+ */
+
 public class Enem : Actor
 {
     public Action OnEnemyDie = delegate { };
@@ -62,8 +67,10 @@ public class Enem : Actor
     }
 
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         au = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>();
         for (int i = 0; i < handEnemy.transform.childCount; i++)
@@ -177,7 +184,7 @@ public class Enem : Actor
         cardSelected.Stats = (CardData)Resources.Load("Cards/001");
         cardStateShow = 1;
         cardSelected.LoadCardDisplayInfo();
-        target.GetDamage(cardSelected.Stats.GetDebuffAmmount(DeBuffType.healthReduction));
+        target.GetDamage(cardSelected.Stats.GetDebuff(DeBuffType.healthReduction).Ammount);
 
         cardAmmount--;
         HUD.cardsDisplay = cardAmmount;
@@ -209,7 +216,7 @@ public class Enem : Actor
         }
     }
 
-    public override void heal(int Ammount)
+    protected override void heal(int Ammount)
     {
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
         cardStateShow = 1;
@@ -219,7 +226,7 @@ public class Enem : Actor
         print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
 
         //Me curo.
-        int HealAmmount = cardSelected.Stats.GetBuffAmmount(BuffType.Heal);
+        int HealAmmount = cardSelected.Stats.GetBuff(BuffType.Heal).Ammount;
         Health += HealAmmount;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         HUD.healthDisplay = Health;
