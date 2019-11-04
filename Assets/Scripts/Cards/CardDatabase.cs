@@ -123,7 +123,7 @@ public static class CardDatabase
             //Carta Combo por cada carta
             
 
-            Target.GetDamage((stats.GetDebuffAmmount(DeBuffType.healthReduction) * Owner.hand.hand.Count));
+            Target.GetDamage((stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count));
             Target.AddExtraTurn(stats.extraTurns);
             Owner.hand.DiscardCard(deckID);
 
