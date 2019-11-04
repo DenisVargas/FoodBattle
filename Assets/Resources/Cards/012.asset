@@ -21,8 +21,8 @@ MonoBehaviour:
   Buffs: []
   Debuffs:
   - effectTarget: 1
-    DebuffType: 1
-    DebuffAmmount: 0
+    DebuffType: 2
+    Ammount: 1
     durationType: 2
     Duration: 1
     useType: 1

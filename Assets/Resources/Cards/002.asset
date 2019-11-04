@@ -21,10 +21,10 @@ MonoBehaviour:
   Buffs:
   - effectTarget: 0
     BuffType: 3
-    BuffAmmount: 1
+    Ammount: 1
     durationType: 2
-    Duration: 1
+    Duration: 2
     useType: 0
     Uses: 0
   Debuffs: []
-  description: "Efectos: Reduce 1 de da\xF1o en el siguiente turno."
+  description: "Efectos: Reduce 1 de da\xF1o durante este y el siguiente turno."

@@ -22,7 +22,7 @@ MonoBehaviour:
   Debuffs:
   - effectTarget: 1
     DebuffType: 0
-    DebuffAmmount: 7
+    Ammount: 7
     durationType: 0
     Duration: 0
     useType: 0
