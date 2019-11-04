@@ -917,9 +917,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  hand: []
   node1: {fileID: 1124799971}
   node2: {fileID: 912567320}
+  maxCardsInHand: 5
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -4039,9 +4039,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  hand: []
   node1: {fileID: 924733166}
   node2: {fileID: 1482726062}
+  maxCardsInHand: 0
 --- !u!1 &736629909
 GameObject:
   m_ObjectHideFlags: 0

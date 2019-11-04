@@ -75,7 +75,7 @@ public class Player : Actor
     {
         OnStartTurn();
         RemainingActions = maxActionsPosible;
-        hand.GetDrawedCards(deck, 4);
+        hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
         HUD.ShowEndTurnButton(true);
         RemainingActions = maxActionsPosible;
     }
@@ -166,6 +166,8 @@ public class Player : Actor
         foreach (var item in cardsDraws)
         {
             item.transform.SetParent(hand.transform);
+            item.inHand = true;
+            hand.hand.Add(item.DeckID, item);
         }
         hand.AlingCards();
     }

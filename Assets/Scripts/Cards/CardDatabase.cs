@@ -117,12 +117,25 @@ public static class CardDatabase
             Target.GetDamage((stats.GetDebuffAmmount(DeBuffType.healthReduction) * cantCards.Count));
 
             foreach (var item in cantCards)
-            {
-                Debug.Log(item.DeckID);
                 Owner.hand.DiscardCard(item.DeckID);
-            }
 
         };
+
+        //Carta número 7.
+        Action<Actor, Actor, CardData, int> Carta7 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
+        {
+            //El player consume Energía.
+            Owner.ModifyEnergy(stats.Cost);
+
+            //Carta Combo por cada carta
+            
+
+            Target.GetDamage((stats.GetDebuffAmmount(DeBuffType.healthReduction) * Owner.hand.hand.Count));
+            Target.AddExtraTurn(stats.extraTurns);
+            Owner.hand.DiscardCard(deckID);
+
+        };
+
 
         //Carta número 8.
         Action<Actor, Actor, CardData, int> Carta8 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
@@ -177,13 +190,13 @@ public static class CardDatabase
             //+2 Daño (Target), +2 Salud, +2 Reducción de Daño, +1 Carta, -3 Turnos
             Owner.heal(stats.GetDebuffAmmount(DeBuffType.healthReduction));
             Owner.AddBuff(BuffType.ArmourIncrease, stats.GetBuffAmmount(BuffType.ArmourIncrease));
-            Owner.DrawCards(1);
+            Owner.DrawCards(stats.extraCards);
 
             //Modificadores de daño.
             int realDamage = stats.GetDebuffAmmount(DeBuffType.healthReduction) + Owner.DamageIncrease;
 
             Target.GetDamage(realDamage);
-            Target.AddExtraTurn(3);
+            Target.AddExtraTurn(stats.extraTurns);
 
             Owner.hand.DiscardCard(deckID);
 
@@ -206,6 +219,7 @@ public static class CardDatabase
         CardBehaviours.Add(4, Carta4);
         CardBehaviours.Add(5, Carta5);
         CardBehaviours.Add(6, Carta6);
+        CardBehaviours.Add(7, Carta7);
         CardBehaviours.Add(8, Carta8);
         CardBehaviours.Add(9, Carta9);
         CardBehaviours.Add(13, Carta13);

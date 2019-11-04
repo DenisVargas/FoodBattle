@@ -11,6 +11,7 @@ public class Hand : MonoBehaviour
     public Transform node1;
     public Transform node2;
     private Vector3 startPost;
+    public int maxCardsInHand;
 
     public void HandControl(bool activate)
     {
@@ -30,13 +31,16 @@ public class Hand : MonoBehaviour
 
     public void GetDrawedCards(Deck deck, int Ammount)
     {
-        foreach (var item in deck.DrawCards(Ammount))
+        if (hand.Count < 4)
         {
-            item.transform.SetParent(transform);
-            item.inHand = true;
-            hand.Add(item.DeckID, item);
+            foreach (var item in deck.DrawCards(Ammount))
+            {
+                item.transform.SetParent(transform);
+                item.inHand = true;
+                hand.Add(item.DeckID, item);
+            }
+            AlingCards();
         }
-        AlingCards();
     }
 
     public void DiscardCard(int idCard)
