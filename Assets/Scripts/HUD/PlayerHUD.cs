@@ -11,6 +11,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] TMP_Text _remaingActions = null;
     [SerializeField] TMP_Text _usedCards      = null;
     [SerializeField] TMP_Text _remainingCards = null;
+    [SerializeField] TMP_Text _buffDamage = null;
+    [SerializeField] TMP_Text _buffArmor = null;
 
     public GameObject EndTurnButton;
 
@@ -32,11 +34,20 @@ public class PlayerHUD : MonoBehaviour
         set { _remainingCards.text = value.ToString(); }
     }
 
+    public int SetBuffDamage
+    {
+        set { _buffDamage.text = value.ToString(); }
+    }
+
+    public int SetBuffArmor
+    {
+        set { _buffArmor.text = value.ToString(); }
+    }
+
     public void SetPlayerName(string playerName)
     {
         _playerName.text = playerName;
     }
-
     /// <summary>
     /// Activa o desactiva el boton de termino de turno en el Canvas.
     /// </summary>
