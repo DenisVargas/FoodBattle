@@ -16,9 +16,16 @@ MonoBehaviour:
   ID: 7
   image: {fileID: 21300000, guid: 53b81de0bb57c05409e22b5473e98c06, type: 3}
   Cost: 2
-  extraTurns: 0
+  extraTurns: 1
   extraCards: 0
   Buffs: []
-  Debuffs: []
+  Debuffs:
+  - effectTarget: 1
+    DebuffType: 0
+    DebuffAmmount: 1
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
   description: "Inflije +1 de da\xF1o por cada carta que tengas en mano (pierdes un
     turno al usarla)."

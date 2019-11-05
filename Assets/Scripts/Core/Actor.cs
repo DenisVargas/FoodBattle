@@ -67,22 +67,7 @@ public abstract class Actor : MonoBehaviour
 
     //=============================== Efectos Aplicables =========================================
 
-    public void AddBuff(BuffType type, int Ammount)
-    {
-        switch (type)
-        {
-            case BuffType.none:
-                break;
-            case BuffType.ArmourIncrease:
-                Armour += Ammount;
-                break;
-            case BuffType.DamageIncrease:
-                DamageIncrease += Ammount;
-                break;
-            default:
-                break;
-        }
-    }
+    public virtual void AddBuff(BuffType type, int Ammount) { }
     public virtual void GetDamage(int damage) { }
     public virtual void heal(int Ammount) { }
     public virtual void RestoreAllHealth() { }
@@ -94,6 +79,5 @@ public abstract class Actor : MonoBehaviour
     }
     public virtual void ModifyEnergy(int Ammount) { }
     public virtual void DrawCards(int Ammount) { }
-
 
 }

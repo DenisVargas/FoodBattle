@@ -207,6 +207,28 @@ public class Player : Actor
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
     }
 
+    public override void AddBuff(BuffType type, int Ammount)
+    {
+        base.AddBuff(type, Ammount);
+        switch (type)
+        {
+            case BuffType.none:
+                break;
+            case BuffType.ArmourIncrease:
+                Armour += Ammount;
+                CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Ammount);
+                CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
+                break;
+            case BuffType.DamageIncrease:
+                DamageIncrease += Ammount;
+                CombatManager.match.FeedbackHUD.SetBuffAttack("Fuerza: ", Ammount);
+                break;
+            default:
+                break;
+        }
+    }
+
+
     #endregion
 
     //------------------------------------------------------------------------------------------------------------------
@@ -230,6 +252,8 @@ public class Player : Actor
         {
             HUD.PlayerLife = Health;
             HUD.RemainingActions = RemainingActions;
+            HUD.SetBuffArmor = Armour;
+            HUD.SetBuffDamage = DamageIncrease;
         }
     }
 }
