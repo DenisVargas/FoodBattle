@@ -84,6 +84,7 @@ public class Enem : Actor
     {
         //Decido que carajos hacer con mi vida.
         OnStartTurn(this);
+        Energy = turnEnergy;
         StartCoroutine(DelayedChoose(1.5f));
     }
 
@@ -162,6 +163,8 @@ public class Enem : Actor
     {
         OnEndTurn(this);
 
+        Energy = 0;
+
         //Feedback
         au.clip = turn;
         au.Play();
@@ -175,18 +178,24 @@ public class Enem : Actor
     public void AttackToTarget()
     {
         //Activo la animación o lo que sea.
-        print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
 
         var randomNumber = UnityEngine.Random.Range(0, cardsEnemy.Count);
         cardSelected = cardsEnemy[randomNumber];
         cardsEnemy.RemoveAt(randomNumber);
         cardSelected.Stats = CardDatabase.GetCardData(1);
-        cardStateShow = 1;
-        cardSelected.LoadCardDisplayInfo();
-        target.GetDamage(cardSelected.Stats.GetDebuff(DeBuffType.healthReduction).Ammount);
+        if (Energy >= cardSelected.Stats.Cost)
+        {
+            print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
+            cardStateShow = 1;
+            cardSelected.LoadCardDisplayInfo();
+            target.GetDamage(cardSelected.Stats.GetDebuff(DeBuffType.healthReduction).Ammount);
 
-        Energy -= cardSelected.Stats.Cost;
-        HUD.EnergyDisplay = Energy;
+            Energy -= cardSelected.Stats.Cost;
+            HUD.EnergyDisplay = Energy;
+        }
+        else
+            StartCoroutine(DelayedEndTurn(2f));
+
     }
 
     //============================================================================================================================
@@ -218,25 +227,29 @@ public class Enem : Actor
     protected override void heal(int Ammount)
     {
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
-        cardStateShow = 1;
         cardSelected.Stats = (CardData)Resources.Load("Cards/003");
         cardSelected.LoadCardDisplayInfo();
 
-        print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
+        if (Energy >= cardSelected.Stats.Cost)
+        {
+            cardStateShow = 1;
+            print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
+            //Me curo.
+            int HealAmmount = cardSelected.Stats.GetBuff(BuffType.Heal).Ammount;
+            Health += HealAmmount;
+            Health = Mathf.Clamp(Health, 0, maxHealth);
+            HUD.healthDisplay = Health;
+            au.clip = hlth;
+            au.Play();
 
-        //Me curo.
-        int HealAmmount = cardSelected.Stats.GetBuff(BuffType.Heal).Ammount;
-        Health += HealAmmount;
-        Health = Mathf.Clamp(Health, 0, maxHealth);
-        HUD.healthDisplay = Health;
-        au.clip = hlth;
-        au.Play();
+            CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", HealAmmount);
+            CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
 
-        CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", HealAmmount);
-        CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
-
-        Energy -= cardSelected.Stats.Cost;
-        HUD.EnergyDisplay = Energy;
+            Energy -= cardSelected.Stats.Cost;
+            HUD.EnergyDisplay = Energy;
+        }
+        else
+            StartCoroutine(DelayedEndTurn(2f));
     }
 
     IEnumerator WaitCard(float seconds)
