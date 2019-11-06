@@ -32,7 +32,7 @@ public class Card : MonoBehaviour
     public bool back;
     public bool touchScreen = false;
     public bool stopAll = false;
-    public bool isInteractuable = false;
+    public bool isInteractuable;
     public bool comingBack = false;
     public bool inHand = false;
     public bool canBeShowed;
@@ -68,6 +68,7 @@ public class Card : MonoBehaviour
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
         inHand = false;
+        //isInteractuable = false;
         //starPos = transform.position;
         comingBack = true;
         back = true;
@@ -118,9 +119,19 @@ public class Card : MonoBehaviour
 
     public void ActivateCard()
     {
-        //Acá va todos los efectos.
-        CardEffect(Owner, Rival, Stats, DeckID);
-        OnUseCard(Stats.ID);
+        if (CanBeActivated(Stats.Cost))
+        {
+            //Acá va todos los efectos.
+            CardEffect(Owner, Rival, Stats, DeckID);
+            OnUseCard(Stats.ID);
+        }
+        else
+        {
+            touchScreen = false;
+            comingBack = true;
+            CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
+        }
+
     }
 
     public void OnMouseDown()
@@ -152,7 +163,6 @@ public class Card : MonoBehaviour
                 if (!stopAll)
                 {
                     transform.position = GetMouseAsWorldPoint() + mOffset;
-
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -174,12 +184,9 @@ public class Card : MonoBehaviour
             {
                 if (!stopAll)
                 {
-                    if (back || !CanBeActivated(Stats.Cost))
-                    {
+                    if (back)
                         comingBack = true;
-                        CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
-                    }
-                    else if (touchScreen && CanBeActivated(Stats.Cost))
+                    else if (touchScreen)
                         ActivateCard();
                 }
             }
