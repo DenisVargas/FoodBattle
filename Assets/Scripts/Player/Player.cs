@@ -17,8 +17,6 @@ public class Player : Actor
     public AudioClip extraTurn;
 
     //Propios del Combate.
-    public int maxActionsPosible;
-    public int RemainingActions;
     bool _interactable = false;
 
     //========================================= PROPIEDADES ===========================================================
@@ -52,7 +50,7 @@ public class Player : Actor
         ad = GetComponent<AudioSource>();
         //Inicializar cosas
         Health = maxHealth;
-        RemainingActions = maxActionsPosible;
+        //Energy = 0;                              //Esto no hace falta porque CombatManager lo inicializa.
 
         HUD.SetPlayerName(ActorName);
         HUD.PlayerLife = Health;
@@ -63,7 +61,7 @@ public class Player : Actor
         //deck.LoadAllCards();
 
         //Primer update del estado.
-        UpdateCombatInterface();
+        //UpdateCombatInterface();                 //Esto no hace falta porque CombatManager lo inicializa.
     }
 
     //========================================= OVERRIDES =============================================================
@@ -73,13 +71,13 @@ public class Player : Actor
     /// <summary>
     /// Inicia el turno del jugador.
     /// </summary>
-    public override void StartTurn()
+    public override void StartTurn(int turnEnergy)
     {
-        OnStartTurn();
-        RemainingActions = maxActionsPosible;
+        OnStartTurn(this);
+        Energy = turnEnergy;
+        UpdateCombatInterface();
         hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
         HUD.ShowEndTurnButton(true);
-        RemainingActions = maxActionsPosible;
     }
     /// <summary>
     /// Se llama en vez de Update.
@@ -98,7 +96,7 @@ public class Player : Actor
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
         HUD.ShowEndTurnButton(false);
 
-        RemainingActions = 0;
+        Energy = 0;
         UpdateCombatInterface();
 
         //Reduzco la cantidad de turnos de mis buffs y debuffs.
@@ -181,7 +179,7 @@ public class Player : Actor
     }
     protected override void AddExtraEnergy(int Ammount)
     {
-        RemainingActions++;
+        Energy++;
         UpdateCombatInterface();
         CombatManager.match.FeedbackHUD.SetEnergy("Energía: +", Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
@@ -211,26 +209,26 @@ public class Player : Actor
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
     }
 
-    public override void AddBuff(BuffType type, int Ammount)
-    {
-        base.AddBuff(type, Ammount);
-        switch (type)
-        {
-            case BuffType.none:
-                break;
-            case BuffType.ArmourIncrease:
-                Armour += Ammount;
-                CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Ammount);
-                CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
-                break;
-            case BuffType.DamageIncrease:
-                DamageIncrease += Ammount;
-                CombatManager.match.FeedbackHUD.SetBuffAttack("Fuerza: ", Ammount);
-                break;
-            default:
-                break;
-        }
-    }
+    //public override void AddBuff(BuffType type, int Ammount)
+    //{
+    //    base.AddBuff(type, Ammount);
+    //    switch (type)
+    //    {
+    //        case BuffType.none:
+    //            break;
+    //        case BuffType.ArmourIncrease:
+    //            Armour += Ammount;
+    //            CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Ammount);
+    //            CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
+    //            break;
+    //        case BuffType.DamageIncrease:
+    //            DamageIncrease += Ammount;
+    //            CombatManager.match.FeedbackHUD.SetBuffAttack("Fuerza: ", Ammount);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
 
     #endregion
@@ -243,7 +241,7 @@ public class Player : Actor
     /// <param name="cost">Los puntos de energía que consume la acción.</param>
     void reduxActions(int cost)
     {
-        RemainingActions -= cost;
+        Energy -= cost;
         UpdateCombatInterface();
     }
 
@@ -255,9 +253,9 @@ public class Player : Actor
         if (HUD != null)
         {
             HUD.PlayerLife = Health;
-            HUD.RemainingActions = RemainingActions;
-            HUD.SetBuffArmor = Armour;
-            HUD.SetBuffDamage = DamageIncrease;
+            HUD.RemainingActions = Energy;
+            HUD.SetBuffArmor = GetActiveBuffAmmount(BuffType.ArmourIncrease);
+            HUD.SetBuffDamage = GetActiveBuffAmmount(BuffType.DamageIncrease);
         }
     }
 }

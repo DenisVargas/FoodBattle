@@ -20,10 +20,6 @@ public class Enem : Actor
     public GameObject GetHitPrefab;
     public GameObject GetHitParticleParent;
 
-    //Estado y cosas
-    [Header("Estado y Cosas")]
-    public int cardAmmount = 20;
-
     //weas
     [Header("Weas")]
     public int HealAmmount;
@@ -53,7 +49,6 @@ public class Enem : Actor
 
 
     bool _canExecuteActionM = false;
-    bool executedAction = false;
     bool canEndTurn = false;
 
     public override bool CanExecuteActions
@@ -80,15 +75,15 @@ public class Enem : Actor
 
         HUD.SetRivalName(ActorName);
         HUD.healthDisplay = Health;
-        HUD.cardsDisplay = cardAmmount;
+        HUD.EnergyDisplay = Energy;
         hand.AlingCards();
         deck.LoadAllCards();
     }
 
-    public override void StartTurn()
+    public override void StartTurn(int turnEnergy)
     {
         //Decido que carajos hacer con mi vida.
-        OnStartTurn();
+        OnStartTurn(this);
         StartCoroutine(DelayedChoose(1.5f));
     }
 
@@ -151,7 +146,11 @@ public class Enem : Actor
                 hand.AlingCards();
                 cardSelected = null;
                 cardStateShow = 0;
-                StartCoroutine(DelayedEndTurn(2f));
+
+                if (Energy > 0)
+                    StartCoroutine(DelayedChoose(1.5f));
+                else
+                    StartCoroutine(DelayedEndTurn(2f));
             }
         }
         //Terminamos el turno.
@@ -181,13 +180,13 @@ public class Enem : Actor
         var randomNumber = UnityEngine.Random.Range(0, cardsEnemy.Count);
         cardSelected = cardsEnemy[randomNumber];
         cardsEnemy.RemoveAt(randomNumber);
-        cardSelected.Stats = (CardData)Resources.Load("Cards/001");
+        cardSelected.Stats = CardDatabase.GetCardData(1);
         cardStateShow = 1;
         cardSelected.LoadCardDisplayInfo();
         target.GetDamage(cardSelected.Stats.GetDebuff(DeBuffType.healthReduction).Ammount);
 
-        cardAmmount--;
-        HUD.cardsDisplay = cardAmmount;
+        Energy -= cardSelected.Stats.Cost;
+        HUD.EnergyDisplay = Energy;
     }
 
     //============================================================================================================================
@@ -236,8 +235,8 @@ public class Enem : Actor
         CombatManager.match.FeedbackHUD.SetHeal("Recuperación:", HealAmmount);
         CombatManager.match.HUDAnimations.SetTrigger("EnemyGetsHealed");
 
-        cardAmmount--;
-        HUD.cardsDisplay = cardAmmount;
+        Energy -= cardSelected.Stats.Cost;
+        HUD.EnergyDisplay = Energy;
     }
 
     IEnumerator WaitCard(float seconds)

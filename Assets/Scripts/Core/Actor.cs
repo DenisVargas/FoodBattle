@@ -22,7 +22,7 @@ using UnityEngine;
 public abstract class Actor : MonoBehaviour
 {
     //Eventos Comunes.
-    public Action OnStartTurn = delegate { };
+    public Action<Actor> OnStartTurn = delegate { };
     public Action OnUpdateTurn = delegate { };
     public Action<Actor> OnEndTurn = delegate { };
     public Action OnActorDies = delegate { };
@@ -33,6 +33,7 @@ public abstract class Actor : MonoBehaviour
     public Hand hand;
     public int Health;
     public int maxHealth;
+    public int Energy;
     public int Damage;
 
     [Header("Buffs")]
@@ -56,15 +57,19 @@ public abstract class Actor : MonoBehaviour
     public virtual void Awake()
     {
         //Inicializaciones.
-        ActiveBuffs.Add(EffectDurationType.Limited, new List<Buff>());
-        ActiveBuffs.Add(EffectDurationType.Permanent, new List<Buff>());
-        ActiveDebuffs.Add(EffectDurationType.Limited, new List<DeBuff>());
-        ActiveDebuffs.Add(EffectDurationType.Permanent, new List<DeBuff>());
+        if (!ActiveBuffs.ContainsKey(EffectDurationType.Limited))
+            ActiveBuffs.Add(EffectDurationType.Limited, new List<Buff>());
+        if (!ActiveBuffs.ContainsKey(EffectDurationType.Permanent))
+            ActiveBuffs.Add(EffectDurationType.Permanent, new List<Buff>());
+        if (!ActiveDebuffs.ContainsKey(EffectDurationType.Limited))
+            ActiveDebuffs.Add(EffectDurationType.Limited, new List<DeBuff>());
+        if (!ActiveDebuffs.ContainsKey(EffectDurationType.Permanent))
+            ActiveDebuffs.Add(EffectDurationType.Permanent, new List<DeBuff>());
     }
 
     //============================== Turnos ======================================================
 
-    public virtual void StartTurn() { }
+    public virtual void StartTurn(int turnEnergy) { }
     public virtual void UpdateTurn() { }
     public virtual void EndTurn() { }
 
@@ -194,6 +199,13 @@ public abstract class Actor : MonoBehaviour
     /// <param name="buffType">El tipo de buffo del cual queremos sacar la cantidad acumulada.</param>
     public int GetActiveBuffAmmount(BuffType buffType, bool LimitedAndPermanent = false)
     {
+        //Primero chequeo que los buffos esten inicializados.
+        if (ActiveBuffs.Keys.Count == 0)
+        {
+            ActiveBuffs.Add(EffectDurationType.Limited, new List<Buff>());
+            ActiveBuffs.Add(EffectDurationType.Permanent, new List<Buff>());
+        }
+
         int limited_AcumulatedAmmount = ActiveBuffs[EffectDurationType.Limited]
                                         .Where( b => b.BuffType == buffType)
                                         .Select( b => b.Ammount)
@@ -210,6 +222,36 @@ public abstract class Actor : MonoBehaviour
 
         return limited_AcumulatedAmmount;
     }
+
+    /// <summary>
+    /// Retorna la cantidad acumulada de un tipo de Debuff.
+    /// </summary>
+    /// <param name="type">El tipo de debuff del cual queremos sacar la cantidad acumulada.</param>
+    public int GetActiveDebuffAmmount(DeBuffType type, bool LimitedAndPermanent = false)
+    {
+        if (ActiveDebuffs.Keys.Count == 0)
+        {
+            ActiveDebuffs.Add(EffectDurationType.Limited, new List<DeBuff>());
+            ActiveDebuffs.Add(EffectDurationType.Permanent, new List<DeBuff>());
+        }
+
+        int Acumulated = ActiveDebuffs[EffectDurationType.Limited]
+                                        .Where(db => db.DebuffType == type)
+                                        .Select(db => db.Ammount)
+                                        .Sum();
+
+        if (LimitedAndPermanent)
+        {
+            int permanent = ActiveDebuffs[EffectDurationType.Permanent]
+                            .Where(db => db.DebuffType == type)
+                            .Select(db => db.Ammount)
+                            .Sum();
+            Acumulated += permanent;
+        }
+
+        return Acumulated;
+    }
+
 
     /// <summary>
     /// Reduce en 1 la duración de todos los buffos y debuffos x cada turno que termina.

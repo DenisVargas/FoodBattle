@@ -7,7 +7,7 @@ public class EnemyHUD : MonoBehaviour
 {
     [SerializeField] TMP_Text _name = null;
     [SerializeField] TMP_Text _health = null;
-    [SerializeField] TMP_Text _cards = null;
+    [SerializeField] TMP_Text _energy = null;
 
     /// <summary>
     /// Setea el nombre del rival en el HUD.
@@ -27,9 +27,9 @@ public class EnemyHUD : MonoBehaviour
     /// <summary>
     /// Actualiza en el HUD la cantidad de cartas del rival.
     /// </summary>
-    public float cardsDisplay
+    public float EnergyDisplay
     {
-        set { _cards.text = value.ToString(); }
+        set { _energy.text = value.ToString(); }
     }
 
 }

@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager match;    // Singleton de la Clase.
+    public Action<Actor> RoundTurn = delegate { };
 
     public Actor Current;                 // Referencia al Actor Activo en este momento.
     public Player player;                 // Referencia al jugador actual.
@@ -18,6 +19,11 @@ public class CombatManager : MonoBehaviour
 
     public Animator HUDAnimations;        // Contiene las animaciones del Canvas.
     public ActionFeedbackHUD FeedbackHUD;
+
+    [Header("Rondas")]
+    public bool[] _currentRound = new bool[2] { false, false };
+    public int InitialEnergy = 3;
+    public int EnergyIncreasePerRound = 1;
 
     public Queue<Actor> Turns = new Queue<Actor>();
 
@@ -31,19 +37,23 @@ public class CombatManager : MonoBehaviour
 
         //Player
         player = FindObjectOfType<Player>();
-        player.OnStartTurn += () => 
+        player.OnStartTurn += (Player) => 
         {
+            ActualizeMatchRoundData(Player);
             SetNotificationState(false);
             HUDAnimations.SetTrigger("PlayerTurn");
         };
         player.OnEndTurn += EndCurrentTurn;
         player.OnActorDies += PlayerDefeat;
+        player.deck.LoadAllCards();
+        player.deck.ShuffleDeck();
         Turns.Enqueue(player);
 
         //Enemigo.
         Enemy = FindObjectOfType<Enem>();
-        Enemy.OnStartTurn += () =>
+        Enemy.OnStartTurn += (Enemy) =>
         {
+            ActualizeMatchRoundData(Enemy);
             SetNotificationState(false);
             HUDAnimations.SetTrigger("EnemyTurn");
         };
@@ -51,12 +61,25 @@ public class CombatManager : MonoBehaviour
         Enemy.OnEnemyDie += PlayerWin;
         Turns.Enqueue(Enemy);
 
-        //Fundamental que esto se setee.
-        //CardBehaviour.InitCardBehaviourDictionary();
-        player.deck.LoadAllCards();
-        player.deck.ShuffleDeck();
         Current = GetNextActor();
-        Current.StartTurn();
+        Current.StartTurn(InitialEnergy);
+    }
+
+    /// <summary>
+    /// Retorna verdadero cuando ambos players tuvieron su turno.
+    /// </summary>
+    /// <returns></returns>
+    public bool roundEnded()
+    {
+        return (_currentRound[0] && _currentRound[1]);
+    }
+    public void ActualizeMatchRoundData(Actor actor)
+    {
+        bool isPlayer = actor == player;
+        if (isPlayer)
+            _currentRound[0] = isPlayer;
+        else
+            _currentRound[1] = !isPlayer;
     }
 
     /// <summary>
@@ -115,8 +138,15 @@ public class CombatManager : MonoBehaviour
         else
             Turns.Enqueue(source);
 
+        if (roundEnded())
+        {
+            _currentRound[0] = false;
+            _currentRound[1] = false;
+            InitialEnergy += EnergyIncreasePerRound;
+        }
+
         Current = GetNextActor();
-        Current.StartTurn();
+        Current.StartTurn(InitialEnergy);
         print(string.Format("Turno de {0}", Current.ActorName));
     }
 

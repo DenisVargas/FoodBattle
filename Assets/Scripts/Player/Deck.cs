@@ -83,7 +83,7 @@ public class Deck : MonoBehaviour
                 Card realCard = Instantiate(CardPrefab, CardParent.position, Quaternion.identity, CardParent).GetComponent<Card>();
                 realCard.Stats = data;
                 realCard.LoadCardDisplayInfo();
-                realCard.CanBeActivated = (incomingCost) =>  Owner.RemainingActions - incomingCost >= 0;
+                realCard.CanBeActivated = (incomingCost) =>  Owner.Energy - incomingCost >= 0;
 
                 addedID++;
                 realCard.DeckID = addedID;
