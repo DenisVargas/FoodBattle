@@ -92,7 +92,7 @@ public class Card : MonoBehaviour
             {
                 if (!back)
                     anim.SetBool(stopAll ? "ToTable" : "Flip", true);
-                else if (comingBack)
+                if (comingBack)
                     anim.SetBool("Flip", false);
 
                 if (stopAll)
@@ -175,7 +175,10 @@ public class Card : MonoBehaviour
                 if (!stopAll)
                 {
                     if (back || !CanBeActivated(Stats.Cost))
+                    {
                         comingBack = true;
+                        CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
+                    }
                     else if (touchScreen && CanBeActivated(Stats.Cost))
                         ActivateCard();
                 }

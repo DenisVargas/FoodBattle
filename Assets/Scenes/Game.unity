@@ -420,6 +420,9 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   HUDAnimations: {fileID: 1627305581}
   FeedbackHUD: {fileID: 1627305582}
+  _currentRound: 0000
+  InitialEnergy: 3
+  EnergyIncreasePerRound: 1
 --- !u!4 &49846431
 Transform:
   m_ObjectHideFlags: 0
@@ -469,16 +472,14 @@ MonoBehaviour:
   hand: {fileID: 734100575}
   Health: 20
   maxHealth: 20
+  Energy: 0
   Damage: 10
   extraTurns: 0
-  Armour: 0
-  DamageIncrease: 0
   HUD: {fileID: 1627305580}
   target: {fileID: 1552861697}
   GetHitPrefab: {fileID: 5480574218024976712, guid: 1951e283d8256164bac34a5e82c5d68b,
     type: 3}
   GetHitParticleParent: {fileID: 29767549}
-  cardAmmount: 20
   HealAmmount: 5
   ShowCard: {fileID: 60375195}
   discardDeck: {fileID: 18326383}
@@ -7497,6 +7498,7 @@ RectTransform:
   - {fileID: 1227664025}
   - {fileID: 1231014239}
   - {fileID: 1345518821}
+  - {fileID: 2049052424}
   m_Father: {fileID: 1627305579}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9165,18 +9167,15 @@ MonoBehaviour:
   hand: {fileID: 149282814}
   Health: 20
   maxHealth: 20
+  Energy: 0
   Damage: 10
   extraTurns: 0
-  Armour: 0
-  DamageIncrease: 0
   HUD: {fileID: 1627305575}
   shake: {fileID: 534669907}
   ad: {fileID: 0}
   life: {fileID: 8300000, guid: cdd5768f227dc614792beff0cadde2ff, type: 3}
   hit: {fileID: 8300000, guid: 66fc356cca01cc74e82bdbc6b0e02f8c, type: 3}
   extraTurn: {fileID: 8300000, guid: 0919113da7b6e9b44b7070c68b1796e9, type: 3}
-  maxActionsPosible: 3
-  RemainingActions: 5
 --- !u!4 &1552861698
 Transform:
   m_ObjectHideFlags: 0
@@ -9596,7 +9595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: {fileID: 932072056}
   _health: {fileID: 320951329}
-  _cards: {fileID: 2058783936}
+  _energy: {fileID: 2058783936}
 --- !u!95 &1627305581
 Animator:
   serializedVersion: 3
@@ -11241,6 +11240,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2049052423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2049052424}
+  - component: {fileID: 2049052426}
+  - component: {fileID: 2049052425}
+  m_Layer: 5
+  m_Name: EnergiaInsuficiente
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2049052424
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049052423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.9465, y: 2.9465, z: 2.9465}
+  m_Children: []
+  m_Father: {fileID: 1152159061}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1490, y: 0}
+  m_SizeDelta: {x: 341, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2049052425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049052423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 1de29307933d58d43894dc34420cb43c, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 0.942
+  m_FillClockwise: 1
+  m_FillOrigin: 1
+  m_UseSpriteMesh: 0
+--- !u!222 &2049052426
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049052423}
+  m_CullTransparentMesh: 0
 --- !u!1 &2058783935
 GameObject:
   m_ObjectHideFlags: 0

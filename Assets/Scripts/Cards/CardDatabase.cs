@@ -61,6 +61,10 @@ public static class CardDatabase
             //Reduce en 1 de daño el siguiente turno.
             //TODO: futuro esta función va a recibir un valor extra = cantidad de turnos.
             Owner.AddBuff(stats.GetBuff(BuffType.ArmourIncrease));
+            CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease));
+            CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
+            Owner.hand.DiscardCard(DeckID);
+
         };
 
         //Carta número 3.
@@ -71,6 +75,9 @@ public static class CardDatabase
 
             //Restaura 2 de salud en el turno.
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
+
+            Owner.hand.DiscardCard(DeckID);
+
         };
 
         //Carta número 4.
@@ -95,6 +102,9 @@ public static class CardDatabase
             //Carta Categoría Rara.
             //Añade un buffo de Daño +1;
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
+
+            Owner.hand.DiscardCard(DeckID);
+
         };
 
         //Carta número 6.
@@ -110,8 +120,6 @@ public static class CardDatabase
 
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
-
-            Target.GetDamage((stats.GetDebuff(DeBuffType.healthReduction).Ammount * 2) * cantCards.Count);
         };
 
         //Carta número 7.
