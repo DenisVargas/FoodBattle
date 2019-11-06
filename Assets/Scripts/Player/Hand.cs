@@ -15,13 +15,23 @@ public class Hand : MonoBehaviour
 
     public void HandControl(bool activate)
     {
-        foreach (var item in hand)
-            item.Value.isInteractuable = activate;
+        cards.Clear();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                cards.Add(transform.GetChild(i));
+            }
+        }
+        foreach (var item in cards)
+        {
+            item.GetComponent<Card>().isInteractuable = activate;
+        }
     }
 
     public void GetDrawedCards(Deck deck, int Ammount)
     {
-        if (hand.Count < maxCardsInHand)
+        if (hand.Count < 4)
         {
             foreach (var item in deck.DrawCards(Ammount))
             {
