@@ -129,10 +129,11 @@ public static class CardDatabase
             Owner.ModifyEnergy(stats.Cost);
 
             //Carta Combo por cada carta
-            
 
-            Target.GetDamage((stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count));
+            int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
             Target.AddExtraTurn(stats.extraTurns);
+            Target.GetDamage(realDamage);
+
             Owner.hand.DiscardCard(deckID);
 
         };

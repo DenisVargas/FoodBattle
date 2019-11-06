@@ -39,8 +39,8 @@ public class CombatManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         player.OnStartTurn += (Player) => 
         {
-            ActualizeMatchRoundData(Player);
             SetNotificationState(false);
+            ActualizeMatchRoundData(Player);
             HUDAnimations.SetTrigger("PlayerTurn");
         };
         player.OnEndTurn += EndCurrentTurn;
