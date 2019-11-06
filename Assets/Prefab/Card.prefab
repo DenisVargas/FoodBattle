@@ -285,23 +285,25 @@ MonoBehaviour:
   Stats: {fileID: 0}
   Owner: {fileID: 0}
   Rival: {fileID: 0}
-  UniqueID: 0
-  lookCard: 0
+  DeckID: 0
   back: 0
   touchScreen: 0
   stopAll: 0
+  isInteractuable: 0
   comingBack: 0
   inHand: 0
+  canBeShowed: 0
   starPos: {x: 0, y: 0, z: 0}
   ni: {fileID: 0}
   clickCard: {fileID: 8300000, guid: a83350120ea390646acf7900306a877c, type: 3}
-  moveCard: {fileID: 8300000, guid: e2e031a890f1b3e4c9154fa85c5a1130, type: 3}
+  noEnergy: {fileID: 8300000, guid: c53995202f9a0764e8fed320557beda9, type: 3}
   nameCard: {fileID: 3818530641372655045}
   description: {fileID: 5058429838739699824}
   cost: {fileID: 1176635292928503563}
   damage: {fileID: 6224537058578622425}
   image: {fileID: 8415829431950629971}
   discardPosition: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!65 &1676594863372105398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -352,7 +354,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1124,6 +1126,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bc28499e787ce8a47b6bdc694692c044, type: 2}
+    - target: {fileID: 400004, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.64
@@ -1159,22 +1177,6 @@ PrefabInstance:
     - target: {fileID: 400014, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.019
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 400006, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}

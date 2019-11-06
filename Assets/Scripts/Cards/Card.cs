@@ -42,6 +42,7 @@ public class Card : MonoBehaviour
 
     public AudioSource ni;
     public AudioClip clickCard;
+    public AudioClip noEnergy;
 
     //public GameObject attack;
     private float mZCoord;
@@ -92,6 +93,7 @@ public class Card : MonoBehaviour
             {
                 if (!back)
                     anim.SetBool(stopAll ? "ToTable" : "Flip", true);
+                
                 if (comingBack)
                     anim.SetBool("Flip", false);
 
@@ -100,6 +102,7 @@ public class Card : MonoBehaviour
                     var dist = Vector3.Distance(transform.position, discardPosition.position);
                     if (dist >= 0)
                         transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
+
                     else
                         inHand = false;
                 }
@@ -178,6 +181,8 @@ public class Card : MonoBehaviour
                     {
                         comingBack = true;
                         CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
+                        ni.clip = noEnergy;
+                        ni.Play();
                     }
                     else if (touchScreen && CanBeActivated(Stats.Cost))
                         ActivateCard();
