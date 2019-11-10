@@ -59,6 +59,7 @@ public class Card : MonoBehaviour
     public Animator anim;
     Rigidbody rb;
     BoxCollider col;
+
     private void Awake()
     {
         ni = GetComponent<AudioSource>();
@@ -133,6 +134,8 @@ public class Card : MonoBehaviour
             touchScreen = false;
             comingBack = true;
             CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
+            ni.clip = noEnergy;
+            ni.Play();
         }
 
     }
@@ -189,15 +192,7 @@ public class Card : MonoBehaviour
                 {
                     if (back)
                         comingBack = true;
-<<<<<<< HEAD
-                        CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
-                        ni.clip = noEnergy;
-                        ni.Play();
-                    }
-                    else if (touchScreen && CanBeActivated(Stats.Cost))
-=======
-                    else if (touchScreen)
->>>>>>> 283c84c99ce34e7c518c75841edf54265389c341
+                     else if (touchScreen)
                         ActivateCard();
                 }
             }
