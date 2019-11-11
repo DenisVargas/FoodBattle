@@ -9,20 +9,17 @@ public class Loading : MonoBehaviour {
 	//Esta es la forma correcta de mostrar variables privadas en el inspector. 
 	//No se deben hacer public variables que no queremos sean accesibles desde otras clases-
 	[SerializeField]
-	private string sceneToLoad;
-
+	string sceneToLoad;
 	[SerializeField]
-	private Text percentText;
-
+	Text percentText;
 	[SerializeField]
-	private Image progressImage;
+	Image progressImage;
 
 	// En cuanto se active el objeto, se inciará el cambio de escena
 	void Start () {
 		//Iniciamos una corrutina, que es un método que se ejecuta 
 		//en una línea de tiempo diferente al flujo principal del programa
 		StartCoroutine(LoadScene());
-        
 	}
 
 	//Corrutina
@@ -37,7 +34,7 @@ public class Loading : MonoBehaviour {
 
 
 		//Cuando la escena llega al 90% de carga, se produce el cambio de escena
-		while (loading.progress < 0.6f) {
+		while (loading.progress < 0.9f) {
 			
 			//Actualizamos el % de carga de una forma optima 
 			//(concatenar con + tiene un alto coste en el rendimiento)
