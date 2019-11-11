@@ -1987,14 +1987,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1272670360}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -2050,6 +2042,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (1)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2153,6 +2149,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300006, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2819,10 +2819,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1409594990}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -2878,6 +2874,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (2)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3206,10 +3206,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1272670360}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -3265,6 +3261,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (3)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3787,10 +3787,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1409594990}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -3846,6 +3842,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5374,14 +5374,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1409594990}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -5437,6 +5429,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (1)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5542,6 +5538,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
 --- !u!1 &924733165
@@ -5581,10 +5581,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1272670360}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -5640,6 +5636,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (4)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6272,10 +6272,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1272670360}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -6331,6 +6327,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6676,10 +6676,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1272670360}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -6735,6 +6731,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (2)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7519,10 +7519,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1409594990}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -7578,6 +7574,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (4)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9491,7 +9491,9 @@ MonoBehaviour:
   _remaingActions: {fileID: 1886921585}
   _usedCards: {fileID: 204702389}
   _remainingCards: {fileID: 910286705}
+  _buffDamageSlot: {fileID: 1300431737}
   _buffDamage: {fileID: 1997018033}
+  _buffArmourSlot: {fileID: 2012292806}
   _buffArmor: {fileID: 537578204}
   EndTurnButton: {fileID: 634144495}
 --- !u!114 &1627305576
@@ -10740,10 +10742,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1409594990}
     m_Modifications:
-    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
-      propertyPath: m_Name
-      value: CardD (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.981071
@@ -10799,6 +10797,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalScale.z
       value: 2.8534
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
+      propertyPath: m_Name
+      value: CardD (3)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae5ddf88608351d4d8462d0358b478b5, type: 3}
       propertyPath: m_LocalPosition.x

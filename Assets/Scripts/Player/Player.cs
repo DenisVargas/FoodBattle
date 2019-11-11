@@ -45,6 +45,9 @@ public class Player : Actor
     {
         base.Awake();
 
+        OnBuffAdded += UpdateBuffDisplay;
+
+
         //Obtener y setear referencias.
         deck.Owner = this;
         ad = GetComponent<AudioSource>();
@@ -62,6 +65,7 @@ public class Player : Actor
 
         //Primer update del estado.
         //UpdateCombatInterface();                 //Esto no hace falta porque CombatManager lo inicializa.
+        //UpdateBuffDisplay();
     }
 
     //========================================= OVERRIDES =============================================================
@@ -101,6 +105,7 @@ public class Player : Actor
 
         //Reduzco la cantidad de turnos de mis buffs y debuffs.
         ReduxActiveEffectsDuration();
+        UpdateBuffDisplay();
 
         //LLamo el evento de Actor
         OnEndTurn(this);
@@ -232,8 +237,32 @@ public class Player : Actor
         {
             HUD.PlayerLife = Health;
             HUD.RemainingActions = Energy;
-            HUD.SetBuffArmor = GetActiveBuffAmmount(BuffType.ArmourIncrease);
-            HUD.SetBuffDamage = GetActiveBuffAmmount(BuffType.DamageIncrease);
+        }
+    }
+
+    void UpdateBuffDisplay()
+    {
+        if (HUD != null)
+        {
+            //Buffo Armadura.
+            int buffArmour = GetActiveBuffAmmount(BuffType.ArmourIncrease);
+            if (buffArmour > 0)
+            {
+                HUD.SetBuffArmor = buffArmour;
+                HUD.SetBuffDisplay(BuffType.ArmourIncrease, true);
+            }
+            else
+                HUD.SetBuffDisplay(BuffType.ArmourIncrease, false);
+
+            //Buffo Aumento de Daño.
+            int buffDamage = GetActiveBuffAmmount(BuffType.DamageIncrease);
+            if (buffDamage > 0)
+            {
+                HUD.SetBuffDamage = buffDamage;
+                HUD.SetBuffDisplay(BuffType.DamageIncrease, true);
+            }
+            else
+                HUD.SetBuffDisplay(BuffType.DamageIncrease, false);
         }
     }
 }

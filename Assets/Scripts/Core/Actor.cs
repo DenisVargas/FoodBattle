@@ -27,6 +27,9 @@ public abstract class Actor : MonoBehaviour
     public Action<Actor> OnEndTurn = delegate { };
     public Action OnActorDies = delegate { };
 
+    public event Action OnBuffAdded = delegate { };
+    public event Action OnDebuffAdded = delegate { };
+
     [Header("Estado Comun")]
     public string ActorName;
     public Deck deck;
@@ -108,6 +111,7 @@ public abstract class Actor : MonoBehaviour
             ActiveBuffs[duration].Add(buff);
             ActivateBuff(buff);
         }
+        OnBuffAdded();
     }
     public void AddBuffs(List<Buff> buffs)
     {
@@ -126,6 +130,7 @@ public abstract class Actor : MonoBehaviour
             ActiveDebuffs[duration].Add(deBuff);
             ActivateDebuff(deBuff);
         }
+        OnDebuffAdded();
     }
     public void AddDebuffs(List<DeBuff> debuffs)
     {
