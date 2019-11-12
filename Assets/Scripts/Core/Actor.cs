@@ -45,9 +45,6 @@ public abstract class Actor : MonoBehaviour
     [Header("Debuffs")]
     public Dictionary<EffectDurationType, List<DeBuff>> ActiveDebuffs = new Dictionary<EffectDurationType, List<DeBuff>>();
 
-    [Header("Turnos Extras")]
-    public int extraTurns = 0;
-
     private bool _invulnerable;
 
     //=============================== Propiedades ==============================================
@@ -300,11 +297,6 @@ public abstract class Actor : MonoBehaviour
 
     public virtual void ModifyEnergy(int Ammount) { }
     public virtual void DrawCards(int Ammount) { }
-    public virtual void AddExtraTurn(int Ammount)
-    {
-        extraTurns += Ammount;
-        CombatManager.match.AddExtraTurns(this, Ammount);
-    }
 
     //=============================== Efectos Aplicables =========================================
 

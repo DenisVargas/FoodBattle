@@ -77,7 +77,6 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
 
             Owner.hand.DiscardCard(DeckID);
-
         };
 
         //Carta número 4.
@@ -90,7 +89,6 @@ public static class CardDatabase
             Owner.DrawCards(stats.extraCards);
 
             Owner.hand.DiscardCard(DeckID);
-
         };
 
         //Carta número 5.
@@ -104,7 +102,6 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
 
             Owner.hand.DiscardCard(DeckID);
-
         };
 
         //Carta número 6.
@@ -131,7 +128,6 @@ public static class CardDatabase
             //Carta Combo por cada carta
 
             int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
-            Target.AddExtraTurn(stats.extraTurns);
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(deckID);
@@ -147,9 +143,6 @@ public static class CardDatabase
 
             //Owner recibe 4 de daño.
             Owner.GetDamage(stats.GetDebuff(DeBuffType.healthReduction).Ammount);
-
-            //Owner gana 1 turno.
-            Owner.AddExtraTurn(1);
 
             Owner.hand.DiscardCard(DeckID);
         };
@@ -175,7 +168,6 @@ public static class CardDatabase
 
             //Obtenemos toda la vida restante. Perdemos 2 turnos.
             Owner.AddBuffs(stats.GetAllBuffs());
-            Target.AddExtraTurn(stats.extraTurns);
 
             Owner.hand.DiscardCard(DeckID);
         };
@@ -194,7 +186,6 @@ public static class CardDatabase
             int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
 
             Target.GetDamage(realDamage);
-            Target.AddExtraTurn(stats.extraTurns);
 
             Owner.hand.DiscardCard(DeckID);
         };

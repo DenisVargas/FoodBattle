@@ -198,15 +198,6 @@ public class Player : Actor
         ad.clip = life;
         ad.Play();
     }
-    public override void AddExtraTurn(int Ammount)
-    {
-        base.AddExtraTurn(Ammount);
-
-        ad.clip = extraTurn;
-        ad.Play();
-
-        CombatManager.match.FeedbackHUD.SetTurns("Turnos:", Ammount > 0 ? Ammount : -Ammount);
-    }
     public override void ModifyEnergy(int Ammount)
     {
         reduxActions(Ammount);

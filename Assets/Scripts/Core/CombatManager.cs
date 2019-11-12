@@ -116,16 +116,16 @@ public class CombatManager : MonoBehaviour
     {
         return Turns.Dequeue();
     }
-    /// <summary>
-    /// Añade inmediatamente Turnos al objetivo específicado.
-    /// </summary>
-    /// <param name="target"> El actor que va a recibir turnos extra. </param>
-    /// <param name="Ammount"> La cantidad de turnos extras que va a recibir. </param>
-    public void AddExtraTurns(Actor target, int Ammount)
-    {
-        for (int i = 0; i < Ammount; i++)
-            Turns.Enqueue(target);
-    }
+    ///// <summary>
+    ///// Añade inmediatamente Turnos al objetivo específicado.
+    ///// </summary>
+    ///// <param name="target"> El actor que va a recibir turnos extra. </param>
+    ///// <param name="Ammount"> La cantidad de turnos extras que va a recibir. </param>
+    //public void AddExtraTurns(Actor target, int Ammount)
+    //{
+    //    for (int i = 0; i < Ammount; i++)
+    //        Turns.Enqueue(target);
+    //}
 
     /// <summary>
     /// Al terminarse el turno se elige al siguiente Actor.
@@ -133,10 +133,10 @@ public class CombatManager : MonoBehaviour
     /// <param name="source"></param>
     public void EndCurrentTurn(Actor source)
     {
-        if (source.extraTurns > 0)
-            source.extraTurns--;
-        else
-            Turns.Enqueue(source);
+        //if (source.extraTurns > 0)
+        //    source.extraTurns--;
+        //else
+        Turns.Enqueue(source);
 
         if (roundEnded())
         {
