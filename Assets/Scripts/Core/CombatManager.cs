@@ -97,7 +97,7 @@ public class CombatManager : MonoBehaviour
     public void PlayerWin()
     {
         //Ahora mismo va a ser de golpe.
-        StartCoroutine(DelayedLoadScene(3f, 1));
+        StartCoroutine(DelayedLoadScene(3f, 3));
     }
     /// <summary>
     /// Cuando el jugador pierde, pasa algo.
@@ -105,7 +105,7 @@ public class CombatManager : MonoBehaviour
     public void PlayerDefeat()
     {
         //Ahora mismo va a ser de golpe.
-        StartCoroutine(DelayedLoadScene(4f, 2));
+        StartCoroutine(DelayedLoadScene(4f, 4));
     }
 
     /// <summary>
