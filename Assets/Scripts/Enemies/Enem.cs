@@ -77,7 +77,7 @@ public class Enem : Actor
         HUD.healthDisplay = Health;
         HUD.EnergyDisplay = Energy;
         hand.AlingCards();
-        deck.LoadAllCards();
+        //deck.LoadAllCards(); todavia no se usa pero hay que ponerlo en algun momento, si lo pongo tira un error por algo de la seleccion del deck
     }
 
     public override void StartTurn(int turnEnergy)

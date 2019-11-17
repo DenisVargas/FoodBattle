@@ -20,6 +20,8 @@ public class CombatManager : MonoBehaviour
     public Animator HUDAnimations;        // Contiene las animaciones del Canvas.
     public ActionFeedbackHUD FeedbackHUD;
 
+    private bool inGame = false;
+
     [Header("Rondas")]
     public bool[] _currentRound = new bool[2] { false, false };
     public int InitialEnergy = 3;
@@ -35,9 +37,28 @@ public class CombatManager : MonoBehaviour
         //Suscribimos a eventos.
         FeedbackHUD.InformExecuteActions += CanExecuteAction;
 
-        //Player
-        player = FindObjectOfType<Player>();
-        player.OnStartTurn += (Player) => 
+        var test = Resources.FindObjectsOfTypeAll<Actor>();
+        foreach (var item in test)
+        {
+            if (item.GetComponent<Player>())
+                player = item.GetComponent<Player>();
+            else
+                Enemy = item.GetComponent<Enem>();
+        }
+    }
+
+    public void StartGame()
+    {
+        SetTurnPlayer();
+        SetTurnEnemy();
+        Current = GetNextActor();
+        Current.StartTurn(InitialEnergy);
+        inGame = true;
+    }
+
+    public void SetTurnPlayer()
+    {
+        player.OnStartTurn += (Player) =>
         {
             SetNotificationState(false);
             ActualizeMatchRoundData(Player);
@@ -48,9 +69,9 @@ public class CombatManager : MonoBehaviour
         player.deck.LoadAllCards();
         player.deck.ShuffleDeck();
         Turns.Enqueue(player);
-
-        //Enemigo.
-        Enemy = FindObjectOfType<Enem>();
+    }
+    public void SetTurnEnemy()
+    {
         Enemy.OnStartTurn += (Enemy) =>
         {
             ActualizeMatchRoundData(Enemy);
@@ -61,8 +82,6 @@ public class CombatManager : MonoBehaviour
         Enemy.OnEnemyDie += PlayerWin;
         Turns.Enqueue(Enemy);
 
-        Current = GetNextActor();
-        Current.StartTurn(InitialEnergy);
     }
 
     /// <summary>
@@ -162,7 +181,8 @@ public class CombatManager : MonoBehaviour
 
     void Update()
     {
-        Current.UpdateTurn();
+        if (inGame)
+            Current.UpdateTurn();
     }
 
     IEnumerator DelayedLoadScene(float seconds, int scene)

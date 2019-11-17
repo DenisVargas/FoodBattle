@@ -113,7 +113,8 @@ public static class CardDatabase
             //Carta Combo
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
 
-            Target.GetDamage((stats.GetDebuff(DeBuffType.healthReduction).Ammount * cantCards.Count));
+            int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * cantCards.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
+            Target.GetDamage(realDamage);
 
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);

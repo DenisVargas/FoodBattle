@@ -50,10 +50,11 @@ public class Deck : MonoBehaviour
     public Transform CardParent;
 
     [Header("Cartas Incluídas en el Mazo")]
+    public DeckData deckSelected;
     /// <summary>
     /// Lista de Datos relacionados a las cartas existentes.
     /// </summary>
-    public List<CardTypes> Included = new List<CardTypes>();
+    //public List<CardTypes> Included = new List<CardTypes>();
     /// <summary>
     /// Datos cargados de las cartas concretas, ordenadas por su [UniqueID]
     /// </summary>
@@ -67,17 +68,17 @@ public class Deck : MonoBehaviour
 
     public void LoadAllCards()
     {
-        CardTypesAviable = Included.Count;
+        CardTypesAviable = deckSelected.cantCards.Count;
 
         //Por cada objeto incluido en Included.
         //Calculamos cuantas cartas totales hay dentro del deck.
         int addedID = 0;
-        foreach (var includedItem in Included)
+        foreach (var deckItem in deckSelected.cantCards)
         {
             //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
-            CardData data = CardDatabase.GetCardData(includedItem.IncludedCardID);
+            CardData data = CardDatabase.GetCardData(deckItem.cardID);
 
-            for (int i = 0; i < includedItem.AmmountInDeck; i++)
+            for (int i = 0; i < deckItem.ammountOfCards; i++)
             {
                 // Creamos una carta por cada uno y le atacheamos su data.
                 Card realCard = Instantiate(CardPrefab, CardParent.position, Quaternion.identity, CardParent).GetComponent<Card>();
