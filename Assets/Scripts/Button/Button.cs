@@ -13,4 +13,9 @@ public class Button : MonoBehaviour
     {
         Application.Quit();
     }
+
+public void LoaddScene(string sceneL)
+    {
+        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
+    }
 }
