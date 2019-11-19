@@ -22,6 +22,21 @@ public class Card : MonoBehaviour
     //public event Action OnCardIsSeleced = delegate { }; 
     #endregion
 
+    public Vector3 FollowOffset = Vector3.zero;
+    public Transform rotator;
+    public Vector3 OnSelectRotation;
+
+    #region Debugg
+
+    [SerializeField] Renderer rend;
+    [SerializeField] float speed;
+
+    Collider cardCollider;
+    Vector3 normalRotation;
+    Vector3 targetlocation;
+
+    #endregion
+
     [Header("Data Fundamental")]
     public CardData Stats;
     public Actor Owner;
@@ -29,13 +44,15 @@ public class Card : MonoBehaviour
     public int DeckID;
 
     [Header("Posicionamiento de la carta")]
-    public bool back;
-    public bool touchScreen = false;
-    public bool stopAll = false;
+    [HideInInspector] public bool Drag;
     public bool isInteractuable;
-    public bool comingBack = false;
-    public bool inHand = false;
     public bool canBeShowed;
+
+    //public bool back;
+    //public bool touchScreen = false;
+    //public bool stopAll = false;
+    //public bool comingBack = false;
+    //public bool inHand = false;
 
     public Vector3 starPos;
     private Vector3 mOffset;
@@ -62,6 +79,10 @@ public class Card : MonoBehaviour
 
     private void Awake()
     {
+        cardCollider = GetComponent<Collider>();
+        normalRotation = rotator.eulerAngles;
+        print(string.Format("La rotación normal es {0} ", normalRotation));
+
         ni = GetComponent<AudioSource>();
         discardPosition = GameObject.Find("DeckDiscard").GetComponent<Transform>();
         Owner = GetComponentInParent<Actor>();
@@ -69,13 +90,16 @@ public class Card : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-        inHand = false;
+        //inHand = false;
         //isInteractuable = false;
         //starPos = transform.position;
-        comingBack = true;
-        back = true;
+        //comingBack = true;
+        //back = true;
     }
 
+    /// <summary>
+    /// Carga y muestra la información de las cartas en el HUD.
+    /// </summary>
     public void LoadCardDisplayInfo()
     {
         this.name = Stats.CardName;
@@ -88,35 +112,9 @@ public class Card : MonoBehaviour
 
     private void Update()
     {
-        if (Owner.ActorName == "Gordon Ramsay")
+        if (!Drag && transform.position != targetlocation)
         {
-            canBeShowed = true;
-            if (inHand)
-            {
-                if (!back)
-                    anim.SetBool(stopAll ? "ToTable" : "Flip", true);
-                
-                if (comingBack)
-                    anim.SetBool("Flip", false);
-
-                if (stopAll)
-                {
-                    var dist = Vector3.Distance(transform.position, discardPosition.position);
-                    if (dist >= 0)
-                        transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
-
-                    else
-                        inHand = false;
-                }
-                if (comingBack)
-                {
-                    var dist = Vector3.Distance(transform.position, starPos);
-                    if (dist >= 0)
-                        transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
-                    else
-                        comingBack = false;
-                }
-            }
+            transform.position += (targetlocation - transform.position).normalized * speed * Time.deltaTime;
         }
     }
 
@@ -131,8 +129,6 @@ public class Card : MonoBehaviour
         }
         else
         {
-            touchScreen = false;
-            comingBack = true;
             CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
             ni.clip = noEnergy;
             ni.Play();
@@ -140,69 +136,47 @@ public class Card : MonoBehaviour
 
     }
 
-    public void OnMouseDown()
-    {
-        if (Owner.ActorName == "Gordon Ramsay")
-        {
-            if (isInteractuable)
-            {
-                if (!stopAll)
-                {
-                    starPos = transform.position;
-                    comingBack = false;
-                    touchScreen = false;
-                    back = true;
-                    mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
-                    mOffset = transform.position - GetMouseAsWorldPoint();
-                    ni.clip = clickCard;
-                    ni.Play();
-                }
-            }
-        }
-    }
-    public void OnMouseDrag()
-    {
-        if (Owner.ActorName == "Gordon Ramsay")
-        {
-            if (isInteractuable)
-            {
-                if (!stopAll)
-                {
-                    transform.position = GetMouseAsWorldPoint() + mOffset;
-                    RaycastHit hit;
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                    {
-                        //Esto es un juego de booleans >:D
-                        bool targetHitted = hit.collider.gameObject.layer == 10;
-                        back = !targetHitted;
-                        touchScreen = targetHitted;
-                    }
-                }
-            }
-        }
-    }
-    private void OnMouseUp()
-    {
-        if (Owner.ActorName == "Gordon Ramsay")
-        {
-            if (isInteractuable)
-            {
-                if (!stopAll)
-                {
-                    if (back)
-                        comingBack = true;
-                     else if (touchScreen)
-                        ActivateCard();
-                }
-            }
-        }
-    }
-
     private Vector3 GetMouseAsWorldPoint()
     {
         Vector3 mousePoint = Input.mousePosition;
         mousePoint.z = mZCoord;
         return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
+    public void SetTargetLocation(Vector3 targetlocation)
+    {
+        this.targetlocation = targetlocation;
+    }
+
+    public void FollowTarget(Vector3 targetPosition)
+    {
+        rend.material.color = Color.blue;
+        transform.position = targetPosition + FollowOffset;
+    }
+
+    public void MouseHoverStart()
+    {
+        print(string.Format("EL mouse está sobre la carta {0}", Stats.CardName));
+        rend.material.color = Color.red;
+    }
+
+    public void MouseHoverEnd()
+    {
+        rend.material.color = Color.white;
+    }
+
+    public void MouseSelect()
+    {
+        Drag = true;
+        cardCollider.enabled = false;
+        rend.material.color = Color.yellow;
+        rotator.rotation = Quaternion.Euler(OnSelectRotation);
+    }
+
+    public void MouseRelease()
+    {
+        Drag = false;
+        cardCollider.enabled = true;
+        rotator.rotation = Quaternion.Euler(normalRotation);
     }
 }

@@ -76,7 +76,7 @@ public class Enem : Actor
         HUD.SetRivalName(ActorName);
         HUD.healthDisplay = Health;
         HUD.EnergyDisplay = Energy;
-        hand.AlingCards();
+        //hand.AlingCards();
         //deck.LoadAllCards(); todavia no se usa pero hay que ponerlo en algun momento, si lo pongo tira un error por algo de la seleccion del deck
     }
 
@@ -142,9 +142,9 @@ public class Enem : Actor
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, handEnemy.transform.position, Time.deltaTime * 5);
             else
             {
-                cardSelected.canBeShowed = false;
+                //cardSelected.canBeShowed = false;
                 cardSelected.Stats = null;
-                hand.AlingCards();
+                //hand.AlingCards();
                 cardSelected = null;
                 cardStateShow = 0;
 

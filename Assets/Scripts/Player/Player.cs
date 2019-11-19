@@ -173,10 +173,10 @@ public class Player : Actor
         foreach (var item in cardsDraws)
         {
             item.transform.SetParent(hand.transform);
-            item.inHand = true;
+            //item.inHand = true;
             hand.hand.Add(item.DeckID, item);
         }
-        hand.AlingCards();
+        //hand.AlingCards();
     }
     protected override void RestoreAllHealth()
     {

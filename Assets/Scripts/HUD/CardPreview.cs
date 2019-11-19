@@ -44,9 +44,8 @@ public class CardPreview : MonoBehaviour
             cardSelected = null;
             isSelected = false;
         }
+
         if (cardSelected != null)
-            anim.SetBool("Selected", isSelected);
-        else
             anim.SetBool("Selected", isSelected);
     }
 }
