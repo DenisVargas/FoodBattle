@@ -58,7 +58,8 @@ public class cardDrag : MonoBehaviour
         RaycastHit hit = hits.Where(h => h.transform.tag == "GameField")
                         .FirstOrDefault();
 
-        debugPositionObject.transform.position = hit.point; // Objeto en el campo.
+        if (debugPositionObject)
+            debugPositionObject.transform.position = hit.point; // Objeto en el campo.
         mousePositionInWorld = hit.point; // Posición del Mouse 
         #endregion
 

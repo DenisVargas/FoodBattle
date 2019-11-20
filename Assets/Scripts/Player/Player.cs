@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : Actor
 {
     public PlayerHUD HUD;
+    [SerializeField] cardDrag grabber;
 
     public cameraShaker shake;
 
@@ -48,6 +49,7 @@ public class Player : Actor
 
         OnBuffAdded += UpdateBuffDisplay;
 
+        grabber = GetComponent<cardDrag>();
 
         //Obtener y setear referencias.
         deck.Owner = this;
