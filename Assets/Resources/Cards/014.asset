@@ -27,4 +27,5 @@ MonoBehaviour:
     Duration: 4
     useType: 0
     Uses: 0
-  description: Reduce 4 de armadura (4 turnos)
+  description: Obtienes 4 de armadura  (SI "BURRITO DEFENSOR ESTA EN MANO LAS CARTAS
+    SE REDUCEN -1 DE COSTO)

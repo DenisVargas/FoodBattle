@@ -27,5 +27,5 @@ MonoBehaviour:
     Duration: 0
     useType: 0
     Uses: 0
-  description: "Inflije +1 de da\xF1o por cada carta que tengas en mano (pierdes un
-    turno al usarla)."
+  description: "Inflije +1 de da\xF1o por cada carta que tengas en mano, si tienes
+    una copia roba una carta."

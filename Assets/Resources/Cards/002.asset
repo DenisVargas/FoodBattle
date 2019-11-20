@@ -27,4 +27,4 @@ MonoBehaviour:
     useType: 0
     Uses: 0
   Debuffs: []
-  description: "Efectos: Reduce 1 de da\xF1o durante este y el siguiente turno."
+  description: 'Efectos: Obtienes +1 de Armadura'

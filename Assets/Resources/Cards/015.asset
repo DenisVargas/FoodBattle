@@ -41,5 +41,5 @@ MonoBehaviour:
     Duration: 0
     useType: 0
     Uses: 0
-  description: "Inflije 2 de da\xF1o, restaura 2 de salud, 2 de armadura, roba 1 carta,
-    pierdes 3 turnos.\r\n"
+  description: "Inflije 2 de da\xF1o, restaura 2 de salud, ganas 2 puntos de escudo,
+    roba 1 carta.\n"

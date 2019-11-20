@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 012
   m_EditorClassIdentifier: 
-  CardName: Hamburguesa Guerrillera
+  CardName: "Barra de Man\xED"
   ID: 12
-  image: {fileID: 21300000, guid: 0420c0fdf4760b34da45d8775e78ee5e, type: 3}
+  image: {fileID: 21300000, guid: 3bd772ba34a56e84f9c8d4615261b551, type: 3}
   Cost: 1
   extraTurns: 0
   extraCards: 0
@@ -27,4 +27,4 @@ MonoBehaviour:
     Duration: 1
     useType: 1
     Uses: 1
-  description: Anula 1 carta del rival en el siguiente turno.
+  description: Anula 1 carta (A ELECCION) del rival en el siguiente turno.

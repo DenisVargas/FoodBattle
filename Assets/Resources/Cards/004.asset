@@ -20,4 +20,4 @@ MonoBehaviour:
   extraCards: 1
   Buffs: []
   Debuffs: []
-  description: Roba una carta.
+  description: Roba una carta (Si tienes una copia roba 1 carta extra)
