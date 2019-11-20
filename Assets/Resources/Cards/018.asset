@@ -21,10 +21,10 @@ MonoBehaviour:
   Buffs:
   - effectTarget: 0
     BuffType: 6
-    BuffAmmount: 0
+    Ammount: 0
     durationType: 2
     Duration: 4
     useType: 0
     Uses: 0
   Debuffs: []
-  description: Tus cartas no consumen energia (4 turnos)
+  description: Tus cartas no consumen energia (2 turnos)

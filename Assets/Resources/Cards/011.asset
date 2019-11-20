@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99659aed75913946b12374e9618edc2, type: 3}
   m_Name: 011
   m_EditorClassIdentifier: 
-  CardName: Tostada Quemada
+  CardName: Hamburguesa Gerruillera
   ID: 11
-  image: {fileID: 21300000, guid: 520aa3fb279e5604796f5ce035bb5f4c, type: 3}
+  image: {fileID: 21300000, guid: 0420c0fdf4760b34da45d8775e78ee5e, type: 3}
   Cost: 1
   extraTurns: 0
   extraCards: 0
@@ -27,4 +27,4 @@ MonoBehaviour:
     Duration: 0
     useType: 0
     Uses: 0
-  description: "Inflije 7 de da\xF1o"
+  description: "Inflije 7 de da\xF1o, saca una carta (fusion a eleccion)"
