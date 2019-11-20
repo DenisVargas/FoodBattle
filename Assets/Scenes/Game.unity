@@ -4872,6 +4872,7 @@ MonoBehaviour:
   deckCombo: {fileID: 11400000, guid: ff7010542243d8d4384dde6862fedbb6, type: 2}
   deckBuff: {fileID: 11400000, guid: e41e218afa3f41b44b5198c81d47e24b, type: 2}
   deckSelected: {fileID: 0}
+  deckToEnemy: {fileID: 0}
 --- !u!114 &677632540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4944,27 +4945,7 @@ MonoBehaviour:
   CardPrefab: {fileID: 1676594863372105397, guid: e8181167ab46d3045a2545d62da2f10c,
     type: 3}
   CardParent: {fileID: 1227311747}
-  Included:
-  - IncludedCardID: 1
-    AmmountInDeck: 4
-  - IncludedCardID: 2
-    AmmountInDeck: 2
-  - IncludedCardID: 3
-    AmmountInDeck: 2
-  - IncludedCardID: 4
-    AmmountInDeck: 2
-  - IncludedCardID: 5
-    AmmountInDeck: 4
-  - IncludedCardID: 8
-    AmmountInDeck: 2
-  - IncludedCardID: 6
-    AmmountInDeck: 10
-  - IncludedCardID: 7
-    AmmountInDeck: 5
-  - IncludedCardID: 9
-    AmmountInDeck: 1
-  - IncludedCardID: 15
-    AmmountInDeck: 10
+  deckSelected: {fileID: 0}
   TotalCards: 5
   CardTypesAviable: 5
 --- !u!4 &720153188
@@ -8472,7 +8453,7 @@ MonoBehaviour:
   CardPrefab: {fileID: 1676594863372105397, guid: e8181167ab46d3045a2545d62da2f10c,
     type: 3}
   CardParent: {fileID: 734100574}
-  Included: []
+  deckSelected: {fileID: 0}
   TotalCards: 10
   CardTypesAviable: 2
 --- !u!4 &1339226736 stripped
@@ -9330,6 +9311,9 @@ MonoBehaviour:
   life: {fileID: 8300000, guid: cdd5768f227dc614792beff0cadde2ff, type: 3}
   hit: {fileID: 8300000, guid: 66fc356cca01cc74e82bdbc6b0e02f8c, type: 3}
   extraTurn: {fileID: 8300000, guid: 0919113da7b6e9b44b7070c68b1796e9, type: 3}
+  armor: {fileID: 8300000, guid: 791d6270361b08c4e82e0857bd1b3ac6, type: 3}
+  bufdamage: {fileID: 8300000, guid: 937cb058097e40943a93fb2da84f91d6, type: 3}
+  endturn: {fileID: 8300000, guid: 851044dd3b83e964a9408289911b4a48, type: 3}
 --- !u!4 &1552861698
 Transform:
   m_ObjectHideFlags: 0

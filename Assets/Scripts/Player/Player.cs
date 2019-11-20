@@ -15,6 +15,9 @@ public class Player : Actor
     public AudioClip life;
     public AudioClip hit;
     public AudioClip extraTurn;
+    public AudioClip armor;
+    public AudioClip bufdamage;
+    public AudioClip endturn;
 
     //Propios del Combate.
     bool _interactable = false;
@@ -109,6 +112,8 @@ public class Player : Actor
 
         //LLamo el evento de Actor
         OnEndTurn(this);
+        ad.clip = endturn;
+        ad.Play();
     }
 
     #endregion
@@ -241,6 +246,8 @@ public class Player : Actor
             {
                 HUD.SetBuffArmor = buffArmour;
                 HUD.SetBuffDisplay(BuffType.ArmourIncrease, true);
+                ad.clip = armor;
+                ad.Play();
             }
             else
                 HUD.SetBuffDisplay(BuffType.ArmourIncrease, false);
@@ -251,6 +258,8 @@ public class Player : Actor
             {
                 HUD.SetBuffDamage = buffDamage;
                 HUD.SetBuffDisplay(BuffType.DamageIncrease, true);
+                ad.clip = bufdamage;
+                ad.Play();
             }
             else
                 HUD.SetBuffDisplay(BuffType.DamageIncrease, false);
