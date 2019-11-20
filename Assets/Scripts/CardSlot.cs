@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer)), RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider))]
 public class CardSlot : MonoBehaviour
 {
-    Renderer rend;
     Collider coll;
     [SerializeField] Card[] AssignedCards = new Card[3];
     [SerializeField] string SlotName = "Slot numero 1";
@@ -15,7 +14,6 @@ public class CardSlot : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        rend = GetComponent<Renderer>();
         coll = GetComponent<Collider>();
     }
 
@@ -45,14 +43,11 @@ public class CardSlot : MonoBehaviour
     public void MouseHoverStart()
     {
         print("Slot está siendo hovereado");
-        //rend.material.color = Color.blue;
-        rend.material.SetFloat("_ASEOutlineWidth", 0.12f); //Works
     }
 
     public void MouseHoverEnd()
     {
         print("Slot ya no esta siendo Hovereado");
-        rend.material.SetFloat("_ASEOutlineWidth", 0f);
     }
 
 

@@ -4,33 +4,22 @@ using UnityEngine;
 
 public class DeckSelect : MonoBehaviour
 {
-    public DeckData deckCombo;
-    public DeckData deckBuff;
-    public DeckData deckSelected;
-    public DeckData deckToEnemy;
+    public List<DeckData> decks;
+    public int deckSelected = 0;
 
-    public void StartGame()
+    public void B_Confirm()
     {
-        CombatManager.match.player.deck.deckSelected = deckSelected;
-        CombatManager.match.Enemy.deck.deckSelected = deckToEnemy;
-        CombatManager.match.StartGame();
+        CombatManager.match.SetDecksAndStartMatch(decks, deckSelected);
         gameObject.SetActive(false);
     }
 
-    public void DeckSelected(DeckData deck)
-    {
-        deckSelected = deck;
-    }   
-
     public void DeckCombo()
     {
-        deckToEnemy = deckBuff;
-        DeckSelected(deckCombo);
+        deckSelected = 0;
     }
 
     public void DeckBuffs()
     {
-        deckToEnemy = deckCombo;
-        DeckSelected(deckBuff);
+        deckSelected = 1;
     }
 }

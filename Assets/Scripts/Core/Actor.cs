@@ -69,6 +69,7 @@ public abstract class Actor : MonoBehaviour
 
     //============================== Turnos ======================================================
 
+    public virtual void StartMatch() { }
     public virtual void StartTurn(int turnEnergy) { }
     public virtual void UpdateTurn() { }
     public virtual void EndTurn() { }

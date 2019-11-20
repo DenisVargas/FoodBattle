@@ -50,6 +50,7 @@ public class Player : Actor
         OnBuffAdded += UpdateBuffDisplay;
 
         grabber = GetComponent<cardDrag>();
+        grabber.enabled = false;
 
         //Obtener y setear referencias.
         deck.Owner = this;
@@ -57,6 +58,9 @@ public class Player : Actor
         //Inicializar cosas
         Health = maxHealth;
         //Energy = 0;                              //Esto no hace falta porque CombatManager lo inicializa.
+
+        HUD.HeroHud.SetActive(false);
+        HUD.ShowEndTurnButton(false);
 
         HUD.SetPlayerName(ActorName);
         HUD.PlayerLife = Health;
@@ -91,6 +95,18 @@ public class Player : Actor
     #region Turnos
 
     /// <summary>
+    /// Inicia el match.
+    /// </summary>
+    public override void StartMatch()
+    {
+        // Prendo los HUDS
+        HUD.HeroHud.SetActive(true);
+        HUD.ShowEndTurnButton(true);
+
+        // Inicio el Draw Cards.
+        hand.GetDrawedCards(deck, hand.maxCardsInHand);
+    }
+    /// <summary>
     /// Inicia el turno del jugador.
     /// </summary>
     public override void StartTurn(int turnEnergy)
@@ -100,6 +116,7 @@ public class Player : Actor
         UpdateCombatInterface();
         hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
         HUD.ShowEndTurnButton(true);
+        grabber.enabled = true; // Puedo seleccionar weas, una vez que empieza mi turno.
     }
     /// <summary>
     /// Se llama en vez de Update.
@@ -117,6 +134,7 @@ public class Player : Actor
         //print("El jugador finalizo el turno.");
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
         HUD.ShowEndTurnButton(false);
+        grabber.enabled = false;
 
         Energy = 0;
         UpdateCombatInterface();

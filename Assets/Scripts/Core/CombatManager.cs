@@ -13,9 +13,11 @@ public class CombatManager : MonoBehaviour
     public static CombatManager match;    // Singleton de la Clase.
     public Action<Actor> RoundTurn = delegate { };
 
-    public Actor Current;                 // Referencia al Actor Activo en este momento.
-    public Player player;                 // Referencia al jugador actual.
-    public Enem Enemy;                    // Referencia al enemigo actual.
+    public GameObject DeckSelectionPanel;
+
+    Actor Current;                 // Referencia al Actor Activo en este momento.
+    Player player;                 // Referencia al jugador actual.
+    Enem Enemy;                    // Referencia al enemigo actual.
 
     public Animator HUDAnimations;        // Contiene las animaciones del Canvas.
     public ActionFeedbackHUD FeedbackHUD;
@@ -45,6 +47,16 @@ public class CombatManager : MonoBehaviour
             else
                 Enemy = item.GetComponent<Enem>();
         }
+    }
+
+    public void SetDecksAndStartMatch(List<DeckData> aviableDecks, int playerDeckIndex)
+    {
+        var provitionalDeckList = new List<DeckData>(aviableDecks);
+
+        player.deck.deckSelected = provitionalDeckList[playerDeckIndex];
+        provitionalDeckList.RemoveAt(playerDeckIndex);
+        //Enemy.deck.deckSelected = provitionalDeckList[0]; //Esto esta tirando errores x todos lados.
+        StartGame();
     }
 
     public void StartGame()

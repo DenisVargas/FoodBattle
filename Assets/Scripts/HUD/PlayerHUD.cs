@@ -17,6 +17,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Image _buffArmourSlot = null;
     [SerializeField] TMP_Text _buffArmor = null;
 
+    public GameObject HeroHud;
     public GameObject EndTurnButton;
 
     private void Awake()
