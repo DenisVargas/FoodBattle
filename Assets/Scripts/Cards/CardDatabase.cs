@@ -49,7 +49,7 @@ public static class CardDatabase
             //Inflige 2 puntos de daño al oponente.
             Target.GetDamage(realDamage);
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 2.
@@ -63,7 +63,7 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.ArmourIncrease));
             CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease));
             CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
 
         };
 
@@ -76,7 +76,7 @@ public static class CardDatabase
             //Restaura 2 de salud en el turno.
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 4.
@@ -88,7 +88,7 @@ public static class CardDatabase
             // Roba 1 carta.
             Owner.DrawCards(stats.extraCards);
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 5.
@@ -101,7 +101,7 @@ public static class CardDatabase
             //Añade un buffo de Daño +1;
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 6.
@@ -117,7 +117,7 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             foreach (var item in cantCards)
-                Owner.hand.DiscardCard(item.DeckID);
+                Owner.hand.DiscardCardFromHand(item.DeckID);
         };
 
         //Carta número 7.
@@ -131,7 +131,7 @@ public static class CardDatabase
             int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
             Target.GetDamage(realDamage);
 
-            Owner.hand.DiscardCard(deckID);
+            Owner.hand.DiscardCardFromHand(deckID);
 
         };
 
@@ -145,7 +145,7 @@ public static class CardDatabase
             //Owner recibe 4 de daño.
             Owner.GetDamage(stats.GetDebuff(DeBuffType.healthReduction).Ammount);
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 9.
@@ -158,7 +158,7 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
             Owner.DrawCards(1);
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 13.
@@ -170,7 +170,7 @@ public static class CardDatabase
             //Obtenemos toda la vida restante. Perdemos 2 turnos.
             Owner.AddBuffs(stats.GetAllBuffs());
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
 
         //Carta número 15.
@@ -188,7 +188,7 @@ public static class CardDatabase
 
             Target.GetDamage(realDamage);
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.DiscardCardFromHand(DeckID);
         };
         #endregion
 

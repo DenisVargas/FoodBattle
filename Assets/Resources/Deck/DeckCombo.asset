@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f59e013f17d59b4099164ada95093e4, type: 3}
   m_Name: DeckCombo
   m_EditorClassIdentifier: 
-  deckName: Deck Combo
-  deckID: 1
-  cantCards:
-  - cardID: 6
-    ammountOfCards: 6
-  - cardID: 7
-    ammountOfCards: 3
-  - cardID: 2
-    ammountOfCards: 4
-  - cardID: 1
-    ammountOfCards: 3
-  - cardID: 4
-    ammountOfCards: 4
+  DeckName: Deck Combo
+  DeckID: 1
+  IncludedCardsInDeck:
+  - IncludedCardID: 1
+    AmmountInDeck: 3
+  - IncludedCardID: 2
+    AmmountInDeck: 3
+  - IncludedCardID: 3
+    AmmountInDeck: 2
+  - IncludedCardID: 4
+    AmmountInDeck: 3
+  - IncludedCardID: 5
+    AmmountInDeck: 3

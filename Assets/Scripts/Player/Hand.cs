@@ -9,15 +9,15 @@ public class Hand : MonoBehaviour
     public Action OnStartDraw = delegate { };
     public Action OnEndDraw = delegate { };
 
-    public List<Transform> cards = new List<Transform>();
-    public Dictionary<int, Card> hand = new Dictionary<int, Card>();
-    public List<GameObject> ToDrawCards;                  // Representación del deck real.
+    public Dictionary<int, Card> hand;                   // Contiene las cartas ordenadas por su "UniqueID".
+    public List<Transform> ObjectsToAllign;              // Se autorrellena al ejecutar DrawCards. Esta es la lista de cartas que ya está en la mano, si se agrega una carta nueva, se desplazan a un costado.
+    public List<Transform> ToDrawCards;                  // Representación del deck real (Componente Transform de cada carta en la mano).
+    List<Vector3> _finalPositions;                       // Posiciones finales calculadas para cada de los elementos dentro de "ToDrawCards"
 
 
     [Header("Límite de Cartas")]
     [Tooltip("Límite de cartas en la mano.")]
     public int maxCardsInHand;
-    int AmmountOfElements;                                 // Lo usamos para saber si la cantidad de cartas actual es par o impar.
 
     [Header("Posicionamiento de las cartas")]
     /// <summary>
@@ -30,103 +30,98 @@ public class Hand : MonoBehaviour
     public float DistanceLimit;
     public float maxPadding;
 
-    List<Vector3> positions;
-
     [Header("Parámetros de Animación")]
     public AnimationCurve LerpCurve;
     public float AnimationDuration = 1f;
     public float FrameRate = 25f;
+
+    int AmmountOfElements = 0;                                 // Lo usamos para saber si la cantidad de cartas actual es par o impar.
     bool drawingCard = false;
 
+    //================================================ DEBUG GIZMOS =====================================================================
+#if UNITY_EDITOR
 
-    //public Transform node1;
-    //public Transform node2;
-    //private Vector3 startPost;
+    private void OnDrawGizmos()
+    {
+        //Centro.
+        Gizmos.color = Color.red;
+        Vector3 center = transform.position;
+        Gizmos.DrawSphere(center, 0.5f);
 
+        Gizmos.DrawSphere(center + new Vector3(DistanceLimit, 0), 0.5f);
+        Gizmos.DrawSphere(center - new Vector3(DistanceLimit, 0), 0.5f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(center, center + new Vector3(maxPadding, 0, 0));
+    }
+
+#endif
+    //================================================= UNITY EVENTS ====================================================================
+
+    private void Awake()
+    {
+        //Inicializaciones:
+        hand = new Dictionary<int, Card>();
+        ObjectsToAllign = new List<Transform>();
+        ToDrawCards = new List<Transform>();
+        _finalPositions = new List<Vector3>();
+
+        center = transform.position;
+    }
+
+    //================================================== MEMBER FUNCS ===================================================================
+
+    /// <summary>
+    /// Activa o desactiva la interactividad.
+    /// </summary>
+    /// <param name="activate">Activar o desactivar?</param>
     public void HandControl(bool activate)
     {
         foreach (var item in hand)
             item.Value.isInteractuable = activate;
     }
-
+    /// <summary>
+    /// Permite obtener cartas desde el deck seleccionado.
+    /// </summary>
+    /// <param name="deck">Mazo del cual va a extraer cartas.</param>
+    /// <param name="Ammount">Cantidad de cartas a extraer.</param>
     public void GetDrawedCards(Deck deck, int Ammount)
     {
-        if (hand.Count < maxCardsInHand)
+        HandControl(false);
+
+        //Independientemente de si estamos en el límite o no, debería sacar una carta extra.
+        foreach (var item in deck.DrawCards(Ammount))
         {
-            foreach (var item in deck.DrawCards(Ammount))
-            {
-                item.transform.SetParent(transform);
-                //item.inHand = true;
-                hand.Add(item.DeckID, item);
-            }
-            StartCoroutine(DrawCards());
+            item.transform.SetParent(transform);
+            hand.Add(item.DeckID, item);
+            ToDrawCards.Add(item.transform);
+        }
+
+        StartCoroutine(DrawCards(deck));
+    }
+    /// <summary>
+    /// Permite descartar una carta de la mano.
+    /// </summary>
+    /// <param name="idCard"></param>
+    public void DiscardCardFromHand(int idCard)
+    {
+        if (hand.ContainsKey(idCard))
+        {
+            var carta = hand[idCard];
+            //carta.comingBack = false;
+            //carta.stopAll = true;
+            carta.transform.SetParent(carta.discardPosition);
+            hand.Remove(idCard);
         }
     }
 
-    public void DiscardCard(int idCard)
-    {
-        foreach (var item in hand)
-        {
-            if (item.Key == idCard)
-            {
-                var carta = item.Value;
-                //carta.comingBack = false;
-                //carta.stopAll = true;
-                carta.transform.SetParent(carta.discardPosition);
-                hand.Remove(idCard);
-                break;
-            }
-        }
-    }
-
-    //public void AlingCards()
-    //{
-    //    cards.Clear();
-    //    for (int i = 0; i < transform.childCount; i++)
-    //    {
-    //        if (transform.GetChild(i).gameObject.activeSelf)
-    //        {
-    //            cards.Add(transform.GetChild(i));
-    //        }
-    //    }
-    //    foreach (var item in cards)
-    //    {
-    //        item.transform.position = Vector3.zero;
-    //    }
-    //    var leftPoint = node1.position;
-    //    var rightPoint = node2.position;
-
-    //    var delta = (leftPoint - rightPoint).magnitude;
-    //    var howMany = cards.Count;
-    //    var howManyGapsBetweenCards = howMany - 1;
-    //    var theHighestIndex = howMany;
-    //    var gapFromOneItemToTheNextOne = delta / howManyGapsBetweenCards;
-    //    for (int i = 0; i < theHighestIndex; i++)
-    //    {
-    //        cards[i].transform.position = leftPoint;
-    //        cards[i].transform.position += new Vector3((-i * gapFromOneItemToTheNextOne), 0, 0);
-    //        cards[i].GetComponent<Card>().starPos = cards[i].transform.position;
-    //        cards[i].GetComponent<Card>().inHand = true;
-    //    }
-    //}
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        AmmountOfElements = cards.Count;
-        //print(string.Format("Hay {0} elementos.", AmmountOfElements));
-
-        CalculateHandFinalPositions();
-        PlaceElements();
-    }
 
     /// <summary>
     /// Recalcula las posiciones de cada elemento.
     /// </summary>
     private void CalculateHandFinalPositions()
     {
-        positions.Clear();
-        center = transform.position;
+        _finalPositions.Clear();        
 
         //Calcular el padding --> la distancia entre cada elemento.
         float padding = (DistanceLimit * 2) / AmmountOfElements;
@@ -150,7 +145,7 @@ public class Hand : MonoBehaviour
 
         //Posicionamos el primer elemento.
         Vector3 firstElementPos = center + new Vector3(-minXPos + objectOffset.x, objectOffset.y, objectOffset.z);
-        positions.Add(firstElementPos);
+        _finalPositions.Add(firstElementPos);
 
         //Posicionamos todos los demás elementos.
         for (int i = 1; i < AmmountOfElements; i++)
@@ -160,43 +155,33 @@ public class Hand : MonoBehaviour
                 newElementPosition = firstElementPos - new Vector3(padding * i, 0, 0);
             else
                 newElementPosition = firstElementPos + new Vector3(padding * i, 0, 0);
-            positions.Add(newElementPosition);
+            _finalPositions.Add(newElementPosition);
         }
     }
-
-    //Esto hace que cada carta se posicione en donde debe ir.
-    public void PlaceElements()
+    /// <summary>
+    /// Posiciona Inmediatamente a las cartas en la posición final.
+    /// </summary>
+    public void PlaceElementsAtFinalPosition()
     {
         //Por ahora.
-        for (int i = 0; i < cards.Count; i++)
+        for (int i = 0; i < ObjectsToAllign.Count; i++)
         {
-            var currentElement = cards[i];
-            currentElement.transform.position = positions[i];
+            var currentElement = ObjectsToAllign[i];
+            currentElement.transform.position = _finalPositions[i];
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        //Centro.
-        Gizmos.color = Color.red;
-        Vector3 center = transform.position;
-        Gizmos.DrawSphere(center, 0.5f);
+    //================================================== CORRUTINES =====================================================================
 
-        Gizmos.DrawSphere(center + new Vector3(DistanceLimit, 0), 0.5f);
-        Gizmos.DrawSphere(center - new Vector3(DistanceLimit, 0), 0.5f);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(center, center + new Vector3(maxPadding, 0, 0));
-    }
-
-    IEnumerator DrawCards()
+    IEnumerator DrawCards(Deck deck)
     {
         drawingCard = true;
         OnStartDraw();
 
-        ToDrawCards[0].transform.SetParent(this.transform);
+        ToDrawCards[0].SetParent(transform);
         AmmountOfElements++;
-        cards.Insert(0, ToDrawCards[0].transform);
+        ObjectsToAllign.Insert(0, ToDrawCards[0]);
+        deck.ExtractCard(); //Le aviso al deck que extraje una carta.
         CalculateHandFinalPositions();
 
         int elementsToLerp = ToDrawCards.Count;
@@ -208,21 +193,21 @@ public class Hand : MonoBehaviour
         float LerpRate = 0;
         print("Tiempo de la animación es:" + LerpRate);
 
-        Vector3[] originalPositions = new Vector3[cards.Count];
-        for (int i = 0; i < cards.Count; i++)
-            originalPositions[i] = cards[i].transform.position;
+        Vector3[] originalPositions = new Vector3[ObjectsToAllign.Count];
+        for (int i = 0; i < ObjectsToAllign.Count; i++)
+            originalPositions[i] = ObjectsToAllign[i].position;
 
         while (elementsToLerp > 0)
         {
             currentLerpTime += AnimationFrameRate;
             LerpRate = currentLerpTime / AnimationDuration;
 
-            for (int i = 0; i < cards.Count; i++)
+            for (int i = 0; i < ObjectsToAllign.Count; i++)
             {
-                var element = cards[i];
-                Vector3 finalPos = positions[i];
+                var element = ObjectsToAllign[i];
+                Vector3 finalPos = _finalPositions[i];
 
-                if (element.transform.position != positions[i])
+                if (element.transform.position != _finalPositions[i])
                 {
                     //Hago el lerp de las posiciones.
                     Vector3 lerpedPosition = Vector3.Lerp(originalPositions[i], finalPos, LerpCurve.Evaluate(LerpRate));
@@ -244,12 +229,13 @@ public class Hand : MonoBehaviour
                     AmmountOfElements++;
                     currentCard = ToDrawCards[0];
                     ToDrawCards[0].transform.SetParent(transform);
-                    cards.Insert(0, ToDrawCards[0].transform);
+                    ObjectsToAllign.Insert(0, ToDrawCards[0]);
+                    deck.ExtractCard(); //Le aviso al deck que extraje una carta.
                     CalculateHandFinalPositions();
 
-                    originalPositions = new Vector3[cards.Count];
-                    for (int i = 0; i < cards.Count; i++)
-                        originalPositions[i] = cards[i].transform.position;
+                    originalPositions = new Vector3[ObjectsToAllign.Count];
+                    for (int i = 0; i < ObjectsToAllign.Count; i++)
+                        originalPositions[i] = ObjectsToAllign[i].position;
                 }
             }
             yield return new WaitForSeconds(AnimationFrameRate);
@@ -257,5 +243,6 @@ public class Hand : MonoBehaviour
 
         drawingCard = false;
         OnEndDraw();
+        HandControl(true);
     }
 }

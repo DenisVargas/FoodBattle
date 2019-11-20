@@ -124,7 +124,7 @@ GameObject:
   m_Layer: 0
   m_Name: DiscardEnemy
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -155,7 +155,7 @@ GameObject:
   m_Layer: 0
   m_Name: music_wow
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -591,10 +591,10 @@ GameObject:
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &51457790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActorName: Salt Bae
   deck: {fileID: 1319030491}
-  hand: {fileID: 734100575}
+  hand: {fileID: 0}
   Health: 20
   maxHealth: 20
   Energy: 0
@@ -1208,7 +1208,7 @@ Transform:
   - {fileID: 1124799971}
   - {fileID: 912567320}
   m_Father: {fileID: 1552861698}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -55, y: 0, z: 0}
 --- !u!114 &149282814
 MonoBehaviour:
@@ -1222,7 +1222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b416fa8eff8744387e85c22de2397e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cards: []
   ToDrawCards: []
   maxCardsInHand: 4
   InvertXPositioning: 0
@@ -1447,7 +1446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170076733}
   m_LocalRotation: {x: 0.4149712, y: 0.17162934, z: -0.08003207, w: 0.88990855}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 17.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1828698217}
@@ -5185,8 +5184,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   CardPrefab: {fileID: 1676594863372105397, guid: e8181167ab46d3045a2545d62da2f10c,
     type: 3}
-  CardParent: {fileID: 1227311747}
-  deckSelected: {fileID: 0}
+  CardParent: {fileID: 720153188}
+  deckSelected: {fileID: 11400000, guid: ff7010542243d8d4384dde6862fedbb6, type: 2}
   TotalCards: 5
   CardTypesAviable: 5
 --- !u!4 &720153188
@@ -5322,14 +5321,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 734100574}
-  - component: {fileID: 734100575}
   m_Layer: 0
   m_Name: HandEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &734100574
 Transform:
   m_ObjectHideFlags: 0
@@ -5349,34 +5347,6 @@ Transform:
   m_Father: {fileID: 51457791}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 66.51, y: -180, z: 0}
---- !u!114 &734100575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 734100573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b416fa8eff8744387e85c22de2397e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cards: []
-  ToDrawCards: []
-  maxCardsInHand: 0
-  InvertXPositioning: 0
-  center: {x: 0, y: 0, z: 0}
-  objectOffset: {x: 0, y: 0, z: 0}
-  DistanceLimit: 0
-  maxPadding: 0
-  LerpCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  AnimationDuration: 1
-  FrameRate: 25
 --- !u!1 &736629909
 GameObject:
   m_ObjectHideFlags: 0
@@ -6047,7 +6017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &912567320
 Transform:
   m_ObjectHideFlags: 0
@@ -6663,7 +6633,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1552861698}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &949336470
 GameObject:
@@ -6690,7 +6660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949336470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.37, z: 6.26}
+  m_LocalPosition: {x: 0, y: 3.37, z: 3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1828698217}
@@ -8211,7 +8181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1124799971
 Transform:
   m_ObjectHideFlags: 0
@@ -8545,36 +8515,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190527743}
   m_CullTransparentMesh: 0
---- !u!1 &1227311746
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1227311747}
-  m_Layer: 0
-  m_Name: CardsAppears
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1227311747
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227311746}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -357.69, y: -211.802, z: -7.6796875}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1552861698}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1231014238
 GameObject:
   m_ObjectHideFlags: 0
@@ -8895,7 +8835,7 @@ GameObject:
   m_Layer: 0
   m_Name: DeckEnemy
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -9772,7 +9712,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -9813,7 +9753,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 720153188}
-  - {fileID: 1227311747}
   - {fileID: 149282812}
   - {fileID: 934537139}
   m_Father: {fileID: 2013385032}
@@ -10905,7 +10844,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828698216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 170076735}

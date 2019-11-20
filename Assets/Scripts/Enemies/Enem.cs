@@ -121,7 +121,7 @@ public class Enem : Actor
             if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position)>= 1f)
             {
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, ShowCard.transform.position, Time.deltaTime);
-                cardSelected.anim.Play("EnemyAttack");
+                //cardSelected.anim.Play("EnemyAttack");
             }
             else
             {
@@ -261,7 +261,7 @@ public class Enem : Actor
     IEnumerator WaitCardToDeck(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        cardSelected.anim.SetTrigger("BackToIdle");
+        //cardSelected.anim.SetTrigger("BackToIdle");
         cardSelected.transform.position = enemyDeck.transform.position;
         cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 180, 0));
         cardStateShow = 3;

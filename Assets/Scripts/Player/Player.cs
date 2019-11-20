@@ -18,6 +18,7 @@ public class Player : Actor
 
     //Propios del Combate.
     bool _interactable = false;
+    int test = 0;
 
     //========================================= PROPIEDADES ===========================================================
 
@@ -66,6 +67,21 @@ public class Player : Actor
         //Primer update del estado.
         //UpdateCombatInterface();                 //Esto no hace falta porque CombatManager lo inicializa.
         //UpdateBuffDisplay();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space) && test == 0)
+        {
+            print("Saco nuevas cartas we");
+            test++;
+            hand.GetDrawedCards(deck, 4);
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            print("Saco nuevas cartas we");
+            hand.GetDrawedCards(deck, 1);
+        }
     }
 
     //========================================= OVERRIDES =============================================================

@@ -22,6 +22,7 @@ public class Card : MonoBehaviour
     //public event Action OnCardIsSeleced = delegate { }; 
     #endregion
 
+    [Header("Componentes Animables")]
     public Vector3 FollowOffset = Vector3.zero;
     public Transform rotator;
     public Vector3 OnSelectRotation;
@@ -73,7 +74,7 @@ public class Card : MonoBehaviour
 
     public Transform discardPosition;
 
-    public Animator anim;
+    Animator anim;
     Rigidbody rb;
     BoxCollider col;
 
@@ -81,7 +82,7 @@ public class Card : MonoBehaviour
     {
         cardCollider = GetComponent<Collider>();
         normalRotation = rotator.eulerAngles;
-        print(string.Format("La rotación normal es {0} ", normalRotation));
+        //print(string.Format("La rotación normal es {0} ", normalRotation));
 
         ni = GetComponent<AudioSource>();
         discardPosition = GameObject.Find("DeckDiscard").GetComponent<Transform>();
@@ -90,11 +91,6 @@ public class Card : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
-        //inHand = false;
-        //isInteractuable = false;
-        //starPos = transform.position;
-        //comingBack = true;
-        //back = true;
     }
 
     /// <summary>
@@ -112,10 +108,10 @@ public class Card : MonoBehaviour
 
     private void Update()
     {
-        if (!Drag && transform.position != targetlocation)
-        {
-            transform.position += (targetlocation - transform.position).normalized * speed * Time.deltaTime;
-        }
+        //if (!Drag && transform.position != targetlocation)
+        //{
+        //    transform.position += (targetlocation - transform.position).normalized * speed * Time.deltaTime;
+        //}
     }
 
 

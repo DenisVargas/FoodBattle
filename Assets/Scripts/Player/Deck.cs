@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using IA.RandomSelections;
+using TMPro;
 using Random = UnityEngine.Random;
 
 /*
@@ -12,36 +10,12 @@ using Random = UnityEngine.Random;
      Tambíen, si una carta es utilizada, lo pondra en el "cementerio" y en algún punto
      devolverá las cartas al mazo principal.
 
-    /// Ejemplo de formato: (Assets/Resources/Text/textFile01.txt) --> Resources.Load<TextAsset>("Text/textFile01");
+     Ejemplo de formato: (Assets/Resources/Text/textFile01.txt) --> Resources.Load<TextAsset>("Text/textFile01");
 */
-
-[Serializable]
-public struct CardTypes
-{
-    //Path, FileName, Cantidad.
-
-    /// <summary>
-    /// La ruta en donde guardamos el scriptable object.
-    /// </summary>
-    [Tooltip("El Unique ID de la carta incluída en este mazo.")]
-    public int IncludedCardID;
-    ///// <summary>
-    ///// El nombre del archivo.
-    ///// Opcional.
-    ///// </summary>
-    //[Tooltip("El nombre del archivo")]
-    //public string Nombre;
-    /// <summary>
-    /// Índica la cantidad de dicha carta que va a haber en el mazo.
-    /// </summary>
-    [Tooltip("Cantidad de cartas de dicho tipo que va a haber en el mazo")]
-    public int AmmountInDeck;
-}
 
 [Serializable]
 public class Deck : MonoBehaviour
 {
-    [HideInInspector] public int RemaingCardsAmmount;
     [HideInInspector] public int UsedCardAmmount;
 
     [Header("Seteos Importantes")]
@@ -52,33 +26,49 @@ public class Deck : MonoBehaviour
     [Header("Cartas Incluídas en el Mazo")]
     public DeckData deckSelected;
     /// <summary>
-    /// Lista de Datos relacionados a las cartas existentes.
-    /// </summary>
-    //public List<CardTypes> Included = new List<CardTypes>();
-    /// <summary>
     /// Datos cargados de las cartas concretas, ordenadas por su [UniqueID]
     /// </summary>
     public Dictionary<int, Card> DeckCardReferencies = new Dictionary<int, Card>();
 
-    [Header("Totales")]
-    [HideInInspector] public int TotalCards;                             // Se autorrellena. Cantidad de cartas actual en el mazo. Se reduce al sacar nuevas cartas.
-    [HideInInspector] public int CardTypesAviable;                       // Se autorrellena. Cantidad de tipos de cartas. En nuestro caso cada Carta es un Tipo de carta único.
+    [Header("HUD")]
+    public TMP_Text AmmountOfCardsInDeck;
+
+    public int TotalCardsIncludedInDeck;               // Se autorrellena. Cantidad de cartas total incluídas en el mazo.
+    int _remaingCardsAmmount;                          // Se autorrellena. Cantidad de cartas actual en el mazo, se va reduciendo a medida que se sacan cartas de ella.
+    public int CurrentCardsAmmount
+    {
+        get => _remaingCardsAmmount;
+        set
+        {
+            _remaingCardsAmmount = value;
+            if (AmmountOfCardsInDeck != null)
+                AmmountOfCardsInDeck.text = _remaingCardsAmmount.ToString();
+        }
+    }
+
+    [HideInInspector] public int CardTypesAviable;     // Se autorrellena. Cantidad de tipos de cartas. En nuestro caso cada Carta es un Tipo de carta único.
     public Queue<int> DeckCards = new Queue<int>();    // Se autorrellena. Cola de cartas en el Mazo, utiliza el ID de cada carta.
     public Stack<int> UsedCards = new Stack<int>();    // Se autorrellena. Pila de cartas Utilizadas, también utiliza el ID, y va aumentando a medida que activamos cartas.
 
+    private void Start()
+    {
+        LoadAllCards();
+        ShuffleDeck();
+    }
+
     public void LoadAllCards()
     {
-        CardTypesAviable = deckSelected.cantCards.Count;
+        CardTypesAviable = deckSelected.IncludedCardsInDeck.Count;
 
         //Por cada objeto incluido en Included.
         //Calculamos cuantas cartas totales hay dentro del deck.
         int addedID = 0;
-        foreach (var deckItem in deckSelected.cantCards)
+        foreach (var deckItem in deckSelected.IncludedCardsInDeck)
         {
             //Cargamos todos los Scriptable Objects usando el path y el nombre dentro de [Included];
-            CardData data = CardDatabase.GetCardData(deckItem.cardID);
+            CardData data = CardDatabase.GetCardData(deckItem.IncludedCardID);
 
-            for (int i = 0; i < deckItem.ammountOfCards; i++)
+            for (int i = 0; i < deckItem.AmmountInDeck; i++)
             {
                 // Creamos una carta por cada uno y le atacheamos su data.
                 Card realCard = Instantiate(CardPrefab, CardParent.position, Quaternion.identity, CardParent).GetComponent<Card>();
@@ -101,7 +91,8 @@ public class Deck : MonoBehaviour
             }
         }
 
-        TotalCards = RemaingCardsAmmount;
+        CurrentCardsAmmount = DeckCards.Count;
+        TotalCardsIncludedInDeck = _remaingCardsAmmount;
     }
 
     /// <summary>
@@ -143,12 +134,19 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < ammount; i++)
         {
             int drawedCardID = DeckCards.Dequeue();
-            RemaingCardsAmmount--;
             drawedCards.Add(DeckCardReferencies[drawedCardID]);
         }
 
         return drawedCards;
     }
+    /// <summary>
+    /// Permite actualizar el hud a medida que cada carta es removida de a una durante la animación.
+    /// </summary>
+    public void ExtractCard()
+    {
+        CurrentCardsAmmount--;
+    }
+
     /// <summary>
     /// Registra el uso de una carta.
     /// </summary>

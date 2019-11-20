@@ -282,11 +282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d575e51f5d6beac40a3829341cbf29be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FollowOffset: {x: 0, y: 0, z: 0}
-  rotator: {fileID: 0}
-  OnSelectRotation: {x: 0, y: 0, z: 0}
-  rend: {fileID: 0}
-  speed: 0
+  FollowOffset: {x: 0, y: 1, z: 0}
+  rotator: {fileID: 1676594863453842331}
+  OnSelectRotation: {x: -90, y: 0, z: 0}
+  rend: {fileID: 1676594863451941241}
+  speed: 10
   Stats: {fileID: 0}
   Owner: {fileID: 0}
   Rival: {fileID: 0}
@@ -304,7 +304,6 @@ MonoBehaviour:
   damage: {fileID: 6224537058578622425}
   image: {fileID: 8415829431950629971}
   discardPosition: {fileID: 0}
-  anim: {fileID: 0}
 --- !u!65 &1676594863372105398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1184,6 +1183,12 @@ PrefabInstance:
 --- !u!4 &1676594863453842331 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: ae5ddf88608351d4d8462d0358b478b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1676594863454236953}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1676594863451941241 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: ae5ddf88608351d4d8462d0358b478b5,
     type: 3}
   m_PrefabInstance: {fileID: 1676594863454236953}
   m_PrefabAsset: {fileID: 0}
