@@ -15,7 +15,7 @@ public class CardPreview : MonoBehaviour
     private Animator anim;
     public bool isSelected;
     //public AudioSource s;
-    //public AudioClip collision;      quise poner algun sonido cuando el mouse apoya a la carta 
+    //public AudioClip coll;      quise poner algun sonido cuando el mouse apoya a la carta 
     //                                  y que sepa que aparece una carta al lado de la pantalla
 
     private void Start()

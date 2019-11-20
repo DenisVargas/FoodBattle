@@ -14,18 +14,12 @@ public class Loading : MonoBehaviour {
     Text percentText;
     [SerializeField]
     Image progressImage;
-    [SerializeField]
-    Image button;
-    [SerializeField]
-    Text continu;
 
 	// En cuanto se active el objeto, se inciará el cambio de escena
 	void Start () {
         //Iniciamos una corrutina, que es un método que se ejecuta 
         //en una línea de tiempo diferente al flujo principal del programa
         StartCoroutine(LoadScene());
-        button.enabled = false;
-        continu.enabled = false;
 	}
 
 	//Corrutina
@@ -53,18 +47,15 @@ public class Loading : MonoBehaviour {
 			yield return null;
 		}
 
-		//Mostramos la carga como finalizada
-		percentText.text = "100%";
-		progressImage.fillAmount = 1;
+        //Mostramos la carga como finalizada
+
+        percentText.text = "100%";
+
+        progressImage.fillAmount = 1;
+       
         //Activamos el salto de escena.
-        while (true)
-        {
-            button.enabled = true;
-            continu.enabled = true;
-            if (Input.anyKeyDown)
-               loading.allowSceneActivation = true;
-            yield return null;
-        }
+
+        loading.allowSceneActivation = true;
     }
 }
 
