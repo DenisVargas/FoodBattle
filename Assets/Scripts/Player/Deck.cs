@@ -50,11 +50,11 @@ public class Deck : MonoBehaviour
     public Queue<int> DeckCards = new Queue<int>();    // Se autorrellena. Cola de cartas en el Mazo, utiliza el ID de cada carta.
     public Stack<int> UsedCards = new Stack<int>();    // Se autorrellena. Pila de cartas Utilizadas, también utiliza el ID, y va aumentando a medida que activamos cartas.
 
-    private void Start()
-    {
-        LoadAllCards();
-        ShuffleDeck();
-    }
+    //private void Start()
+    //{
+    //    LoadAllCards();
+    //    ShuffleDeck();
+    //}
 
     public void LoadAllCards()
     {

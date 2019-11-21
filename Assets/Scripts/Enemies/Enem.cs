@@ -51,6 +51,8 @@ public class Enem : Actor
     bool _canExecuteActionM = false;
     bool canEndTurn = false;
 
+    //================================================== PROPERTIES ==============================================================
+
     public override bool CanExecuteActions
     {
         get => _canExecuteActionM;
@@ -61,6 +63,7 @@ public class Enem : Actor
         }
     }
 
+    //================================================== UNITY FUNCS =============================================================
 
     public override void Awake()
     {
@@ -80,36 +83,32 @@ public class Enem : Actor
         //deck.LoadAllCards(); todavia no se usa pero hay que ponerlo en algun momento, si lo pongo tira un error por algo de la seleccion del deck
     }
 
+    //================================================== TURNOS ==================================================================
+
+    public override void StartMatch()
+    {
+        // Prendo los HUDS
+        HUD.EnenmyHudObject.SetActive(true);
+
+        //Cargo mi deck y lo barajo.
+        deck.LoadAllCards();
+        deck.ShuffleDeck();
+
+        hand.Owner = this;
+
+        hand.GetDrawedCards(deck, hand.maxCardsInHand);
+    }
     public override void StartTurn(int turnEnergy)
     {
         //Decido que carajos hacer con mi vida.
         OnStartTurn(this);
         Energy = turnEnergy;
+
+        //Al comenzar mi turno saco una carta.
+        hand.GetDrawedCards(deck, 1);
+
         StartCoroutine(DelayedChoose(1.5f));
     }
-
-    public void Decide()
-    {
-        // Calculamos el peso de cada acción. --> A futuro porque ahora solo tenemos 2 Acciones we
-        float healImportance =  (1 - (Health / maxHealth)) * healWeight; // Cuanto menos vida tenga, mas alta es su importancia.
-
-        //Ejecutamos la desición.
-        List<float> posibilities = new List<float> { AttackWeight, healImportance };
-        int decition = RoulleteSelection.Roll(posibilities);
-
-        switch (decition)
-        {
-            case 0:
-                AttackToTarget();
-                break;
-            case 1:
-                heal(HealAmmount);
-                break;
-            default:
-                break;
-        }
-    }
-
     public override void UpdateTurn()
     {
         //print("UpdateEnemigo");
@@ -154,11 +153,7 @@ public class Enem : Actor
                     StartCoroutine(DelayedEndTurn(2f));
             }
         }
-        //Terminamos el turno.
-        //if (canEndTurn)
-        //    EndTurn();
     }
-
     public override void EndTurn()
     {
         OnEndTurn(this);
@@ -175,6 +170,27 @@ public class Enem : Actor
 
     //====================================================== Actions =============================================================
 
+    public void Decide()
+    {
+        // Calculamos el peso de cada acción. --> A futuro porque ahora solo tenemos 2 Acciones we
+        float healImportance =  (1 - (Health / maxHealth)) * healWeight; // Cuanto menos vida tenga, mas alta es su importancia.
+
+        //Ejecutamos la desición.
+        List<float> posibilities = new List<float> { AttackWeight, healImportance };
+        int decition = RoulleteSelection.Roll(posibilities);
+
+        switch (decition)
+        {
+            case 0:
+                AttackToTarget();
+                break;
+            case 1:
+                heal(HealAmmount);
+                break;
+            default:
+                break;
+        }
+    }
     public void AttackToTarget()
     {
         //Activo la animación o lo que sea.
@@ -198,7 +214,7 @@ public class Enem : Actor
 
     }
 
-    //============================================================================================================================
+    //================================================== OVERRIDES ===============================================================
 
     public override void GetDamage(int damage)
     {
@@ -223,7 +239,6 @@ public class Enem : Actor
             OnEnemyDie();
         }
     }
-
     protected override void heal(int Ammount)
     {
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
@@ -251,6 +266,8 @@ public class Enem : Actor
         else
             StartCoroutine(DelayedEndTurn(2f));
     }
+
+    //============================================================================================================================
 
     IEnumerator WaitCard(float seconds)
     {

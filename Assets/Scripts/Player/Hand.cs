@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,13 @@ using UnityEngine;
 //Es la "Mano del jugador"
 public class Hand : MonoBehaviour
 {
-    public Action OnStartDraw = delegate { };
-    public Action OnEndDraw = delegate { };
+    public Actor Owner;
 
-    public Dictionary<int, Card> hand;                   // Contiene las cartas ordenadas por su "UniqueID".
-    public List<Transform> ObjectsToAllign;              // Se autorrellena al ejecutar DrawCards. Esta es la lista de cartas que ya está en la mano, si se agrega una carta nueva, se desplazan a un costado.
+    public Dictionary<int, Card> handCards;                   // Contiene las cartas ordenadas por su "UniqueID".
     public List<Transform> ToDrawCards;                  // Representación del deck real (Componente Transform de cada carta en la mano).
     List<Vector3> _finalPositions;                       // Posiciones finales calculadas para cada de los elementos dentro de "ToDrawCards"
+    public List<Transform> ObjectsToAllign;              // Se autorrellena al ejecutar DrawCards. Esta es la lista de cartas que ya está en la mano, si se agrega una carta nueva, se desplazan a un costado.
+    List<Vector3> _currentPositions;
 
 
     [Header("Límite de Cartas")]
@@ -35,8 +36,12 @@ public class Hand : MonoBehaviour
     public float AnimationDuration = 1f;
     public float FrameRate = 25f;
 
-    int AmmountOfElements = 0;                                 // Lo usamos para saber si la cantidad de cartas actual es par o impar.
-    bool drawingCard = false;
+    //========================= Animación ===============================
+    bool _drawingCards = false;
+    int elementsToLerp = 0;
+    float currentLerpTime = 0;
+    float ScaledFrameRate = 0;
+    float LerpRate = 0;
 
     //================================================ DEBUG GIZMOS =====================================================================
 #if UNITY_EDITOR
@@ -61,11 +66,13 @@ public class Hand : MonoBehaviour
     private void Awake()
     {
         //Inicializaciones:
-        hand = new Dictionary<int, Card>();
+        handCards = new Dictionary<int, Card>();
         ObjectsToAllign = new List<Transform>();
         ToDrawCards = new List<Transform>();
         _finalPositions = new List<Vector3>();
+        _currentPositions = new List<Vector3>();
 
+        ScaledFrameRate = 1 / FrameRate;
         center = transform.position;
     }
 
@@ -77,7 +84,9 @@ public class Hand : MonoBehaviour
     /// <param name="activate">Activar o desactivar?</param>
     public void HandControl(bool activate)
     {
-        foreach (var item in hand)
+        if (handCards == null) return;
+
+        foreach (var item in handCards)
             item.Value.isInteractuable = activate;
     }
     /// <summary>
@@ -87,44 +96,62 @@ public class Hand : MonoBehaviour
     /// <param name="Ammount">Cantidad de cartas a extraer.</param>
     public void GetDrawedCards(Deck deck, int Ammount)
     {
-        HandControl(false);
-
         //Independientemente de si estamos en el límite o no, debería sacar una carta extra.
         foreach (var item in deck.DrawCards(Ammount))
         {
             item.transform.SetParent(transform);
-            hand.Add(item.DeckID, item);
+            handCards.Add(item.DeckID, item);
             ToDrawCards.Add(item.transform);
         }
 
+        HandControl(false);
+
+        Debug.LogWarning(string.Format("================ Inicio la animación para {0} ================", Owner.name));
+
+        _drawingCards = true;
+        Owner.OnStartDraw();
+        SetNewLerpElement();
         StartCoroutine(DrawCards(deck));
     }
+    private void SetNewLerpElement()
+    {
+        Transform card = ToDrawCards[0]; //Siempre tomo el primer elemento de ToDrawCards.
+        card.SetParent(transform);
+        //ToDrawCards.RemoveAt(0); // Remuevo el elemento cada vez que la animación concluye.
+        Owner.OnExtractCard(); //Le aviso al deck que extraje una carta.
+
+        ObjectsToAllign.Insert(0, card);
+        elementsToLerp = ObjectsToAllign.Count;
+
+        GetOriginalPositions();
+        CalculateHandFinalPositions();
+    }
+
     /// <summary>
     /// Permite descartar una carta de la mano.
     /// </summary>
     /// <param name="idCard"></param>
     public void DiscardCardFromHand(int idCard)
     {
-        if (hand.ContainsKey(idCard))
+        if (handCards.ContainsKey(idCard))
         {
-            var carta = hand[idCard];
+            var carta = handCards[idCard];
             //carta.comingBack = false;
             //carta.stopAll = true;
             carta.transform.SetParent(carta.discardPosition);
-            hand.Remove(idCard);
+            handCards.Remove(idCard);
         }
     }
-
-
     /// <summary>
     /// Recalcula las posiciones de cada elemento.
     /// </summary>
     private void CalculateHandFinalPositions()
     {
-        _finalPositions.Clear();        
+        _finalPositions.Clear(); //Posiciones originales calculadas anteriormente.
+        float AmmountOfElements = ObjectsToAllign.Count; //Elementos existentes en la mano + el nuevo.
 
-        //Calcular el padding --> la distancia entre cada elemento.
-        float padding = (DistanceLimit * 2) / AmmountOfElements;
+        float padding = (DistanceLimit * 2) / AmmountOfElements; // Distancia entre cada elemento.
+
         //Si el padding es mayor al maxPadding, entonces usamos el valor máximo en vez del resultado.
         if (padding > maxPadding) padding = maxPadding;
 
@@ -170,37 +197,21 @@ public class Hand : MonoBehaviour
             currentElement.transform.position = _finalPositions[i];
         }
     }
+    public void GetOriginalPositions()
+    {
+        _currentPositions = ObjectsToAllign
+                            .Select(ta => ta.position)
+                            .ToList();
+    }
 
     //================================================== CORRUTINES =====================================================================
 
     IEnumerator DrawCards(Deck deck)
     {
-        drawingCard = true;
-        OnStartDraw();
-
-        ToDrawCards[0].SetParent(transform);
-        AmmountOfElements++;
-        ObjectsToAllign.Insert(0, ToDrawCards[0]);
-        deck.ExtractCard(); //Le aviso al deck que extraje una carta.
-        CalculateHandFinalPositions();
-
-        int elementsToLerp = ToDrawCards.Count;
-        var currentCard = ToDrawCards[0];
-
-        float currentLerpTime = 0;
-        float AnimationFrameRate = 1 / FrameRate;
-
-        float LerpRate = 0;
-        print("Tiempo de la animación es:" + LerpRate);
-
-        Vector3[] originalPositions = new Vector3[ObjectsToAllign.Count];
-        for (int i = 0; i < ObjectsToAllign.Count; i++)
-            originalPositions[i] = ObjectsToAllign[i].position;
-
-        while (elementsToLerp > 0)
+        while (ToDrawCards.Count > 0)
         {
-            currentLerpTime += AnimationFrameRate;
-            LerpRate = currentLerpTime / AnimationDuration;
+            currentLerpTime += ScaledFrameRate;              // Aumenta el tiempo de la animación.
+            LerpRate = currentLerpTime / AnimationDuration;     // Calcula el porcentaje de completado de la animación.
 
             for (int i = 0; i < ObjectsToAllign.Count; i++)
             {
@@ -209,40 +220,38 @@ public class Hand : MonoBehaviour
 
                 if (element.transform.position != _finalPositions[i])
                 {
-                    //Hago el lerp de las posiciones.
-                    Vector3 lerpedPosition = Vector3.Lerp(originalPositions[i], finalPos, LerpCurve.Evaluate(LerpRate));
-                    element.transform.position = lerpedPosition;
+                    try
+                    {
+                        //Hago el lerp de las posiciones.
+                        Vector3 lerpedPosition = Vector3.Lerp(_currentPositions[i], finalPos, LerpCurve.Evaluate(LerpRate));
+                        element.transform.position = lerpedPosition;
+                        print("Hasta acá todo OKiDOkis");
+                    }
+                    catch (ArgumentOutOfRangeException e)
+                    {
+                        Debug.LogWarning("El owner es:" + Owner.ActorName);
+                        Debug.LogError(string.Format("Elementos a lerpear {0}, Objetos a alinear {1}, cantidad de posiciones finales {2}, cantidad de posiciones originales {3}", elementsToLerp, ObjectsToAllign.Count, _finalPositions.Count, _currentPositions.Count));
+                    }
                 }
             }
 
             if (currentLerpTime >= AnimationDuration) //Alternativa posA = posB
             {
-                print("Termine las animaciones.");
-                //Al final del la animación sacamos el elemento.
-                ToDrawCards.RemoveAt(0);
-                elementsToLerp--;
                 currentLerpTime = 0;
+                ToDrawCards.RemoveAt(0); //Al final del la animación sacamos el elemento.
+                elementsToLerp--;
 
-                if (elementsToLerp > 0)
-                {
-                    print("Hay mas cartas");
-                    AmmountOfElements++;
-                    currentCard = ToDrawCards[0];
-                    ToDrawCards[0].transform.SetParent(transform);
-                    ObjectsToAllign.Insert(0, ToDrawCards[0]);
-                    deck.ExtractCard(); //Le aviso al deck que extraje una carta.
-                    CalculateHandFinalPositions();
+                print(string.Format("A Cartas a obtener {0}, elementsToLerp value is {1}", ToDrawCards.Count, elementsToLerp));
 
-                    originalPositions = new Vector3[ObjectsToAllign.Count];
-                    for (int i = 0; i < ObjectsToAllign.Count; i++)
-                        originalPositions[i] = ObjectsToAllign[i].position;
-                }
+                if (ToDrawCards.Count > 0)
+                    SetNewLerpElement();
             }
-            yield return new WaitForSeconds(AnimationFrameRate);
+            yield return new WaitForSeconds(ScaledFrameRate);
         }
 
-        drawingCard = false;
-        OnEndDraw();
+        print("Termine las animaciones.");
+        _drawingCards = false;
         HandControl(true);
+        Owner.OnEndDraw();
     }
 }

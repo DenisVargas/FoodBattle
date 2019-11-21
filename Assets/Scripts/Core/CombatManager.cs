@@ -22,7 +22,11 @@ public class CombatManager : MonoBehaviour
     public Animator HUDAnimations;        // Contiene las animaciones del Canvas.
     public ActionFeedbackHUD FeedbackHUD;
 
+    bool playerIsDrawing = false;
+    bool enemyIsDrawing = false;
+
     private bool inGame = false;
+    bool deckSelected = false;
 
     [Header("Rondas")]
     public bool[] _currentRound = new bool[2] { false, false };
@@ -49,26 +53,25 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void SetDecksAndStartMatch(List<DeckData> aviableDecks, int playerDeckIndex)
+    public void SetDecksAndStartMatch(List<DeckData> aviableDecks, int playerDeckIndex, int enemyDeckIndex)
     {
-        var provitionalDeckList = new List<DeckData>(aviableDecks);
+        player.deck.deckSelected = aviableDecks[playerDeckIndex];
+        Enemy.deck.deckSelected = aviableDecks[enemyDeckIndex];
 
-        player.deck.deckSelected = provitionalDeckList[playerDeckIndex];
-        provitionalDeckList.RemoveAt(playerDeckIndex);
-        //Enemy.deck.deckSelected = provitionalDeckList[0]; //Esto esta tirando errores x todos lados.
-        StartGame();
+        SetPlayer();
+        SetEnemy();
+        deckSelected = true;
+        StartCoroutine(waitForPlayersToBeReady());
     }
 
     public void StartGame()
     {
-        SetTurnPlayer();
-        SetTurnEnemy();
         Current = GetNextActor();
         Current.StartTurn(InitialEnergy);
         inGame = true;
     }
 
-    public void SetTurnPlayer()
+    public void SetPlayer()
     {
         player.OnStartTurn += (Player) =>
         {
@@ -76,24 +79,30 @@ public class CombatManager : MonoBehaviour
             ActualizeMatchRoundData(Player);
             HUDAnimations.SetTrigger("PlayerTurn");
         };
+        player.OnStartDraw = () => playerIsDrawing = true;
+        player.OnEndDraw = () => playerIsDrawing = false;
+
         player.OnEndTurn += EndCurrentTurn;
         player.OnActorDies += PlayerDefeat;
-        player.deck.LoadAllCards();
-        player.deck.ShuffleDeck();
+
+        
         Turns.Enqueue(player);
     }
-    public void SetTurnEnemy()
+    public void SetEnemy()
     {
         Enemy.OnStartTurn += (Enemy) =>
         {
-            ActualizeMatchRoundData(Enemy);
             SetNotificationState(false);
+            ActualizeMatchRoundData(Enemy);
             HUDAnimations.SetTrigger("EnemyTurn");
         };
+        Enemy.OnStartDraw = () => enemyIsDrawing = true;
+        Enemy.OnEndDraw = () => enemyIsDrawing = false;
         Enemy.OnEndTurn = EndCurrentTurn;
         Enemy.OnEnemyDie += PlayerWin;
-        Turns.Enqueue(Enemy);
 
+        
+        Turns.Enqueue(Enemy);
     }
 
     /// <summary>
@@ -201,5 +210,17 @@ public class CombatManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(scene);
+    }
+    IEnumerator waitForPlayersToBeReady()
+    {
+        player.StartMatch();
+        Enemy.StartMatch();
+
+        yield return new WaitUntil(() => deckSelected && !playerIsDrawing && !enemyIsDrawing);
+
+        print("=============== Los jugadores están Listos ==================");
+
+        yield return new WaitForSecondsRealtime(1f);
+        StartGame();
     }
 }

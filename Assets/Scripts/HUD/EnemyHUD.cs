@@ -9,6 +9,13 @@ public class EnemyHUD : MonoBehaviour
     [SerializeField] TMP_Text _health = null;
     [SerializeField] TMP_Text _energy = null;
 
+    public GameObject EnenmyHudObject;
+
+    private void Awake()
+    {
+        EnenmyHudObject.SetActive(false);
+    }
+
     /// <summary>
     /// Setea el nombre del rival en el HUD.
     /// </summary>

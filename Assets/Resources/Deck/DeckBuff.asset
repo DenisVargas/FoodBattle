@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f59e013f17d59b4099164ada95093e4, type: 3}
   m_Name: DeckBuff
   m_EditorClassIdentifier: 
-  deckName: Deck Buff
-  deckID: 2
-  cantCards:
-  - cardID: 5
-    ammountOfCards: 4
-  - cardID: 10
-    ammountOfCards: 3
-  - cardID: 14
-    ammountOfCards: 2
-  - cardID: 1
-    ammountOfCards: 5
-  - cardID: 2
-    ammountOfCards: 4
-  - cardID: 4
-    ammountOfCards: 2
+  DeckName: Deck Buff
+  DeckID: 2
+  IncludedCardsInDeck:
+  - IncludedCardID: 5
+    AmmountInDeck: 4
+  - IncludedCardID: 10
+    AmmountInDeck: 3
+  - IncludedCardID: 14
+    AmmountInDeck: 2
+  - IncludedCardID: 1
+    AmmountInDeck: 5
+  - IncludedCardID: 2
+    AmmountInDeck: 4
+  - IncludedCardID: 4
+    AmmountInDeck: 2

@@ -128,7 +128,7 @@ public static class CardDatabase
 
             //Carta Combo por cada carta
 
-            int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
+            int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.handCards.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCardFromHand(deckID);

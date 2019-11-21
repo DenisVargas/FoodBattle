@@ -27,6 +27,10 @@ public abstract class Actor : MonoBehaviour
     public Action<Actor> OnEndTurn = delegate { };
     public Action OnActorDies = delegate { };
 
+    public Action OnStartDraw = delegate { };
+    public Action OnExtractCard = delegate { };
+    public Action OnEndDraw = delegate { };
+
     public event Action OnBuffAdded = delegate { };
     public event Action OnDebuffAdded = delegate { };
 
@@ -65,6 +69,8 @@ public abstract class Actor : MonoBehaviour
             ActiveDebuffs.Add(EffectDurationType.Limited, new List<DeBuff>());
         if (!ActiveDebuffs.ContainsKey(EffectDurationType.Permanent))
             ActiveDebuffs.Add(EffectDurationType.Permanent, new List<DeBuff>());
+
+        OnExtractCard += deck.ExtractCard;
     }
 
     //============================== Turnos ======================================================

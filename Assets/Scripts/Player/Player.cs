@@ -45,6 +45,9 @@ public class Player : Actor
 
     public override void Awake()
     {
+        /* Notas: 
+         * hand.OnExtractCard se setea en Awake de Actor. */
+
         base.Awake();
 
         OnBuffAdded += UpdateBuffDisplay;
@@ -103,7 +106,11 @@ public class Player : Actor
         HUD.HeroHud.SetActive(true);
         HUD.ShowEndTurnButton(true);
 
-        // Inicio el Draw Cards.
+        //Cargo mi deck y lo barajo.
+        deck.LoadAllCards();
+        deck.ShuffleDeck();
+
+        //Saco mis primeras cartas.
         hand.GetDrawedCards(deck, hand.maxCardsInHand);
     }
     /// <summary>
@@ -114,7 +121,11 @@ public class Player : Actor
         OnStartTurn(this);
         Energy = turnEnergy;
         UpdateCombatInterface();
-        hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
+        hand.Owner = this;
+
+        // Inicio el Draw Cards.
+        hand.GetDrawedCards(deck, 1);
+
         HUD.ShowEndTurnButton(true);
         grabber.enabled = true; // Puedo seleccionar weas, una vez que empieza mi turno.
     }
@@ -193,7 +204,7 @@ public class Player : Actor
 
     public List<Card> SearchCardType(CardData tipoCarta)
     {
-        var cartasDelMismoTipo = hand.hand.Values
+        var cartasDelMismoTipo = hand.handCards.Values
                                  .Where(card => card.Stats.ID == tipoCarta.ID)
                                  .ToList();
         return cartasDelMismoTipo;
@@ -210,7 +221,7 @@ public class Player : Actor
         {
             item.transform.SetParent(hand.transform);
             //item.inHand = true;
-            hand.hand.Add(item.DeckID, item);
+            hand.handCards.Add(item.DeckID, item);
         }
         //hand.AlingCards();
     }

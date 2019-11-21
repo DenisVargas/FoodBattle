@@ -52,7 +52,7 @@ public class cardDrag : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, float.MaxValue, LM_GameElements);
 
-        print(string.Format("Se encontraron {0} objetos", hits.Length));
+        //print(string.Format("Se encontraron {0} objetos", hits.Length));
 
         #region Posición del Mouse en el Tablero
         RaycastHit hit = hits.Where(h => h.transform.tag == "GameField")
