@@ -26,4 +26,8 @@ MonoBehaviour:
   - cardID: 2
     ammountOfCards: 4
   - cardID: 4
+    ammountOfCards: 10
+  - cardID: 8
     ammountOfCards: 2
+  - cardID: 10
+    ammountOfCards: 10

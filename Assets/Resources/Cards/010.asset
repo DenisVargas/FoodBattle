@@ -20,7 +20,7 @@ MonoBehaviour:
   extraCards: 0
   Buffs: []
   Debuffs:
-  - effectTarget: 1
+  - effectTarget: 0
     DebuffType: 0
     Ammount: 1
     durationType: 2

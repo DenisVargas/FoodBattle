@@ -124,6 +124,7 @@ public class Player : Actor
         //Calculo del daño real recibido.
         int damageReduction = GetActiveBuffAmmount(BuffType.ArmourIncrease);
         int realDamage = damage - damageReduction;
+        realDamage = Mathf.Clamp(realDamage, 0, 100);
         Health -= realDamage;
 
         //Feedback.

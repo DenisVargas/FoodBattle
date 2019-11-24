@@ -50,6 +50,8 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
 
         //Carta número 2.
@@ -64,6 +66,7 @@ public static class CardDatabase
             CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease));
             CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
 
         };
 
@@ -77,6 +80,8 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
 
         //Carta número 4.
@@ -86,9 +91,12 @@ public static class CardDatabase
             Owner.ModifyEnergy(stats.Cost);
 
             // Roba 1 carta.
-            Owner.DrawCards(stats.extraCards);
+            List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
+            Owner.DrawCards(cantCards.Count);
+            foreach (var item in cantCards)
+                Owner.hand.DiscardCard(item.DeckID);
 
-            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
         };
 
         //Carta número 5.
@@ -102,6 +110,8 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
 
         //Carta número 6.
@@ -118,6 +128,8 @@ public static class CardDatabase
 
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
+            Owner.hand.AlingCards();
+
         };
 
         //Carta número 7.
@@ -127,11 +139,15 @@ public static class CardDatabase
             Owner.ModifyEnergy(stats.Cost);
 
             //Carta Combo por cada carta
+            List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
+            if (cantCards.Count >= 1)
+                Owner.DrawCards(1);
 
             int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(deckID);
+            Owner.hand.AlingCards();
 
         };
 
@@ -142,10 +158,16 @@ public static class CardDatabase
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
 
-            //Owner recibe 4 de daño.
+            //Owner recibe 1 de daño.
             Owner.GetDamage(stats.GetDebuff(DeBuffType.healthReduction).Ammount);
 
+            Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
+
+            Owner.DrawCards(stats.extraCards);
+
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
 
         //Carta número 9.
@@ -159,10 +181,33 @@ public static class CardDatabase
             Owner.DrawCards(1);
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
 
-        //Carta número 13.
-        Action<Actor, Actor, CardData, int> Carta13 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        //Carta número 10
+        Action<Actor, Actor, CardData, int> Carta10 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        {
+            Owner.ModifyEnergy(stats.Cost);
+            
+            int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
+            Target.GetDamage(realDamage);
+
+            if (Owner.hand.hand.Count <= Owner.hand.maxCardsInHand)
+            {
+                Owner.ActiveBuffs[EffectDurationType.Limited]
+                                        .Where(b => b.BuffType == BuffType.ArmourIncrease)
+                                        .Select(b => Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease) - b.Ammount)
+                                        .Sum();
+                Debug.Log("ASDASDSADASDA");
+            }
+
+            Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+        };
+
+            //Carta número 13.
+            Action<Actor, Actor, CardData, int> Carta13 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
             Owner.ModifyEnergy(stats.Cost);
@@ -171,6 +216,8 @@ public static class CardDatabase
             Owner.AddBuffs(stats.GetAllBuffs());
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
 
         //Carta número 15.
@@ -189,6 +236,8 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.hand.AlingCards();
+
         };
         #endregion
 
@@ -211,6 +260,7 @@ public static class CardDatabase
         CardBehaviours.Add(7, Carta7);
         CardBehaviours.Add(8, Carta8);
         CardBehaviours.Add(9, Carta9);
+        CardBehaviours.Add(10, Carta10);
         CardBehaviours.Add(13, Carta13);
         CardBehaviours.Add(15, Carta15);
     }

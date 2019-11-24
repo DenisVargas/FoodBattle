@@ -126,7 +126,7 @@ public class Enem : Actor
             else
             {
                 cardSelected.canBeShowed = true;
-                StartCoroutine(WaitCard(3f));
+                StartCoroutine(WaitCard(2f));
             }
         }
         else if (cardStateShow == 2)
@@ -134,7 +134,7 @@ public class Enem : Actor
             if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 1f)
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
             else
-                StartCoroutine(WaitCardToDeck(1f));
+                StartCoroutine(WaitCardToDeck(0.5f));
         }
         else if (cardStateShow == 3)
         {
@@ -149,9 +149,9 @@ public class Enem : Actor
                 cardStateShow = 0;
 
                 if (Energy > 0)
-                    StartCoroutine(DelayedChoose(1.5f));
+                    StartCoroutine(DelayedChoose(1f));
                 else
-                    StartCoroutine(DelayedEndTurn(2f));
+                    StartCoroutine(DelayedEndTurn(1.5f));
             }
         }
         //Terminamos el turno.

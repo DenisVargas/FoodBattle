@@ -16,15 +16,23 @@ MonoBehaviour:
   ID: 8
   image: {fileID: 21300000, guid: 520aa3fb279e5604796f5ce035bb5f4c, type: 3}
   Cost: 0
-  extraTurns: 1
-  extraCards: 0
-  Buffs: []
+  extraTurns: 0
+  extraCards: 1
+  Buffs:
+  - effectTarget: 0
+    BuffType: 4
+    Ammount: 1
+    durationType: 2
+    Duration: 3
+    useType: 0
+    Uses: 0
   Debuffs:
   - effectTarget: 0
     DebuffType: 0
-    Ammount: 3
+    Ammount: 1
     durationType: 0
     Duration: 0
     useType: 0
     Uses: 0
-  description: "Te inflijes 1 de da\xF1o, ganas un turno extra"
+  description: "Te infringes 1 de da\xF1o, robas 1 carta y tus cartas hacen +1 de
+    da\xF1o durante 2 turnos"
