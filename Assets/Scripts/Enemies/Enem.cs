@@ -265,6 +265,11 @@ public class Enem : Actor
         }
     }
 
+    protected override void DestroyArmour()
+    {
+        print("Cierto que el enemigo no tiene esta lógica xD");
+    }
+
     protected override void heal(int Ammount)
     {
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];

@@ -13,6 +13,11 @@ public class Hand : MonoBehaviour
     private Vector3 startPost;
     public int maxCardsInHand;
 
+    public bool IsFull()
+    {
+        return hand.Count >= maxCardsInHand;
+    }
+
     public void HandControl(bool activate)
     {
         foreach (var item in hand)

@@ -179,6 +179,9 @@ public abstract class Actor : MonoBehaviour
             case DeBuffType.healthReduction:
                 Health -= deBuff.Ammount;
                 break;
+            case DeBuffType.ArmourDestruction:
+                DestroyArmour();
+                break;
             case DeBuffType.nullify:
                 break;
             default:
@@ -295,7 +298,7 @@ public abstract class Actor : MonoBehaviour
 
     //=============================== Turnos y Energía ===========================================
 
-    public virtual void ModifyEnergy(int Ammount) { }
+    public virtual void ModifyEnergy(int Ammount, bool increase = false) { }
     public virtual void DrawCards(int Ammount) { }
 
     //=============================== Efectos Aplicables =========================================
@@ -304,4 +307,5 @@ public abstract class Actor : MonoBehaviour
     public virtual void RestoreAllHealth() { }
     protected virtual void AddExtraEnergy(int Ammount) { }
     protected virtual void NullifyCardCost(int turns) { }
+    protected virtual void DestroyArmour() { }
 }

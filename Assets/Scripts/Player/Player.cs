@@ -206,26 +206,20 @@ public class Player : Actor
         ad.clip = life;
         ad.Play();
     }
-    public override void ModifyEnergy(int Ammount)
+    public override void ModifyEnergy(int Ammount, bool Increase = false)
     {
-        reduxActions(Ammount);
-        CombatManager.match.FeedbackHUD.SetEnergy("Energía:", -Ammount);
+        Energy += Ammount;
+
+        string message = string.Format("Energía:{0}", Ammount > 0 ? " + " : "");
+
+        CombatManager.match.FeedbackHUD.SetEnergy(message, Ammount);
         CombatManager.match.HUDAnimations.SetTrigger("PlayerUsedCard");
+        UpdateCombatInterface();
     }
 
     #endregion
 
     //------------------------------------------------------------------------------------------------------------------
-
-    /// <summary>
-    /// Reduce las acciones posibles consumiento puntos de Energía.
-    /// </summary>
-    /// <param name="cost">Los puntos de energía que consume la acción.</param>
-    void reduxActions(int cost)
-    {
-        Energy -= cost;
-        UpdateCombatInterface();
-    }
 
     /// <summary>
     /// Refresca el Display del HUD para este jugador.
