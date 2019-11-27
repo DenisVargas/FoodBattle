@@ -184,7 +184,7 @@ public class Player : Actor
         }
         hand.AlingCards();
     }
-    protected override void RestoreAllHealth()
+    public override void RestoreAllHealth()
     {
         Health = maxHealth;
     }

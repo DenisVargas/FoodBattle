@@ -85,7 +85,8 @@ public class Enem : Actor
         //Decido que carajos hacer con mi vida.
         OnStartTurn(this);
         Energy = turnEnergy;
-        StartCoroutine(DelayedChoose(1.5f));
+        //StartCoroutine(DelayedChoose(1.5f));
+        cardStateShow = 3;
     }
 
     public void Decide()
@@ -121,7 +122,7 @@ public class Enem : Actor
             if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position)>= 1f)
             {
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, ShowCard.transform.position, Time.deltaTime);
-                cardSelected.anim.Play("EnemyAttack");
+                cardSelected.anim.SetTrigger("EnemyAttack");
             }
             else
             {
@@ -134,24 +135,49 @@ public class Enem : Actor
             if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 1f)
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
             else
-                StartCoroutine(WaitCardToDeck(0.5f));
-        }
-        else if (cardStateShow == 3)
-        {
-            if (Vector3.Distance(cardSelected.transform.position, handEnemy.transform.position) >= 1f)
-                cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, handEnemy.transform.position, Time.deltaTime * 5);
-            else
             {
-                cardSelected.canBeShowed = false;
-                cardSelected.Stats = null;
-                hand.AlingCards();
                 cardSelected = null;
                 cardStateShow = 0;
-
                 if (Energy > 0)
                     StartCoroutine(DelayedChoose(1f));
                 else
                     StartCoroutine(DelayedEndTurn(1.5f));
+            }
+            
+            //    StartCoroutine(WaitCardToDeck(0.5f));
+        }
+        else if (cardStateShow == 3)
+        {
+            if (enemyDeck.transform.childCount == 0)
+            {
+                StartCoroutine(DelayedChoose(1.5f));
+                cardStateShow = 0;
+            }
+            else
+            {
+                List<Card> inDeck = new List<Card>();
+                for (int i = 0; i < enemyDeck.childCount; i++)
+                {
+                    inDeck.Add(enemyDeck.GetChild(i).GetComponent<Card>());
+                }
+                for (int i = 0; i < inDeck.Count; i++)
+                {
+                    if (Vector3.Distance(inDeck[i].transform.position, handEnemy.transform.position) >= 1f)
+                        inDeck[i].transform.position = Vector3.Lerp(inDeck[i].transform.position, handEnemy.transform.position, Time.deltaTime * 5);
+                    else
+                    {
+                        cardsEnemy.Add(inDeck[i]);
+                        inDeck[i].canBeShowed = false;
+                        inDeck[i].Stats = null;
+                        hand.AlingCards();
+
+
+                        if (Energy > 0)
+                            StartCoroutine(DelayedChoose(1f));
+                        else
+                            StartCoroutine(DelayedEndTurn(1.5f));
+                    }
+                }
             }
         }
         //Terminamos el turno.
@@ -181,10 +207,10 @@ public class Enem : Actor
 
         var randomNumber = UnityEngine.Random.Range(0, cardsEnemy.Count);
         cardSelected = cardsEnemy[randomNumber];
-        cardsEnemy.RemoveAt(randomNumber);
         cardSelected.Stats = CardDatabase.GetCardData(1);
         if (Energy >= cardSelected.Stats.Cost)
         {
+            cardsEnemy.Remove(cardSelected);
             print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
             cardStateShow = 1;
             cardSelected.LoadCardDisplayInfo();
@@ -229,9 +255,10 @@ public class Enem : Actor
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
         cardSelected.Stats = (CardData)Resources.Load("Cards/003");
         cardSelected.LoadCardDisplayInfo();
-
         if (Energy >= cardSelected.Stats.Cost)
         {
+
+            cardsEnemy.Remove(cardSelected);
             cardStateShow = 1;
             print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
             //Me curo.
@@ -263,8 +290,8 @@ public class Enem : Actor
         yield return new WaitForSeconds(seconds);
         cardSelected.anim.SetTrigger("BackToIdle");
         cardSelected.transform.position = enemyDeck.transform.position;
+        cardSelected.transform.SetParent(enemyDeck.transform);
         cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 180, 0));
-        cardStateShow = 3;
     }
 
     IEnumerator DelayedChoose(float seconds)

@@ -40,9 +40,12 @@ public class Hand : MonoBehaviour
             if (item.Key == idCard)
             {
                 var carta = item.Value;
-                carta.comingBack = false;
-                carta.stopAll = true;
-                carta.transform.SetParent(carta.discardPosition);
+                carta.shaderStart = true;
+                carta.canvas.SetActive(false);
+                foreach (var i in carta.objetos)
+                {
+                    i.SetActive(false);
+                }
                 hand.Remove(idCard);
                 break;
             }

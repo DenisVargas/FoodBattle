@@ -12,7 +12,7 @@ public static class CardDatabase
     /// <summary>
     /// Contiene todos las stats de cada carta del juego.
     /// </summary>
-    static Dictionary<int, CardData> CardDatas;
+    public static Dictionary<int, CardData> CardDatas;
     /// <summary>
     /// Contiene todos los comportamientos de cada carta del juego.
     /// </summary>
@@ -28,7 +28,7 @@ public static class CardDatabase
         LoadAllBehaviours();
     }
 
-    private static void LoadAllCardDatas()
+    public static void LoadAllCardDatas()
     {
         CardData[] data = Resources.LoadAll<CardData>(RelativeDataPath);
         foreach (var cardData in data)
@@ -50,7 +50,7 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+         //   Owner.hand.AlingCards();
 
         };
 
@@ -66,7 +66,7 @@ public static class CardDatabase
             CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease));
             CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+        //    Owner.hand.AlingCards();
 
         };
 
@@ -80,7 +80,7 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+         //   Owner.hand.AlingCards();
 
         };
 
@@ -96,7 +96,7 @@ public static class CardDatabase
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
 
-            Owner.hand.AlingCards();
+       //     Owner.hand.AlingCards();
         };
 
         //Carta número 5.
@@ -110,7 +110,7 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+       //     Owner.hand.AlingCards();
 
         };
 
@@ -128,7 +128,7 @@ public static class CardDatabase
 
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
-            Owner.hand.AlingCards();
+        //   Owner.hand.AlingCards();
 
         };
 
@@ -147,7 +147,7 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(deckID);
-            Owner.hand.AlingCards();
+           // Owner.hand.AlingCards();
 
         };
 
@@ -166,7 +166,7 @@ public static class CardDatabase
             Owner.DrawCards(stats.extraCards);
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+            //Owner.hand.AlingCards();
 
         };
 
@@ -181,7 +181,7 @@ public static class CardDatabase
             Owner.DrawCards(1);
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+            //Owner.hand.AlingCards();
 
         };
 
@@ -199,11 +199,10 @@ public static class CardDatabase
                                         .Where(b => b.BuffType == BuffType.ArmourIncrease)
                                         .Select(b => Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease) - b.Ammount)
                                         .Sum();
-                Debug.Log("ASDASDSADASDA");
             }
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+            //Owner.hand.AlingCards();
         };
 
             //Carta número 13.
@@ -213,10 +212,11 @@ public static class CardDatabase
             Owner.ModifyEnergy(stats.Cost);
 
             //Obtenemos toda la vida restante. Perdemos 2 turnos.
-            Owner.AddBuffs(stats.GetAllBuffs());
+            Owner.AddBuff(stats.GetBuff(BuffType.FullHealthRestore));
+            Owner.AddDebuff(stats.GetDebuff(DeBuffType.DamageReduction));
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+            //Owner.hand.AlingCards();
 
         };
 
@@ -236,7 +236,7 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(DeckID);
-            Owner.hand.AlingCards();
+            //Owner.hand.AlingCards();
 
         };
         #endregion

@@ -301,7 +301,7 @@ public abstract class Actor : MonoBehaviour
     //=============================== Efectos Aplicables =========================================
 
     protected virtual void heal(int Ammount) { }
-    protected virtual void RestoreAllHealth() { }
+    public virtual void RestoreAllHealth() { }
     protected virtual void AddExtraEnergy(int Ammount) { }
     protected virtual void NullifyCardCost(int turns) { }
 }

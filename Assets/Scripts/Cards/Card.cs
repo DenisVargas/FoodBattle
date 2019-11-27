@@ -40,6 +40,13 @@ public class Card : MonoBehaviour
     public Vector3 starPos;
     private Vector3 mOffset;
 
+    [Header("Shaders")]
+    public Renderer mats;
+    public float shaderLerp;
+    public bool shaderStart = false;
+    public GameObject canvas;
+    public GameObject[] objetos;
+
     public AudioSource ni;
     public AudioClip clickCard;
     public AudioClip noEnergy;
@@ -74,6 +81,7 @@ public class Card : MonoBehaviour
         //starPos = transform.position;
         comingBack = true;
         back = true;
+        shaderLerp = 100;
     }
 
     public void LoadCardDisplayInfo()
@@ -85,6 +93,7 @@ public class Card : MonoBehaviour
         damage.text = Stats.GetDebuff(DeBuffType.healthReduction).Ammount.ToString();
         image.sprite = Stats.image;
     }
+    
 
     private void Update()
     {
@@ -116,7 +125,27 @@ public class Card : MonoBehaviour
                     else
                         comingBack = false;
                 }
+                if (shaderStart)
+                {
+                    shaderLerp -= 2f;
+                    ShadersOP(shaderLerp);
+                    if (shaderLerp <= 0)
+                    {
+                        comingBack = false;
+                        stopAll = true;
+                        transform.SetParent(discardPosition.transform);
+                        shaderStart = false;
+                    }
+                }
             }
+        }
+    }
+
+    public void ShadersOP(float sec)
+    {
+        foreach (var item in mats.materials)
+        {
+            item.SetFloat("_Progress", sec / 100);
         }
     }
 
@@ -125,8 +154,9 @@ public class Card : MonoBehaviour
     {
         if (CanBeActivated(Stats.Cost))
         {
-            //Acá va todos los efectos.
             CardEffect(Owner, Rival, Stats, DeckID);
+            //Acá va todos los efectos.
+            //shaderStart = true;
             OnUseCard(Stats.ID);
         }
         else

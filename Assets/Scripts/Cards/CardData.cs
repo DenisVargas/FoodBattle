@@ -85,6 +85,7 @@ public enum DeBuffType
 {
     healthReduction,
     ArmourReduction,
+    DamageReduction,
     nullify
 }
 
