@@ -9,6 +9,7 @@ public class Player : Actor
     public PlayerHUD HUD;
 
     public cameraShaker shake;
+    public GameObject turn;
 
     [Header("Audio")]
     public AudioSource ad;
@@ -62,7 +63,6 @@ public class Player : Actor
         HUD.PlayerLife = Health;
         HUD.RemainingCards = deck.DeckCards.Count;
         HUD.UsedCards = 0;
-
         //Llamar funciones relevantes.
         //deck.LoadAllCards();
 
@@ -81,6 +81,7 @@ public class Player : Actor
     public override void StartTurn(int turnEnergy)
     {
         OnStartTurn(this);
+        turn.SetActive(enabled);
         Energy = turnEnergy;
         UpdateCombatInterface();
         hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
@@ -102,6 +103,7 @@ public class Player : Actor
         //print("El jugador finalizo el turno.");
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
         HUD.ShowEndTurnButton(false);
+        turn.SetActive(!enabled);
 
         Energy = 0;
         UpdateCombatInterface();

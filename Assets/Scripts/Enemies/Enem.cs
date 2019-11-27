@@ -19,6 +19,7 @@ public class Enem : Actor
     public Player target;
     public GameObject GetHitPrefab;
     public GameObject GetHitParticleParent;
+    public GameObject TurnEnem;
 
     //weas
     [Header("Weas")]
@@ -65,7 +66,7 @@ public class Enem : Actor
     public override void Awake()
     {
         base.Awake();
-
+        TurnEnem.SetActive(!enabled);
         au = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>();
         for (int i = 0; i < handEnemy.transform.childCount; i++)
@@ -84,6 +85,7 @@ public class Enem : Actor
     {
         //Decido que carajos hacer con mi vida.
         OnStartTurn(this);
+        TurnEnem.SetActive(enabled);
         Energy = turnEnergy;
         //StartCoroutine(DelayedChoose(1.5f));
         cardStateShow = 3;
@@ -190,7 +192,7 @@ public class Enem : Actor
         OnEndTurn(this);
 
         Energy = 0;
-
+        TurnEnem.SetActive(!enabled);
         //Feedback
         au.clip = turn;
         au.Play();

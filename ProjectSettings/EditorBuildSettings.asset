@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Playerloser.unity
     guid: 990b6fb62fa4a2e4eab12f7572d674d3
+  - enabled: 1
+    path: Assets/Scenes/ListaDeCartas.unity
+    guid: 46038b476dbafe44897f08a92ba2c6fa
   m_configObjects: {}
