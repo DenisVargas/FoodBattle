@@ -27,4 +27,4 @@ MonoBehaviour:
     useType: 0
     Uses: 0
   Debuffs: []
-  description: 'Efectos: Obtienes +1 de Armadura durante 2 turnos'
+  description: Obtienes +1 de Armadura durante 2 turnos

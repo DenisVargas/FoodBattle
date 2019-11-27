@@ -27,5 +27,5 @@ MonoBehaviour:
     Duration: 5
     useType: 0
     Uses: 0
-  description: "Inflije 1 de da\xF1o al enemigo, si tu mano esta llena rompe toda
-    la armadura del enemigo."
+  description: "Inflije 1 de da\xF1o, si tu mano esta llena rompe toda la armadura
+    del enemigo."

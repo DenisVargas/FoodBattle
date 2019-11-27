@@ -27,5 +27,5 @@ MonoBehaviour:
     Duration: 0
     useType: 0
     Uses: 0
-  description: "Esta inflige +2 de da\xF1o por cada carta de \"Ejercito de papas fritas\"
-    que tengas en mano."
+  description: "Inflige +2 de da\xF1o por cada carta de \"Ejercito de papas fritas\"
+    que tengas en mano"

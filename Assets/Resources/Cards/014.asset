@@ -27,5 +27,5 @@ MonoBehaviour:
     Duration: 4
     useType: 0
     Uses: 0
-  description: Obtienes 4 de armadura  (SI "BURRITO DEFENSOR ESTA EN MANO LAS CARTAS
-    SE REDUCEN -1 DE COSTO)
+  description: Obtienes 4 de armadura (si "Burrito Defensor" esta en la mano se reduce
+    a -1 el valor de las cartas)

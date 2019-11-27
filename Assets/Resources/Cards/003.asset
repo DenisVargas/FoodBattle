@@ -27,4 +27,4 @@ MonoBehaviour:
     useType: 0
     Uses: 0
   Debuffs: []
-  description: 'Efectos: Restaura 2 puntos de salud en el turno.'
+  description: Restaura 2 puntos de salud

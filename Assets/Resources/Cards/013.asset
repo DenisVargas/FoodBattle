@@ -27,4 +27,4 @@ MonoBehaviour:
     useType: 0
     Uses: 0
   Debuffs: []
-  description: Restaura toda la vida faltante, reduce el ataque de tus cartas -1.
+  description: "Restaura toda la vida faltante, reduce el da\xF1o de tus cartas -1."
