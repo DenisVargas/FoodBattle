@@ -66,8 +66,6 @@ public static class CardDatabase
             CombatManager.match.FeedbackHUD.SetBuffArmor("Resistencia: ", Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease));
             CombatManager.match.HUDAnimations.SetTrigger("PlayerGetShield");
             Owner.hand.DiscardCard(DeckID);
-        //    Owner.hand.AlingCards();
-
         };
 
         //Carta número 3.
@@ -80,8 +78,6 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
 
             Owner.hand.DiscardCard(DeckID);
-         //   Owner.hand.AlingCards();
-
         };
 
         //Carta número 4.
@@ -96,7 +92,6 @@ public static class CardDatabase
                 Owner.hand.DiscardCard(item.DeckID);
 
             Owner.DrawCards(cantCards.Count);
-       //     Owner.hand.AlingCards();
         };
 
         //Carta número 5.
@@ -110,8 +105,6 @@ public static class CardDatabase
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
 
             Owner.hand.DiscardCard(DeckID);
-       //     Owner.hand.AlingCards();
-
         };
 
         //Carta número 6.
@@ -128,8 +121,6 @@ public static class CardDatabase
 
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
-        //   Owner.hand.AlingCards();
-
         };
 
         //Carta número 7.
@@ -217,6 +208,25 @@ public static class CardDatabase
             Owner.hand.DiscardCard(DeckID);
         };
 
+        //Carta número 12.
+        Action<Actor, Actor, CardData, int> Carta12 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        {
+            //Otorga 1 punto de armadura por cada 4 puntos de vida que tenga el dueño. Si la vida es mayor al 50% Inflige 1 puntos de daño por cada 4 puntos de vida.
+
+            int Points = (Owner.Health / 4);
+
+            Owner.AddBuff(new Buff() { BuffType = BuffType.ArmourIncrease, Ammount = Points, durationType = EffectDurationType.Inmediate });
+
+            float percentage = Owner.Health / Owner.maxHealth;
+            if (percentage >= 0.5f)
+            {
+                DeBuff daño = new DeBuff() { DebuffType = DeBuffType.healthReduction, Ammount = Points, durationType = EffectDurationType.Inmediate };
+                Target.AddDebuff(daño);
+            }
+
+            Owner.hand.DiscardCard(DeckID);
+        };
+
         //Carta número 13.
         Action<Actor, Actor, CardData, int> Carta13 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
@@ -291,6 +301,7 @@ public static class CardDatabase
         CardBehaviours.Add(9, Carta9);
         CardBehaviours.Add(10, Carta10);
         CardBehaviours.Add(11, Carta11);
+        CardBehaviours.Add(12, Carta12);
         CardBehaviours.Add(13, Carta13);
         CardBehaviours.Add(14, Carta14);
         CardBehaviours.Add(15, Carta15);

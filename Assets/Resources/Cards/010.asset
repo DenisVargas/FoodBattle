@@ -27,5 +27,12 @@ MonoBehaviour:
     Duration: 5
     useType: 0
     Uses: 0
+  - effectTarget: 0
+    DebuffType: 3
+    Ammount: 1
+    durationType: 0
+    Duration: 0
+    useType: 0
+    Uses: 0
   description: "Inflije 1 de da\xF1o, si tu mano esta llena rompe toda la armadura
     del enemigo."

@@ -18,14 +18,22 @@ MonoBehaviour:
   Cost: 3
   extraTurns: 0
   extraCards: 0
-  Buffs: []
-  Debuffs:
-  - effectTarget: 1
-    DebuffType: 1
+  Buffs:
+  - effectTarget: 0
+    BuffType: 3
     Ammount: 4
     durationType: 2
-    Duration: 4
+    Duration: 3
     useType: 0
     Uses: 0
-  description: Obtienes 4 de armadura (si "Burrito Defensor" esta en la mano se reduce
-    a -1 el valor de las cartas)
+  - effectTarget: 0
+    BuffType: 5
+    Ammount: 1
+    durationType: 2
+    Duration: 3
+    useType: 0
+    Uses: 0
+  Debuffs: []
+  description: "Obtienes 4 de armadura durante 3 turnos.\nSi \"Burrito Defensor\"
+    esta en la mano se reduce en 1 el coste de energ\xEDa de todas las cartas mientras
+    el efecto de esta carta est\xE9 Activa."

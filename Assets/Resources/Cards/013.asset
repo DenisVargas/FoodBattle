@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 13
   image: {fileID: 21300000, guid: d1ea043ad2b0a7c439d9ca8f917b5f96, type: 3}
   Cost: 0
-  extraTurns: -2
+  extraTurns: 0
   extraCards: 0
   Buffs:
   - effectTarget: 0
@@ -26,5 +26,13 @@ MonoBehaviour:
     Duration: 0
     useType: 0
     Uses: 0
-  Debuffs: []
-  description: "Restaura toda la vida faltante, reduce el da\xF1o de tus cartas -1."
+  Debuffs:
+  - effectTarget: 0
+    DebuffType: 2
+    Ammount: 1
+    durationType: 2
+    Duration: 2
+    useType: 0
+    Uses: 0
+  description: "Restaura toda la vida faltante, reduce el da\xF1o de tus cartas en
+    1 por 2 turnos."

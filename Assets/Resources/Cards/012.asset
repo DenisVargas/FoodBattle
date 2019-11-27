@@ -15,16 +15,11 @@ MonoBehaviour:
   CardName: "Barra de Man\xED"
   ID: 12
   image: {fileID: 21300000, guid: 3bd772ba34a56e84f9c8d4615261b551, type: 3}
-  Cost: 1
+  Cost: 2
   extraTurns: 0
   extraCards: 0
   Buffs: []
-  Debuffs:
-  - effectTarget: 1
-    DebuffType: 2
-    Ammount: 1
-    durationType: 2
-    Duration: 1
-    useType: 1
-    Uses: 1
-  description: ???????????????????
+  Debuffs: []
+  description: '
+
+'

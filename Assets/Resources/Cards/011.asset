@@ -27,4 +27,5 @@ MonoBehaviour:
     Duration: 0
     useType: 0
     Uses: 0
-  description: "Inflije 7 de da\xF1o, saca una carta (fusion a eleccion)"
+  description: "Inflije 7 de da\xF1o, otorga 1 punto de energ\xEDa por cada \"Teniente
+    Bacon\" o \"Coronel Pochoclon\" que tengas en la mano."
