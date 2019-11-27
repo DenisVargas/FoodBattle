@@ -134,6 +134,7 @@ public class Card : MonoBehaviour
                         comingBack = false;
                         stopAll = true;
                         transform.SetParent(discardPosition.transform);
+                        Owner.hand.AlingCards();
                         shaderStart = false;
                     }
                 }

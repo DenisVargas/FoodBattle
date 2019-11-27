@@ -34,6 +34,8 @@ public class Enem : Actor
     public Transform handEnemy;
     public Transform enemyDeck;
     public Card cardSelected;
+    public List<Card> inDeck = new List<Card>();
+    public bool toHand = false;
 
     //Pesos de cada acción.
     [Header("Pesos de cada accion")]
@@ -118,14 +120,37 @@ public class Enem : Actor
         //print("UpdateEnemigo");
         OnUpdateTurn();
 
+        if (toHand)
+        {
+            if (inDeck.Count > 0)
+            {
+                if (Vector3.Distance(inDeck[0].transform.position, handEnemy.transform.position) >= 1f)
+                    inDeck[0].transform.position = Vector3.Lerp(inDeck[0].transform.position, handEnemy.transform.position, Time.deltaTime * 2);
+                else
+                {
+                    cardsEnemy.Add(inDeck[0]);
+                    inDeck[0].transform.SetParent(handEnemy.transform);
+                    inDeck[0].transform.rotation = Quaternion.Euler(handEnemy.transform.rotation.x, handEnemy.transform.rotation.y, handEnemy.transform.rotation.z);
+                    inDeck[0].canBeShowed = false;
+                    inDeck[0].Stats = null;
+                    inDeck.Remove(inDeck[0]);
+                }
+            }
+            else
+            {
+                hand.AlingCards();
+                if (Energy > 0)
+                    StartCoroutine(DelayedChoose(1f));
+                else
+                    StartCoroutine(DelayedEndTurn(1.5f));
+                toHand = false;
+            }
+        }
 
         if (cardStateShow == 1)
         {
             if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position)>= 1f)
-            {
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, ShowCard.transform.position, Time.deltaTime);
-                cardSelected.anim.SetTrigger("EnemyAttack");
-            }
             else
             {
                 cardSelected.canBeShowed = true;
@@ -134,16 +159,19 @@ public class Enem : Actor
         }
         else if (cardStateShow == 2)
         {
-            if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 1f)
+            if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 2f)
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
             else
             {
-                cardSelected = null;
                 cardStateShow = 0;
                 if (Energy > 0)
                     StartCoroutine(DelayedChoose(1f));
                 else
                     StartCoroutine(DelayedEndTurn(1.5f));
+                cardSelected.transform.SetParent(enemyDeck.transform);
+                cardSelected.transform.position = enemyDeck.transform.position;
+                //cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 0, 0));
+                cardSelected = null;
             }
             
             //    StartCoroutine(WaitCardToDeck(0.5f));
@@ -152,34 +180,18 @@ public class Enem : Actor
         {
             if (enemyDeck.transform.childCount == 0)
             {
-                StartCoroutine(DelayedChoose(1.5f));
                 cardStateShow = 0;
+                StartCoroutine(DelayedChoose(1.5f));
             }
             else
             {
-                List<Card> inDeck = new List<Card>();
+                cardStateShow = 0;
                 for (int i = 0; i < enemyDeck.childCount; i++)
                 {
                     inDeck.Add(enemyDeck.GetChild(i).GetComponent<Card>());
+                    inDeck[i].anim.SetTrigger("BackToIdle");
                 }
-                for (int i = 0; i < inDeck.Count; i++)
-                {
-                    if (Vector3.Distance(inDeck[i].transform.position, handEnemy.transform.position) >= 1f)
-                        inDeck[i].transform.position = Vector3.Lerp(inDeck[i].transform.position, handEnemy.transform.position, Time.deltaTime * 5);
-                    else
-                    {
-                        cardsEnemy.Add(inDeck[i]);
-                        inDeck[i].canBeShowed = false;
-                        inDeck[i].Stats = null;
-                        hand.AlingCards();
-
-
-                        if (Energy > 0)
-                            StartCoroutine(DelayedChoose(1f));
-                        else
-                            StartCoroutine(DelayedEndTurn(1.5f));
-                    }
-                }
+                toHand = true;
             }
         }
         //Terminamos el turno.
@@ -212,6 +224,7 @@ public class Enem : Actor
         cardSelected.Stats = CardDatabase.GetCardData(1);
         if (Energy >= cardSelected.Stats.Cost)
         {
+            cardSelected.anim.SetTrigger("EnemyAttack");
             cardsEnemy.Remove(cardSelected);
             print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Atacar"));
             cardStateShow = 1;
@@ -259,7 +272,7 @@ public class Enem : Actor
         cardSelected.LoadCardDisplayInfo();
         if (Energy >= cardSelected.Stats.Cost)
         {
-
+            cardSelected.anim.SetTrigger("EnemyAttack");
             cardsEnemy.Remove(cardSelected);
             cardStateShow = 1;
             print(string.Format("{0} Ejecutó la acción: {1}", ActorName, "Curar"));
@@ -283,6 +296,7 @@ public class Enem : Actor
 
     IEnumerator WaitCard(float seconds)
     {
+        cardStateShow = 0;
         yield return new WaitForSeconds(seconds);
         cardStateShow = 2;
     }
@@ -292,7 +306,6 @@ public class Enem : Actor
         yield return new WaitForSeconds(seconds);
         cardSelected.anim.SetTrigger("BackToIdle");
         cardSelected.transform.position = enemyDeck.transform.position;
-        cardSelected.transform.SetParent(enemyDeck.transform);
         cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 180, 0));
     }
 

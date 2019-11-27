@@ -92,10 +92,10 @@ public static class CardDatabase
 
             // Roba 1 carta.
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
-            Owner.DrawCards(cantCards.Count);
             foreach (var item in cantCards)
                 Owner.hand.DiscardCard(item.DeckID);
 
+            Owner.DrawCards(cantCards.Count);
        //     Owner.hand.AlingCards();
         };
 
@@ -140,13 +140,13 @@ public static class CardDatabase
 
             //Carta Combo por cada carta
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
-            if (cantCards.Count >= 1)
-                Owner.DrawCards(1);
 
             int realDamage = (stats.GetDebuff(DeBuffType.healthReduction).Ammount * Owner.hand.hand.Count) + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(deckID);
+            if (cantCards.Count >= 1)
+                Owner.DrawCards(1);
            // Owner.hand.AlingCards();
 
         };
@@ -163,9 +163,9 @@ public static class CardDatabase
 
             Owner.AddBuff(stats.GetBuff(BuffType.DamageIncrease));
 
-            Owner.DrawCards(stats.extraCards);
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.DrawCards(stats.extraCards);
             //Owner.hand.AlingCards();
 
         };
@@ -178,9 +178,9 @@ public static class CardDatabase
 
             //+2 Vida, +1 carta
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
-            Owner.DrawCards(1);
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.DrawCards(1);
             //Owner.hand.AlingCards();
 
         };
@@ -228,7 +228,6 @@ public static class CardDatabase
 
             //+2 Daño (Target), +2 Salud, +2 Reducción de Daño, +1 Carta, -3 Turnos
             Owner.AddBuffs(stats.GetAllBuffs());
-            Owner.DrawCards(stats.extraCards);
 
             //Modificadores de daño.
             int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
@@ -236,6 +235,7 @@ public static class CardDatabase
             Target.GetDamage(realDamage);
 
             Owner.hand.DiscardCard(DeckID);
+            Owner.DrawCards(stats.extraCards);
             //Owner.hand.AlingCards();
 
         };
