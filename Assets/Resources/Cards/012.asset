@@ -20,6 +20,6 @@ MonoBehaviour:
   extraCards: 0
   Buffs: []
   Debuffs: []
-  description: '
-
-'
+  description: "Otorga 1 punto de armadura por cada 4 puntos de vida que tenga el
+    due\xF1o. Si la vida es mayor al 50% Inflige 1 puntos de da\xF1o por cada 4 puntos
+    de vida."

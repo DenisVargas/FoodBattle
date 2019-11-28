@@ -30,4 +30,6 @@ MonoBehaviour:
   - cardID: 8
     ammountOfCards: 2
   - cardID: 13
-    ammountOfCards: 20
+    ammountOfCards: 3
+  - cardID: 12
+    ammountOfCards: 4

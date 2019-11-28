@@ -214,15 +214,19 @@ public static class CardDatabase
             //Otorga 1 punto de armadura por cada 4 puntos de vida que tenga el dueño. Si la vida es mayor al 50% Inflige 1 puntos de daño por cada 4 puntos de vida.
 
             int Points = (Owner.Health / 4);
+            Debug.Log("Active Esta mierda");
 
             Owner.AddBuff(new Buff() { BuffType = BuffType.ArmourIncrease, Ammount = Points, durationType = EffectDurationType.Inmediate });
 
             float percentage = Owner.Health / Owner.maxHealth;
-            if (percentage >= 0.5f)
+            Debug.Log("percentage" + percentage);
+
+            if (percentage > 0.49f)
             {
-                DeBuff daño = new DeBuff() { DebuffType = DeBuffType.healthReduction, Ammount = Points, durationType = EffectDurationType.Inmediate };
-                Target.AddDebuff(daño);
+                Target.GetDamage(Points);
             }
+
+            Owner.ModifyEnergy(-stats.Cost);
 
             Owner.hand.DiscardCard(DeckID);
         };
