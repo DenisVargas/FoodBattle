@@ -36,6 +36,9 @@ public class Card : MonoBehaviour
     public bool comingBack = false;
     public bool inHand = false;
     public bool canBeShowed;
+    public bool targetHitted = false;
+    public bool toSlot = false;
+    public LayerMask posLayer;
 
     public Vector3 starPos;
     private Vector3 mOffset;
@@ -150,6 +153,10 @@ public class Card : MonoBehaviour
         }
     }
 
+    public void GoToSlot()
+    {
+
+    }
 
     public void ActivateCard()
     {
@@ -163,6 +170,7 @@ public class Card : MonoBehaviour
         else
         {
             touchScreen = false;
+            back = false;
             comingBack = true;
             CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
             ni.clip = noEnergy;
@@ -202,13 +210,30 @@ public class Card : MonoBehaviour
                     transform.position = GetMouseAsWorldPoint() + mOffset;
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, posLayer))
                     {
                         //Esto es un juego de booleans >:D
-                        bool targetHitted = hit.collider.gameObject.layer == 10;
-                        back = !targetHitted;
-                        touchScreen = targetHitted;
+                        if (hit.collider.gameObject.layer == 10)
+                        {
+                            toSlot = false;
+                            targetHitted = true;
+                            back = !targetHitted;
+                            touchScreen = targetHitted;
+                        }
+                        else if (hit.collider.gameObject.layer == 11)
+                        {
+                            toSlot = true;
+                            Debug.Log("asdsadas");
+                        }
+                        else
+                        {
+                            targetHitted = false;
+                            back = !targetHitted;
+                            touchScreen = targetHitted;
+                            toSlot = false;
+                        }
                     }
+                    
                 }
             }
         }
@@ -223,8 +248,11 @@ public class Card : MonoBehaviour
                 {
                     if (back)
                         comingBack = true;
-                     else if (touchScreen)
+                    else if (touchScreen && toSlot)
+                        GoToSlot();
+                    else if (touchScreen && !toSlot)
                         ActivateCard();
+
                 }
             }
         }

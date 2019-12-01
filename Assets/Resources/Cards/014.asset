@@ -16,6 +16,9 @@ MonoBehaviour:
   ID: 14
   image: {fileID: 21300000, guid: 0598658074957b445b17498c2d8a7cda, type: 3}
   Cost: 3
+  canFusion: 1
+  IDFusion: 1
+  IDCardFusioned: 17
   extraTurns: 0
   extraCards: 0
   Buffs:

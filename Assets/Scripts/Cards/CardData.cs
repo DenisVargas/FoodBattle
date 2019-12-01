@@ -12,6 +12,9 @@ public class CardData : ScriptableObject
     public int ID;
     public Sprite image;
     public int Cost;
+    public bool canFusion;
+    public int IDFusion;
+    public int IDCardFusioned;
 
     [Header("GameFlow")]
     public int extraTurns;

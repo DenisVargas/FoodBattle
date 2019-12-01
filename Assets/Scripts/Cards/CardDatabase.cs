@@ -282,16 +282,20 @@ public static class CardDatabase
             //Owner.hand.AlingCards();
 
         };
+        Action<Actor, Actor, CardData, int> Carta17 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        {
+            Debug.Log("asdadsasd");
+        };
         #endregion
 
         #region Utility
-        ////Carta número {}.
-        //Action<Actor, Actor, CardData> Carta{ } = (Actor Owner, Actor Target, CardData stats) =>
-        //{
-        //    //El player consume Energía.
-        //    Owner.ModifyEnergy(stats.cost);
-        //}; 
-        #endregion
+            ////Carta número {}.
+            //Action<Actor, Actor, CardData> Carta{ } = (Actor Owner, Actor Target, CardData stats) =>
+            //{
+            //    //El player consume Energía.
+            //    Owner.ModifyEnergy(stats.cost);
+            //}; 
+            #endregion
 
         //Añado los comportamientos y los almaceno en el diccionario en orden.
         CardBehaviours.Add(1, Carta1);
@@ -309,6 +313,7 @@ public static class CardDatabase
         CardBehaviours.Add(13, Carta13);
         CardBehaviours.Add(14, Carta14);
         CardBehaviours.Add(15, Carta15);
+        CardBehaviours.Add(17, Carta17);
     }
 
     /// <summary>

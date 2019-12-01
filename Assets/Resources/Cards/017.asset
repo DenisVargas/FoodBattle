@@ -15,7 +15,10 @@ MonoBehaviour:
   CardName: Chetaco
   ID: 17
   image: {fileID: 21300000, guid: f903c4d713b4bd74487a5d5153710427, type: 3}
-  Cost: 2
+  Cost: 0
+  canFusion: 0
+  IDFusion: 0
+  IDCardFusioned: 0
   extraTurns: 0
   extraCards: 0
   Buffs:
@@ -23,8 +26,8 @@ MonoBehaviour:
     BuffType: 5
     Ammount: 1
     durationType: 2
-    Duration: 3
+    Duration: 4
     useType: 0
     Uses: 0
   Debuffs: []
-  description: las cartas en mano cuesta 1 (3 turnos)
+  description: Las cartas en mano cuesta 1 (3 turnos)

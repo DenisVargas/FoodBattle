@@ -30,28 +30,30 @@ public class Loading : MonoBehaviour {
 		//Iniciamos la carga asíncrona de la escena y guardamos el proceso en 'loading'
 		loading = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
 		//Bloqueamos el salto automático entre escenas para asegurarnos el control durante el proceso
-		loading.allowSceneActivation = false;
+		//loading.allowSceneActivation = false;
 
 
 		//Cuando la escena llega al 90% de carga, se produce el cambio de escena
-		while (loading.progress < 0.9f) {
+		while (!loading.isDone)
+        {
 			
 			//Actualizamos el % de carga de una forma optima 
 			//(concatenar con + tiene un alto coste en el rendimiento)
-			percentText.text += string.Format ("{0}%", loading.progress * 100);
-
+            float progress = Mathf.Clamp01(loading.progress / .9f);
+			percentText.text = progress * 100f + "%";
+            Debug.Log(progress);
 			//Actualizamos la barra de carga
-			progressImage.fillAmount = loading.progress;
+			progressImage.fillAmount = progress;
 
 			//Esperamos un frame
-			yield return null;
+			yield return new WaitForEndOfFrame();
 		}
 
         //Mostramos la carga como finalizada
 
-        percentText.text = "100%";
+        /*percentText.text = "100%";
 
-        progressImage.fillAmount = 1;
+        progressImage.fillAmount = 1;*/
        
         //Activamos el salto de escena.
 

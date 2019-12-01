@@ -22,7 +22,7 @@ MonoBehaviour:
   - cardID: 14
     ammountOfCards: 2
   - cardID: 1
-    ammountOfCards: 5
+    ammountOfCards: 7
   - cardID: 2
     ammountOfCards: 4
   - cardID: 4
