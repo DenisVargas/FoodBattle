@@ -28,11 +28,11 @@ public class Enem : Actor
     //animacion de cartas
     [Header("Animacion de Cartas")]
     public Transform ShowCard;
-    public Transform discardDeck;
+    public Transform fromDeckToHand;
     public int cardStateShow;
     public List<Card> cardsEnemy = new List<Card>();
     public Transform handEnemy;
-    public Transform enemyDeck;
+   // public Transform discardDeck;
     public Card cardSelected;
     public List<Card> inDeck = new List<Card>();
     public bool toHand = false;
@@ -95,23 +95,28 @@ public class Enem : Actor
 
     public void Decide()
     {
-        // Calculamos el peso de cada acción. --> A futuro porque ahora solo tenemos 2 Acciones we
-        float healImportance =  (1 - (Health / maxHealth)) * healWeight; // Cuanto menos vida tenga, mas alta es su importancia.
-
-        //Ejecutamos la desición.
-        List<float> posibilities = new List<float> { AttackWeight, healImportance };
-        int decition = RoulleteSelection.Roll(posibilities);
-
-        switch (decition)
+        if (hand.transform.childCount == 0)
+            StartCoroutine(DelayedEndTurn(1.5f));
+        else
         {
-            case 0:
-                AttackToTarget();
-                break;
-            case 1:
-                heal(HealAmmount);
-                break;
-            default:
-                break;
+            // Calculamos el peso de cada acción. --> A futuro porque ahora solo tenemos 2 Acciones we
+            float healImportance = (1 - (Health / maxHealth)) * healWeight; // Cuanto menos vida tenga, mas alta es su importancia.
+
+            //Ejecutamos la desición.
+            List<float> posibilities = new List<float> { AttackWeight, healImportance };
+            int decition = RoulleteSelection.Roll(posibilities);
+
+            switch (decition)
+            {
+                case 0:
+                    AttackToTarget();
+                    break;
+                case 1:
+                    heal(HealAmmount);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -119,17 +124,26 @@ public class Enem : Actor
     {
         //print("UpdateEnemigo");
         OnUpdateTurn();
-
+        //del deck a la mano
         if (toHand)
         {
             if (inDeck.Count > 0)
             {
                 if (Vector3.Distance(inDeck[0].transform.position, handEnemy.transform.position) >= 1f)
-                    inDeck[0].transform.position = Vector3.Lerp(inDeck[0].transform.position, handEnemy.transform.position, Time.deltaTime * 2);
+                    inDeck[0].transform.position = Vector3.Lerp(inDeck[0].transform.position, handEnemy.transform.position, Time.deltaTime);
                 else
                 {
                     cardsEnemy.Add(inDeck[0]);
                     inDeck[0].transform.SetParent(handEnemy.transform);
+                    inDeck[0].shaderStart = false;
+                    inDeck[0].canvas.SetActive(true);
+                    inDeck[0].shaderLerp = 100;
+                    inDeck[0].ShadersOP(100);
+
+                    foreach (var i in inDeck[0].objetos)
+                    {
+                        i.SetActive(true);
+                    }
                     inDeck[0].transform.rotation = Quaternion.Euler(handEnemy.transform.rotation.x, handEnemy.transform.rotation.y, handEnemy.transform.rotation.z);
                     inDeck[0].canBeShowed = false;
                     inDeck[0].Stats = null;
@@ -139,17 +153,20 @@ public class Enem : Actor
             else
             {
                 hand.AlingCards();
-                if (Energy > 0)
-                    StartCoroutine(DelayedChoose(1f));
+                if (hand.transform.childCount > 0)
+                {
+                    if (Energy > 0)
+                        StartCoroutine(DelayedChoose(1f));
+                }
                 else
                     StartCoroutine(DelayedEndTurn(1.5f));
                 toHand = false;
             }
         }
-
+        //de la mano a la mesa
         if (cardStateShow == 1)
         {
-            if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position)>= 1f)
+            if (Vector3.Distance(cardSelected.transform.position, ShowCard.transform.position) >= 1f)
                 cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, ShowCard.transform.position, Time.deltaTime);
             else
             {
@@ -157,46 +174,48 @@ public class Enem : Actor
                 StartCoroutine(WaitCard(2f));
             }
         }
+        //de la mesa al descarte
         else if (cardStateShow == 2)
         {
-            if (Vector3.Distance(cardSelected.transform.position, discardDeck.transform.position) >= 2f)
-                cardSelected.transform.position = Vector3.Lerp(cardSelected.transform.position, discardDeck.transform.position, Time.deltaTime * 5);
-            else
+            cardSelected.shaderStart = true;
+            cardSelected.canvas.SetActive(false);
+            foreach (var i in cardSelected.objetos)
+            {
+                i.SetActive(false);
+            }
+            if (cardSelected.shaderLerp <= 0)
             {
                 cardStateShow = 0;
                 if (Energy > 0)
                     StartCoroutine(DelayedChoose(1f));
                 else
                     StartCoroutine(DelayedEndTurn(1.5f));
-                cardSelected.transform.SetParent(enemyDeck.transform);
-                cardSelected.transform.position = enemyDeck.transform.position;
+                cardSelected.transform.SetParent(fromDeckToHand.transform);
+                cardSelected.transform.position = fromDeckToHand.transform.position;
                 //cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 0, 0));
                 cardSelected = null;
             }
-            
-            //    StartCoroutine(WaitCardToDeck(0.5f));
+
         }
+        //del deck a la mano
         else if (cardStateShow == 3)
         {
-            if (enemyDeck.transform.childCount == 0)
+            if (fromDeckToHand.transform.childCount == 0)
             {
                 cardStateShow = 0;
                 StartCoroutine(DelayedChoose(1.5f));
             }
             else
             {
-                cardStateShow = 0;
-                for (int i = 0; i < enemyDeck.childCount; i++)
+                for (int i = 0; i < fromDeckToHand.childCount; i++)
                 {
-                    inDeck.Add(enemyDeck.GetChild(i).GetComponent<Card>());
+                    inDeck.Add(fromDeckToHand.GetChild(i).GetComponent<Card>());
                     inDeck[i].anim.SetTrigger("BackToIdle");
                 }
+                cardStateShow = 0;
                 toHand = true;
             }
         }
-        //Terminamos el turno.
-        //if (canEndTurn)
-        //    EndTurn();
     }
 
     public override void EndTurn()
@@ -222,6 +241,7 @@ public class Enem : Actor
         var randomNumber = UnityEngine.Random.Range(0, cardsEnemy.Count);
         cardSelected = cardsEnemy[randomNumber];
         cardSelected.Stats = CardDatabase.GetCardData(1);
+        cardSelected.discardPosition = fromDeckToHand;
         if (Energy >= cardSelected.Stats.Cost)
         {
             cardSelected.anim.SetTrigger("EnemyAttack");
@@ -275,6 +295,7 @@ public class Enem : Actor
         cardSelected = cardsEnemy[UnityEngine.Random.Range(0, cardsEnemy.Count)];
         cardSelected.Stats = (CardData)Resources.Load("Cards/003");
         cardSelected.LoadCardDisplayInfo();
+        cardSelected.discardPosition = fromDeckToHand;
         if (Energy >= cardSelected.Stats.Cost)
         {
             cardSelected.anim.SetTrigger("EnemyAttack");
@@ -310,7 +331,7 @@ public class Enem : Actor
     {
         yield return new WaitForSeconds(seconds);
         cardSelected.anim.SetTrigger("BackToIdle");
-        cardSelected.transform.position = enemyDeck.transform.position;
+        cardSelected.transform.position = fromDeckToHand.transform.position;
         cardSelected.transform.rotation = Quaternion.Euler(new Vector3(-45, 180, 0));
     }
 

@@ -116,11 +116,10 @@ public class Card : MonoBehaviour
 
                 GoBackToHand();
 
-                ShaderAnimation();
-
                 GoToSlot();
             }
         }
+        ShaderAnimation();
     }
 
     private void ShaderAnimation()

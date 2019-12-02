@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18326382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.18, y: -11.62, z: -0.67}
+  m_LocalPosition: {x: -16.1, y: -7.81, z: -0.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 51457791}
@@ -686,11 +686,10 @@ MonoBehaviour:
   TurnEnem: {fileID: 134728396}
   HealAmmount: 5
   ShowCard: {fileID: 60375195}
-  discardDeck: {fileID: 18326383}
+  fromDeckToHand: {fileID: 1319030490}
   cardStateShow: 0
   cardsEnemy: []
   handEnemy: {fileID: 734100574}
-  enemyDeck: {fileID: 1319030490}
   cardSelected: {fileID: 0}
   inDeck: []
   toHand: 0
@@ -1274,7 +1273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.41149902, y: 0.5999756}
+  m_AnchoredPosition: {x: 0.41149902, y: 0.60009766}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &134728398
@@ -8911,8 +8910,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -93.065}
-  m_SizeDelta: {x: 0, y: 129.9}
+  m_AnchoredPosition: {x: 0, y: -93.4}
+  m_SizeDelta: {x: 0, y: 180.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299852618
 MonoBehaviour:
@@ -9000,7 +8999,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 13.811326, y: 19.108513, z: 16.773556, w: 17.652819}
+  m_margin: {x: 9.622983, y: 19.108513, z: 23.474958, w: 17.652819}
   m_textInfo:
     textComponent: {fileID: 1299852618}
     characterCount: 0
@@ -9137,7 +9136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319030489}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.99, y: -8.7, z: -1.34}
+  m_LocalPosition: {x: 4.02, y: -3.12, z: 0.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 51457791}

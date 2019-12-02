@@ -298,6 +298,7 @@ MonoBehaviour:
   posLayer:
     serializedVersion: 2
     m_Bits: 3072
+  slotSelected: {fileID: 0}
   starPos: {x: 0, y: 0, z: 0}
   mats: {fileID: 8273569909811009544}
   shaderLerp: 0
@@ -541,7 +542,7 @@ MonoBehaviour:
   m_fontSizeBase: 0.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 0.51
+  m_fontSizeMin: 0.28
   m_fontSizeMax: 0.8
   m_fontStyle: 1
   m_textAlignment: 544
