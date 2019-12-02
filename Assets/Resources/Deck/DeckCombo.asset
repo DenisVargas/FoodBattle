@@ -22,10 +22,10 @@ MonoBehaviour:
   - cardID: 2
     ammountOfCards: 3
   - cardID: 1
-    ammountOfCards: 2
+    ammountOfCards: 20
   - cardID: 4
     ammountOfCards: 2
   - cardID: 11
     ammountOfCards: 2
   - cardID: 14
-    ammountOfCards: 2
+    ammountOfCards: 20

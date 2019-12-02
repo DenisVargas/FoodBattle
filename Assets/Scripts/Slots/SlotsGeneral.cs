@@ -23,20 +23,23 @@ public class SlotsGeneral : MonoBehaviour
 
     public void DetectCombination()
     {
-        if (slots[0].cardsInside.Stats.canFusion && slots[1].cardsInside.Stats.canFusion)
+        if (slots[0].cardInside != null && slots[1].cardInside != null)
         {
-            var carta1 = slots[0].cardsInside;
-            var carta2 = slots[1].cardsInside;
-            if (carta1.Stats.IDFusion == carta2.Stats.ID && carta2.Stats.IDFusion == carta1.Stats.ID)
+            if (slots[0].cardInside.Stats.canFusion && slots[1].cardInside.Stats.canFusion)
             {
-                Card fusioned = Instantiate(cardPref, slots[2].transform.position, Quaternion.Euler(new Vector3(-90, 0, 0))).GetComponent<Card>();
-                fusioned.Stats = CardDatabase.GetCardData(carta1.Stats.IDCardFusioned);
-                fusioned.CardEffect = CardDatabase.GetCardBehaviour(fusioned.Stats.ID);
-                fusioned.Owner = FindObjectOfType<Player>();
-                fusioned.Rival = FindObjectOfType<Enem>();
-                fusioned.DeckID = carta1.Stats.IDCardFusioned;
-                fusioned.LoadCardDisplayInfo();
-                StartCoroutine(SendCard(fusioned));
+                var carta1 = slots[0].cardInside;
+                var carta2 = slots[1].cardInside;
+                if (carta1.Stats.IDFusion == carta2.Stats.ID && carta2.Stats.IDFusion == carta1.Stats.ID)
+                {
+                    Card fusioned = Instantiate(cardPref, slots[2].transform.position, Quaternion.Euler(new Vector3(-90, 0, 0))).GetComponent<Card>();
+                    fusioned.Stats = CardDatabase.GetCardData(carta1.Stats.IDCardFusioned);
+                    fusioned.CardEffect = CardDatabase.GetCardBehaviour(fusioned.Stats.ID);
+                    fusioned.Owner = FindObjectOfType<Player>();
+                    fusioned.Rival = FindObjectOfType<Enem>();
+                    fusioned.DeckID = carta1.Stats.IDCardFusioned;
+                    fusioned.LoadCardDisplayInfo();
+                    StartCoroutine(SendCard(fusioned));
+                }
             }
         }
     }
@@ -45,5 +48,10 @@ public class SlotsGeneral : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         toSend.CardEffect(toSend.Owner, toSend.Rival, toSend.Stats, toSend.DeckID);
+        slots[0].cardInside.Owner.hand.hand.Add(slots[0].cardInside.DeckID, slots[0].cardInside);
+        slots[1].cardInside.Owner.hand.hand.Add(slots[1].cardInside.DeckID, slots[1].cardInside);
+
+        slots[0].cardInside.Owner.hand.DiscardCard(slots[0].cardInside.DeckID);
+        slots[1].cardInside.Owner.hand.DiscardCard(slots[1].cardInside.DeckID);
     }
 }

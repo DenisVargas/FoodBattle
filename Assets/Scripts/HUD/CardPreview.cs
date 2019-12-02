@@ -14,6 +14,7 @@ public class CardPreview : MonoBehaviour
     public Image imageCard;
     private Animator anim;
     public bool isSelected;
+    public LayerMask detect;
     //public AudioSource s;
     //public AudioClip coll;      quise poner algun sonido cuando el mouse apoya a la carta 
     //                                  y que sepa que aparece una carta al lado de la pantalla
@@ -29,15 +30,22 @@ public class CardPreview : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 9) && hit.transform.GetComponent<Card>().canBeShowed)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, detect))
         {
-            cardSelected = hit.transform.GetComponent<Card>();
-            isSelected = true;
-            cardName.text = cardSelected.nameCard.text;
-            description.text = cardSelected.description.text;
-            cost.text = cardSelected.cost.text;
-            damage.text = cardSelected.damage.text;
-            imageCard.sprite = cardSelected.image.sprite;
+            if (hit.transform.GetComponentInChildren<Card>())
+                cardSelected = hit.transform.GetComponentInChildren<Card>();
+            else if (hit.transform.GetComponent<Card>())
+                cardSelected = hit.transform.GetComponent<Card>();
+
+            if (cardSelected != null && cardSelected.canBeShowed)
+            {
+                isSelected = true;
+                cardName.text = cardSelected.nameCard.text;
+                description.text = cardSelected.description.text;
+                cost.text = cardSelected.cost.text;
+                damage.text = cardSelected.damage.text;
+                imageCard.sprite = cardSelected.image.sprite;
+            }
         }
         else
         {

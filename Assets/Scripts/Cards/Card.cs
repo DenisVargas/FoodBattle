@@ -39,6 +39,7 @@ public class Card : MonoBehaviour
     public bool targetHitted = false;
     public bool toSlot = false;
     public LayerMask posLayer;
+    public GameObject slotSelected;
 
     public Vector3 starPos;
     private Vector3 mOffset;
@@ -111,39 +112,62 @@ public class Card : MonoBehaviour
                 if (comingBack)
                     anim.SetBool("Flip", false);
 
-                if (stopAll)
-                {
-                    var dist = Vector3.Distance(transform.position, discardPosition.position);
-                    if (dist >= 0)
-                        transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
+                ToDiscard();
 
-                    else
-                        inHand = false;
-                }
-                if (comingBack)
-                {
-                    var dist = Vector3.Distance(transform.position, starPos);
-                    if (dist >= 0)
-                        transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
-                    else
-                        comingBack = false;
-                }
-                if (shaderStart)
-                {
-                    shaderLerp -= 2f;
-                    ShadersOP(shaderLerp);
-                    if (shaderLerp <= 0)
-                    {
-                        comingBack = false;
-                        stopAll = true;
-                        transform.SetParent(discardPosition.transform);
-                        Owner.hand.AlingCards();
-                        shaderStart = false;
-                    }
-                }
+                GoBackToHand();
+
+                ShaderAnimation();
+
+                GoToSlot();
             }
         }
     }
+
+    private void ShaderAnimation()
+    {
+        if (shaderStart)
+        {
+            shaderLerp -= 2f;
+            ShadersOP(shaderLerp);
+            if (shaderLerp <= 0)
+            {
+                comingBack = false;
+                stopAll = true;
+                transform.SetParent(discardPosition.transform);
+                Owner.hand.AlingCards();
+                shaderStart = false;
+            }
+        }
+    }
+
+    private void GoBackToHand()
+    {
+        if (comingBack)
+        {
+            var dist = Vector3.Distance(transform.position, starPos);
+            if (dist >= 0)
+                transform.position = Vector3.Lerp(transform.position, starPos, Time.deltaTime * 6f);
+            else
+                comingBack = false;
+        }
+    }
+
+    private void ToDiscard()
+    {
+        if (stopAll)
+        {
+            var dist = Vector3.Distance(transform.position, discardPosition.position);
+            if (dist >= 0)
+                transform.position = Vector3.Lerp(transform.position, discardPosition.position, Time.deltaTime * 3f);
+
+            else
+            {
+                inHand = false;
+                stopAll = false;
+            }
+        }
+    }
+
 
     public void ShadersOP(float sec)
     {
@@ -155,7 +179,18 @@ public class Card : MonoBehaviour
 
     public void GoToSlot()
     {
-
+        if (toSlot)
+        {
+            if (Vector3.Distance(transform.position, slotSelected.transform.position) > 1f)
+                transform.position = Vector3.Lerp(transform.position, slotSelected.transform.position, Time.deltaTime);
+            else
+            {
+                transform.SetParent(slotSelected.transform);
+                slotSelected.GetComponent<Slot>().AddCard(this);
+                Owner.hand.hand.Remove(DeckID);
+                toSlot = false;
+            }
+        }
     }
 
     public void ActivateCard()
@@ -187,7 +222,7 @@ public class Card : MonoBehaviour
             {
                 if (!stopAll)
                 {
-                    starPos = transform.position;
+                   // starPos = transform.position;
                     comingBack = false;
                     touchScreen = false;
                     back = true;
@@ -215,22 +250,24 @@ public class Card : MonoBehaviour
                         //Esto es un juego de booleans >:D
                         if (hit.collider.gameObject.layer == 10)
                         {
-                            toSlot = false;
+                            slotSelected = null;
                             targetHitted = true;
                             back = !targetHitted;
                             touchScreen = targetHitted;
                         }
                         else if (hit.collider.gameObject.layer == 11)
                         {
-                            toSlot = true;
-                            Debug.Log("asdsadas");
+                            slotSelected = hit.collider.gameObject;
+                            targetHitted = true;
+                            back = !targetHitted;
+                            touchScreen = targetHitted;
                         }
                         else
                         {
+                            slotSelected = null;
                             targetHitted = false;
                             back = !targetHitted;
                             touchScreen = targetHitted;
-                            toSlot = false;
                         }
                     }
                     
@@ -248,8 +285,11 @@ public class Card : MonoBehaviour
                 {
                     if (back)
                         comingBack = true;
-                    else if (touchScreen && toSlot)
-                        GoToSlot();
+                    else if (touchScreen && slotSelected != null)
+                    {
+                        toSlot = true;
+                        anim.SetBool("ToTable", true);
+                    }
                     else if (touchScreen && !toSlot)
                         ActivateCard();
 
