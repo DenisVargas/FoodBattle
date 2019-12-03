@@ -41,7 +41,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta1 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Modificadores de daño.
             int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
@@ -58,7 +61,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta2 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Reduce en 1 de daño el siguiente turno.
             //TODO: futuro esta función va a recibir un valor extra = cantidad de turnos.
@@ -72,7 +78,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta3 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Restaura 2 de salud en el turno.
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
@@ -84,7 +93,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta4 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             // Roba 1 carta.
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
@@ -98,7 +110,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta5 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Carta Categoría Rara.
             //Añade un buffo de Daño +1;
@@ -111,7 +126,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta6 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Carta Combo
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
@@ -127,7 +145,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta7 = (Actor Owner, Actor Target, CardData stats, int deckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Carta Combo por cada carta
             List<Card> cantCards = ((Player)Owner).SearchCardType(stats);
@@ -146,8 +167,10 @@ public static class CardDatabase
         //Carta número 8.
         Action<Actor, Actor, CardData, int> Carta8 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
-            //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Owner recibe 1 de daño.
             Owner.GetDamage(stats.GetDebuff(DeBuffType.healthReduction).Ammount);
@@ -164,8 +187,10 @@ public static class CardDatabase
         //Carta número 9.
         Action<Actor, Actor, CardData, int> Carta9 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
-            //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //+2 Vida, +1 carta
             Owner.AddBuff(stats.GetBuff(BuffType.Heal));
@@ -177,7 +202,10 @@ public static class CardDatabase
         //Carta número 10
         Action<Actor, Actor, CardData, int> Carta10 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
             Target.GetDamage(realDamage);
@@ -204,7 +232,12 @@ public static class CardDatabase
                     Energy += 2;
             }
 
-            Owner.ModifyEnergy(Energy);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            if (Energy > 0) cost = Energy; //Si los puntos de energía están a favor, entonces los sumamos.
+
+            Owner.ModifyEnergy(cost);
             Owner.hand.DiscardCard(DeckID);
         };
 
@@ -226,7 +259,10 @@ public static class CardDatabase
                 Target.GetDamage(Points);
             }
 
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             Owner.hand.DiscardCard(DeckID);
         };
@@ -235,7 +271,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta13 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //Obtenemos toda la vida restante. Perdemos 2 turnos.
             Owner.AddBuff(stats.GetBuff(BuffType.FullHealthRestore));
@@ -248,7 +287,11 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta14 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //Obtienes 4 de armadura  (SI "BURRITO DEFENSOR (ID 002)  ESTA EN MANO LAS CARTAS EN MANO SE REDUCEN -1 DE COSTO)
-            Owner.ModifyEnergy(-stats.Cost);
+
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             Owner.AddBuff(stats.GetBuff(BuffType.ArmourIncrease));
 
@@ -267,7 +310,10 @@ public static class CardDatabase
         Action<Actor, Actor, CardData, int> Carta15 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             //El player consume Energía.
-            Owner.ModifyEnergy(-stats.Cost);
+            //Si tengo no tengo un buff de reducción de costo continuo o permanente:
+            int cost = -stats.Cost;
+            if (Owner.HasCurrentlyZeroCost()) cost = 0;
+            Owner.ModifyEnergy(cost);
 
             //+2 Daño (Target), +2 Salud, +2 Reducción de Daño, +1 Carta, -3 Turnos
             Owner.AddBuffs(stats.GetAllBuffs());
@@ -279,23 +325,34 @@ public static class CardDatabase
 
             Owner.hand.DiscardCard(DeckID);
             Owner.DrawCards(stats.extraCards);
-            //Owner.hand.AlingCards();
-
         };
-        Action<Actor, Actor, CardData, int> Carta17 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+
+        /*
+         * Notas:
+         * Las cartas de combo no tienen costo porque se originan del uso de los slots...
+        */
+
+        Action<Actor, Actor, CardData, int> Carta16 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
-            Debug.Log("asdadsasd");
+            // Vuelve al jugador invulnerable.
+            Owner.AddBuff(stats.GetBuff(BuffType.Invulnerability));
+        };
+
+        Action<Actor, Actor, CardData, int> Carta18 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        {
+            // Hace que el costo sea 0.
+            Owner.AddBuff(stats.GetBuff(BuffType.NullyfyCardCost));
         };
         #endregion
 
         #region Utility
-            ////Carta número {}.
-            //Action<Actor, Actor, CardData> Carta{ } = (Actor Owner, Actor Target, CardData stats) =>
-            //{
-            //    //El player consume Energía.
-            //    Owner.ModifyEnergy(stats.cost);
-            //}; 
-            #endregion
+        ////Carta número {}.
+        //Action<Actor, Actor, CardData> Carta{ } = (Actor Owner, Actor Target, CardData stats) =>
+        //{
+        //    //El player consume Energía.
+        //    Owner.ModifyEnergy(stats.cost);
+        //}; 
+        #endregion
 
         //Añado los comportamientos y los almaceno en el diccionario en orden.
         CardBehaviours.Add(1, Carta1);
@@ -313,7 +370,8 @@ public static class CardDatabase
         CardBehaviours.Add(13, Carta13);
         CardBehaviours.Add(14, Carta14);
         CardBehaviours.Add(15, Carta15);
-        CardBehaviours.Add(17, Carta17);
+        CardBehaviours.Add(16, Carta16);
+        CardBehaviours.Add(18, Carta18);
     }
 
     /// <summary>

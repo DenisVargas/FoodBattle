@@ -123,23 +123,33 @@ public class Player : Actor
     //Sistema de Daño.
     public override void GetDamage(int damage)
     {
-        //Calculo del daño real recibido.
-        int damageReduction = GetActiveBuffAmmount(BuffType.ArmourIncrease);
-        int realDamage = damage - damageReduction;
-        realDamage = Mathf.Clamp(realDamage, 0, 100);
-        Health -= realDamage;
 
-        //Feedback.
-        StartCoroutine(shake.Shake(.30f, 0.9f));
-        UpdateCombatInterface();
-        CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", realDamage);
-        CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsDamage");
-        ad.clip = hit;
-        ad.Play();
+        if (!IsCurrentlyInvulnerable())
+        {
+            //Calculo del daño real recibido.
+            int damageReduction = GetActiveBuffAmmount(BuffType.ArmourIncrease);
+            int realDamage = damage - damageReduction;
+            realDamage = Mathf.Clamp(realDamage, 0, 100);
+            Health -= realDamage;
 
-        //Condición de Derrota.
-        if (Health <= 0)
-            OnActorDies();
+            //Feedback.
+            StartCoroutine(shake.Shake(.30f, 0.9f));
+            UpdateCombatInterface();
+            CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", realDamage);
+            CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsDamage");
+            ad.clip = hit;
+            ad.Play();
+
+            //Condición de Derrota.
+            if (Health <= 0)
+                OnActorDies();
+        }
+        else
+        {
+            //Acá va el feedback de cuando el daño es 0;
+            CombatManager.match.FeedbackHUD.SetDamage("Daño recibido:", 0);
+            CombatManager.match.HUDAnimations.SetTrigger("PlayerGetsDamage");
+        }
     }
 
     #region Interacción

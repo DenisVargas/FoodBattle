@@ -227,6 +227,23 @@ public abstract class Actor : MonoBehaviour
 
         return limited_AcumulatedAmmount;
     }
+    /// <summary>
+    /// Retorna verdadero si el Actor tiene un Buffo de tipo Invulnerabilidad activada actualmente.
+    /// </summary>
+    public bool IsCurrentlyInvulnerable()
+    {
+        return ActiveBuffs[EffectDurationType.Limited].Any(x => x.BuffType == BuffType.Invulnerability) ||
+            ActiveBuffs[EffectDurationType.Permanent].Any(x => x.BuffType == BuffType.Invulnerability);
+    }
+    /// <summary>
+    /// Retorna verdadero si el Actor tiene un Buffo de tipo CostoNulo activado actualmente.
+    /// </summary>
+    public bool HasCurrentlyZeroCost()
+    {
+        return ActiveBuffs[EffectDurationType.Limited].Any(x => x.BuffType == BuffType.NullyfyCardCost) ||
+            ActiveBuffs[EffectDurationType.Permanent].Any(x => x.BuffType == BuffType.NullyfyCardCost);
+    }
+
 
     /// <summary>
     /// Retorna la cantidad acumulada de un tipo de Debuff.
