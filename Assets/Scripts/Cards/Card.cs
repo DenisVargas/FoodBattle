@@ -44,6 +44,9 @@ public class Card : MonoBehaviour
     public Vector3 starPos;
     private Vector3 mOffset;
 
+    public GameObject fusion;
+    public GameObject Textfusion;
+
     [Header("Shaders")]
     public Renderer mats;
     public float shaderLerp;
@@ -96,6 +99,16 @@ public class Card : MonoBehaviour
         cost.text = Stats.Cost.ToString();
         damage.text = Stats.GetDebuff(DeBuffType.healthReduction).Ammount.ToString();
         image.sprite = Stats.image;
+        if (Stats.canFusion)
+        {
+            fusion.SetActive(true);
+            Textfusion.SetActive(true);
+        }
+        else
+        {
+            fusion.SetActive(false);
+            Textfusion.SetActive(false);
+        }
     }
     
 
@@ -180,14 +193,42 @@ public class Card : MonoBehaviour
     {
         if (toSlot)
         {
-            if (Vector3.Distance(transform.position, slotSelected.transform.position) > 1f)
-                transform.position = Vector3.Lerp(transform.position, slotSelected.transform.position, Time.deltaTime);
+            if (Stats.canFusion)
+            {
+                if (CanBeActivated(Stats.Cost))
+                {
+                    if (Vector3.Distance(transform.position, slotSelected.transform.position) > 1f)
+                        transform.position = Vector3.Lerp(transform.position, slotSelected.transform.position, Time.deltaTime);
+                    else
+                    {
+                        int cost = -Stats.Cost;
+                        Owner.ModifyEnergy(cost);
+                        transform.SetParent(slotSelected.transform);
+                        transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+                        slotSelected.GetComponent<Slot>().AddCard(this);
+                        Owner.hand.hand.Remove(DeckID);
+                        toSlot = false;
+                    }
+
+                }
+                else
+                {
+                    touchScreen = false;
+                    back = false;
+                    comingBack = true;
+                    toSlot = false;
+                    CombatManager.match.HUDAnimations.SetTrigger("PlayerNoENergy");
+                    ni.clip = noEnergy;
+                    ni.Play();
+                }
+            }
             else
             {
-                transform.SetParent(slotSelected.transform);
-                slotSelected.GetComponent<Slot>().AddCard(this);
-                Owner.hand.hand.Remove(DeckID);
+                touchScreen = false;
+                back = false;
+                comingBack = true;
                 toSlot = false;
+
             }
         }
     }
@@ -285,10 +326,7 @@ public class Card : MonoBehaviour
                     if (back)
                         comingBack = true;
                     else if (touchScreen && slotSelected != null)
-                    {
                         toSlot = true;
-                        anim.SetBool("ToTable", true);
-                    }
                     else if (touchScreen && !toSlot)
                         ActivateCard();
 

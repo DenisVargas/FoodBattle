@@ -4073,6 +4073,9 @@ MonoBehaviour:
   slots: []
   cardPref: {fileID: 1676594863372105397, guid: e8181167ab46d3045a2545d62da2f10c,
     type: 3}
+  effect: {fileID: 2047935136}
+  startEffect: 0
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!4 &510626982
 Transform:
   m_ObjectHideFlags: 0
@@ -6094,7 +6097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798073022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.52, y: 0, z: 0}
+  m_LocalPosition: {x: -0.56, y: 0, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 510626982}
@@ -6140,8 +6143,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4006562, y: 0.24299526, z: 3.3462715}
-  m_Center: {x: 0.074843645, y: 0.14042234, z: -0.43366814}
+  m_Size: {x: 2.3492126, y: 0.18038511, z: 3.3282256}
+  m_Center: {x: 0.11348534, y: 0.050437927, z: -0.44401765}
 --- !u!1 &848340645
 GameObject:
   m_ObjectHideFlags: 0
@@ -9476,7 +9479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216639750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.37, y: 0, z: 0}
+  m_LocalPosition: {x: 2.34, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 510626982}
@@ -9522,8 +9525,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4006562, y: 0.24299526, z: 3.3462715}
-  m_Center: {x: 0.074843645, y: 0.14042234, z: -0.43366814}
+  m_Size: {x: 2.3492126, y: 0.18038511, z: 3.3282256}
+  m_Center: {x: 0.11348534, y: 0.050437927, z: -0.44401765}
 --- !u!1 &1227311746
 GameObject:
   m_ObjectHideFlags: 0
@@ -13068,7 +13071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047935136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7309816, y: -7.238065, z: 1.91467}
+  m_LocalPosition: {x: -1.7309816, y: -9, z: 1.91467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 848340651}

@@ -17,19 +17,17 @@ MonoBehaviour:
   cantCards:
   - cardID: 5
     ammountOfCards: 4
-  - cardID: 10
+  - cardID: 11
     ammountOfCards: 3
-  - cardID: 14
-    ammountOfCards: 2
+  - cardID: 12
+    ammountOfCards: 4
   - cardID: 1
     ammountOfCards: 7
   - cardID: 2
     ammountOfCards: 4
   - cardID: 4
     ammountOfCards: 2
-  - cardID: 8
+  - cardID: 15
     ammountOfCards: 2
   - cardID: 13
     ammountOfCards: 3
-  - cardID: 12
-    ammountOfCards: 4

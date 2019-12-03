@@ -6,18 +6,29 @@ public class SlotsGeneral : MonoBehaviour
 {
     public List<Slot> slots = new List<Slot>();
     public GameObject cardPref;
+    public GameObject effect;
+    public bool startEffect = false;
+    public Vector3 startPos;
 
     void Awake()
     {
+        startPos = effect.transform.position;
         var slotsInChild = GetComponentsInChildren<Slot>();
         foreach (var item in slotsInChild)
             slots.Add(item);
+
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (startEffect)
         {
-            DetectCombination();
+            if (Vector3.Distance(effect.transform.position, new Vector3(effect.transform.position.x, -7f, effect.transform.position.z)) >= 0.01f)
+                effect.transform.position = Vector3.Lerp(effect.transform.position, new Vector3(effect.transform.position.x, -7f, effect.transform.position.z),Time.deltaTime);
+        }
+        else
+        {
+            if (Vector3.Distance(effect.transform.position, startPos) >= 0.01f)
+                effect.transform.position = Vector3.Lerp(effect.transform.position, startPos, Time.deltaTime * 1.5f);
         }
     }
 
@@ -31,7 +42,7 @@ public class SlotsGeneral : MonoBehaviour
                 var carta2 = slots[1].cardInside;
                 if (carta1.Stats.IDFusion == carta2.Stats.ID && carta2.Stats.IDFusion == carta1.Stats.ID)
                 {
-                    Card fusioned = Instantiate(cardPref, slots[2].transform.position, Quaternion.Euler(new Vector3(-90, 0, 0))).GetComponent<Card>();
+                    Card fusioned = Instantiate(cardPref, slots[2].transform.position, Quaternion.Euler(new Vector3(-45, 0, 0))).GetComponent<Card>();
                     fusioned.Stats = CardDatabase.GetCardData(carta1.Stats.IDCardFusioned);
                     fusioned.CardEffect = CardDatabase.GetCardBehaviour(fusioned.Stats.ID);
                     fusioned.Owner = FindObjectOfType<Player>();
@@ -46,12 +57,21 @@ public class SlotsGeneral : MonoBehaviour
 
     IEnumerator SendCard(Card toSend)
     {
+        startEffect = true;
         yield return new WaitForSeconds(2f);
         toSend.CardEffect(toSend.Owner, toSend.Rival, toSend.Stats, toSend.DeckID);
+        toSend.shaderStart = true;
+        toSend.canvas.SetActive(false);
+        foreach (var i in toSend.objetos)
+            i.SetActive(false);
+        Destroy(toSend.gameObject, 2f);
         slots[0].cardInside.Owner.hand.hand.Add(slots[0].cardInside.DeckID, slots[0].cardInside);
         slots[1].cardInside.Owner.hand.hand.Add(slots[1].cardInside.DeckID, slots[1].cardInside);
 
         slots[0].cardInside.Owner.hand.DiscardCard(slots[0].cardInside.DeckID);
         slots[1].cardInside.Owner.hand.DiscardCard(slots[1].cardInside.DeckID);
+        slots[0].cardInside = null;
+        slots[1].cardInside = null;
+        startEffect = false;
     }
 }

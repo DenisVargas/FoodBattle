@@ -300,6 +300,8 @@ MonoBehaviour:
     m_Bits: 3072
   slotSelected: {fileID: 0}
   starPos: {x: 0, y: 0, z: 0}
+  fusion: {fileID: 1711469384830137018}
+  Textfusion: {fileID: 8076968393989173543}
   mats: {fileID: 8273569909811009544}
   shaderLerp: 0
   shaderStart: 0

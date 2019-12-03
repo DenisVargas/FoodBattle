@@ -337,8 +337,11 @@ public static class CardDatabase
             // Vuelve al jugador invulnerable.
             Owner.AddBuff(stats.GetBuff(BuffType.Invulnerability));
         };
-
-        Action<Actor, Actor, CardData, int> Carta18 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        Action<Actor, Actor, CardData, int> Carta17 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
+        {
+            Debug.Log("asdasdas");
+        };
+            Action<Actor, Actor, CardData, int> Carta18 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
             // Hace que el costo sea 0.
             Owner.AddBuff(stats.GetBuff(BuffType.NullyfyCardCost));
@@ -371,6 +374,7 @@ public static class CardDatabase
         CardBehaviours.Add(14, Carta14);
         CardBehaviours.Add(15, Carta15);
         CardBehaviours.Add(16, Carta16);
+        CardBehaviours.Add(17, Carta17);
         CardBehaviours.Add(18, Carta18);
     }
 
