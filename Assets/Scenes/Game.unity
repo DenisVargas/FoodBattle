@@ -2784,7 +2784,7 @@ GameObject:
   - component: {fileID: 303472771}
   - component: {fileID: 303472770}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8836,50 +8836,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818530641372655045, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818530641372655045, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058429838739699824, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058429838739699824, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176635292928503563, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176635292928503563, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224537058578622425, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224537058578622425, guid: e8181167ab46d3045a2545d62da2f10c,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1676594863372105401, guid: e8181167ab46d3045a2545d62da2f10c,
         type: 3}
       propertyPath: noEnergy
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818530641372655045, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818530641372655045, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058429838739699824, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5058429838739699824, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1176635292928503563, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1176635292928503563, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6224537058578622425, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6224537058578622425, guid: e8181167ab46d3045a2545d62da2f10c,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8181167ab46d3045a2545d62da2f10c, type: 3}

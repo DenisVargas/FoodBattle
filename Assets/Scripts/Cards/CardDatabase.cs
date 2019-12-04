@@ -279,7 +279,7 @@ public static class CardDatabase
             Owner.ModifyEnergy(cost);
 
             //Obtenemos toda la vida restante. Perdemos 2 turnos.
-            Owner.AddBuff(stats.GetBuff(BuffType.FullHealthRestore));
+            Owner.AddBuff(stats.GetBuff(BuffType.Heal));
             Owner.AddDebuff(stats.GetDebuff(DeBuffType.DamageReduction));
 
             Owner.hand.DiscardCard(DeckID);
@@ -341,7 +341,10 @@ public static class CardDatabase
         };
         Action<Actor, Actor, CardData, int> Carta17 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {
-            Debug.Log("asdasdas");
+            Owner.AddBuff(stats.GetBuff(BuffType.FullHealthRestore));
+            int realDamage = stats.GetDebuff(DeBuffType.healthReduction).Ammount + Owner.GetActiveBuffAmmount(BuffType.DamageIncrease);
+            Target.GetDamage(realDamage);
+
         };
             Action<Actor, Actor, CardData, int> Carta18 = (Actor Owner, Actor Target, CardData stats, int DeckID) =>
         {

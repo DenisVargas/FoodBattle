@@ -134,15 +134,15 @@ public class Enem : Actor
                 else
                 {
                     cardsEnemy.Add(inDeck[0]);
+                    inDeck[0].anim.enabled = true;
+                    inDeck[0].anim.Play("Idle");
                     inDeck[0].transform.SetParent(handEnemy.transform);
                     inDeck[0].shaderStart = false;
                     inDeck[0].canvas.SetActive(true);
-                    inDeck[0].anim.enabled = true;
                     foreach (var i in inDeck[0].objetos)
                     {
                         i.SetActive(true);
                     }
-                    inDeck[0].transform.rotation = Quaternion.Euler(handEnemy.transform.rotation.x, handEnemy.transform.rotation.y, handEnemy.transform.rotation.z);
                     inDeck[0].Stats = null;
                     inDeck.Remove(inDeck[0]);
                 }

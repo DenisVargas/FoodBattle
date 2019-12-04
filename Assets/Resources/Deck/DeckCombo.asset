@@ -16,20 +16,18 @@ MonoBehaviour:
   deckID: 1
   cantCards:
   - cardID: 6
-    ammountOfCards: 5
+    ammountOfCards: 3
   - cardID: 7
     ammountOfCards: 3
-  - cardID: 2
-    ammountOfCards: 3
-  - cardID: 1
+  - cardID: 10
     ammountOfCards: 2
+  - cardID: 1
+    ammountOfCards: 3
   - cardID: 4
     ammountOfCards: 2
   - cardID: 11
     ammountOfCards: 2
   - cardID: 14
-    ammountOfCards: 2
+    ammountOfCards: 3
   - cardID: 8
-    ammountOfCards: 20
-  - cardID: 10
-    ammountOfCards: 20
+    ammountOfCards: 2

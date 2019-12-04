@@ -92,7 +92,8 @@ public class Player : Actor
         UpdateCombatInterface();
         hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
         HUD.ShowEndTurnButton(true);
-        time = 20f;
+        time = 60f;
+        timers.enabled = true;
     }
     /// <summary>
     /// Se llama en vez de Update.
@@ -125,6 +126,8 @@ public class Player : Actor
     {
         //print("El jugador finalizo el turno.");
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
+        timers.enabled = false;
+
         HUD.ShowEndTurnButton(false);
         turn.SetActive(!enabled);
 

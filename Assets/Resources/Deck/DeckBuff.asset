@@ -16,16 +16,16 @@ MonoBehaviour:
   deckID: 2
   cantCards:
   - cardID: 5
-    ammountOfCards: 4
+    ammountOfCards: 2
   - cardID: 11
     ammountOfCards: 3
   - cardID: 12
     ammountOfCards: 4
   - cardID: 1
-    ammountOfCards: 7
+    ammountOfCards: 2
   - cardID: 2
-    ammountOfCards: 4
-  - cardID: 4
+    ammountOfCards: 2
+  - cardID: 3
     ammountOfCards: 2
   - cardID: 15
     ammountOfCards: 2
