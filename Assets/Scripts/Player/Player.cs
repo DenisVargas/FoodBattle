@@ -115,7 +115,7 @@ public class Player : Actor
             EndTurn();
             timers.enabled = false;
         }
-        timers.text = "Time: " + time.ToString("f0");
+        timers.text = " " + time.ToString("f0");
         UpdateCombatInterface();
     }
     /// <summary>
