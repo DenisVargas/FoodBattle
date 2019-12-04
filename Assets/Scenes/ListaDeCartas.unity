@@ -361,27 +361,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Te infringes 1 de da\xF1o, robas 1 carta y tus cartas hacen +1 de da\xF1o
-        durante 2 turnos"
+        durante 2 turnos (Se Fusiona Con: Panecillo Piro)"
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.35
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 84
+      value: 117
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 17
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 18
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
@@ -4426,32 +4426,32 @@ PrefabInstance:
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_text
-      value: "Inflije 2 de da\xF1o en el turno."
+      value: "Inflije 2 de da\xF1o en el turno.\n(Se Fusiona Con: Teniente Carne)"
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_fontSize
-      value: 29.85
+      value: 20.35
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 30
+      value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}

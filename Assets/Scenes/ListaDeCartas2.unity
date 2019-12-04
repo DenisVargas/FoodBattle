@@ -1238,32 +1238,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Inflige 7 De Da\xF1o, Otorga 1 Punto De Energ\xEDa Por Cada \"Teniente
-        Bacon\" o \"Coronel Pochoclon\" Que Tengas En La Mano."
+        Bacon\" o \"Coronel Pochoclon\" Que Tengas En La Mano.(Se Fusiona Con:La Protuberancia)"
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_fontSize
-      value: 16.75
+      value: 16.25
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 115
+      value: 148
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 20
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 21
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
@@ -1647,32 +1647,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Inflije 2 de da\xF1os, Restaura 2 puntos de salud,Ganas 2 Puntos De
-        Escudo, Roba 1 carta."
+        Escudo, Roba 1 carta.(Se Fusiona Con: Hamburguesa Guerrillera)"
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.35
+      value: 16.25
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 86
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 15
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 17
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
@@ -3583,32 +3583,32 @@ PrefabInstance:
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_text
-      value: "Eres Inmune Al Da\xF1o (2 Turnos)"
+      value: "Eres Inmune Al Da\xF1o (2 Turnos)     (Fusion)"
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_fontSize
-      value: 29.85
+      value: 27.25
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 30
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
