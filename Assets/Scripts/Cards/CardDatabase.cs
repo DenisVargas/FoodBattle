@@ -249,9 +249,11 @@ public static class CardDatabase
             int Points = (Owner.Health / 4);
             Debug.Log("Active Esta mierda");
 
-            Owner.AddBuff(new Buff() { BuffType = BuffType.ArmourIncrease, Ammount = Points, durationType = EffectDurationType.Inmediate });
+            Owner.AddBuff(new Buff() { BuffType = BuffType.ArmourIncrease, Ammount = Points, durationType = EffectDurationType.Limited, Duration = 3 });
 
-            float percentage = Owner.Health / Owner.maxHealth;
+            //MonoBehaviour.print("Armour INcrease is :" + Owner.GetActiveBuffAmmount(BuffType.ArmourIncrease));
+
+            float percentage = ((float)Owner.Health / (float)Owner.maxHealth);
             Debug.Log("percentage" + percentage);
 
             if (percentage > 0.49f)
