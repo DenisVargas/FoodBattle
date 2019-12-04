@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ListaDeCartas.unity
     guid: 46038b476dbafe44897f08a92ba2c6fa
+  - enabled: 1
+    path: Assets/Scenes/ListaDeCartas2.unity
+    guid: b59b4e16765c62d49b606e2a2d23a389
   m_configObjects: {}
