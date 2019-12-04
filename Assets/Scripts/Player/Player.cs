@@ -27,6 +27,7 @@ public class Player : Actor
     //Timer - Me rindo del SET/GET 
     public float time;
     public Text timers;
+    public GameObject timerHUD;
 
 
     //========================================= PROPIEDADES ===========================================================
@@ -94,6 +95,7 @@ public class Player : Actor
         HUD.ShowEndTurnButton(true);
         time = 60f;
         timers.enabled = true;
+        timerHUD.SetActive(true);
     }
     /// <summary>
     /// Se llama en vez de Update.
@@ -106,7 +108,7 @@ public class Player : Actor
             timers.enabled = true;
             timers.color = Color.white;
         }
-        if(time <= 5f)
+        if(time <= 10f)
         {
             StartCoroutine(Colors());
         }
@@ -127,7 +129,7 @@ public class Player : Actor
         //print("El jugador finalizo el turno.");
         //Animo la interfaz para mostrar que Terminó el turno del jugador.
         timers.enabled = false;
-
+        timerHUD.SetActive(false);
         HUD.ShowEndTurnButton(false);
         turn.SetActive(!enabled);
 
@@ -147,14 +149,14 @@ public class Player : Actor
 
     IEnumerator Colors()
     {
+        //CombatManager.match.Turns.Peek() == this;
         for (float i = 1; i >= -0.7f; i = 0.7f)
         {
-        timers.color = Color.red;
-        yield return new WaitForSeconds(0.08f);
-        timers.color = Color.white;
-        yield return new WaitForSeconds(0.08f);
-        if (time <= 0)
-                break;
+            timers.color = Color.red;
+            yield return new WaitForSeconds(0.08f);
+            timers.color = Color.white;
+            yield return new WaitForSeconds(0.08f);
+            break;
         }
     }
 
