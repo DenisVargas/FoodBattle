@@ -16,14 +16,17 @@ MonoBehaviour:
   ID: 16
   image: {fileID: 21300000, guid: 0984968ff62ced34285d97786372691b, type: 3}
   Cost: 2
+  canFusion: 0
+  IDFusion: 0
+  IDCardFusioned: 0
   extraTurns: 0
   extraCards: 0
   Buffs:
   - effectTarget: 0
-    BuffType: 6
-    BuffAmmount: 0
+    BuffType: 7
+    Ammount: 0
     durationType: 2
-    Duration: 2
+    Duration: 3
     useType: 0
     Uses: 0
   Debuffs: []
