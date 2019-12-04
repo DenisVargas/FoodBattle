@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &584476188
+--- !u!1 &567930000
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,9 +144,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 584476189}
-  - component: {fileID: 584476191}
-  - component: {fileID: 584476190}
+  - component: {fileID: 567930001}
+  - component: {fileID: 567930003}
+  - component: {fileID: 567930002}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -154,13 +154,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &584476189
+--- !u!224 &567930001
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584476188}
+  m_GameObject: {fileID: 567930000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -168,25 +168,25 @@ RectTransform:
   m_Father: {fileID: 1908505187}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 5, y: 6}
+  m_SizeDelta: {x: 194.4, y: 59.6}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &584476190
+--- !u!114 &567930002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584476188}
+  m_GameObject: {fileID: 567930000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -197,23 +197,23 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 160
-    m_Alignment: 4
+    m_MaxSize: 122
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 2
   m_Text: Back
---- !u!222 &584476191
+--- !u!222 &567930003
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584476188}
+  m_GameObject: {fileID: 567930000}
   m_CullTransparentMesh: 0
 --- !u!1001 &757157194
 PrefabInstance:
@@ -347,6 +347,52 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: "Te infringes 1 de da\xF1o, robas 1 carta y tus cartas hacen +1 de da\xF1o
+        durante 2 turnos"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -433,52 +479,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 520aa3fb279e5604796f5ce035bb5f4c,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: "Te infringes 1 de da\xF1o, robas 1 carta y tus cartas hacen +1 de da\xF1o
-        durante 2 turnos"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 20.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 84
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -840,6 +840,51 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: Roba una carta (SI TIENES UNA COPIA ROBAS 1 CARTA EXTRA)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 23.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -926,51 +971,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e31d95ac08213834aa37cd06ada78fa6,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: Roba una carta (SI TIENES UNA COPIA ROBAS 1 CARTA EXTRA)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 23.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 56
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -1208,6 +1208,51 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: Restaura 2 de salud, Roba 1 carta
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 29.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -1294,51 +1339,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 1aafcf062bb7b3243a045de7843245e4,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: Restaura 2 de salud, Roba 1 carta
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 29.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -1616,6 +1616,51 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: Obtienes una armadura
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 29.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -1702,51 +1747,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bcae05502ba19d24db1169b86e751511,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: Obtienes una armadura
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 29.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2162,6 +2162,51 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: "Todas tus cartas de da\xF1o inflijen +1 de da\xF1o"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 27.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -2248,51 +2293,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e0952fa5e9b665841ab1167447fa5c06,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: "Todas tus cartas de da\xF1o inflijen +1 de da\xF1o"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 27.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 44
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2552,6 +2552,51 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: Restaura 2 puntos de salud
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 29.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -2638,51 +2683,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 626931181dbd65c4a86947698507c106,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: Restaura 2 puntos de salud
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 29.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2923,6 +2923,52 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: "Inflije +1 de da\xF1o por cada carta que tengas en mano (SI TIENES OTRO
+        \"CORONEL POCHOCLON\" ROBA UNA CARTA)."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -3009,52 +3055,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 53b81de0bb57c05409e22b5473e98c06,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: "Inflije +1 de da\xF1o por cada carta que tengas en mano (SI TIENES OTRO
-        \"CORONEL POCHOCLON\" ROBA UNA CARTA)."
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 17.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 105
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -3308,6 +3308,52 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: "Inlfijes 1 de da\xF1o al enemigo, si tienes una copia en mano inflije
+        +1 de da\xF1o"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 21.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 77
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -3394,52 +3440,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 03af4c58622d93f429632d78c235e3a8,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: "Inlfijes 1 de da\xF1o al enemigo, si tienes una copia en mano inflije
-        +1 de da\xF1o"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 21.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 77
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -3652,6 +3652,7 @@ GameObject:
   - component: {fileID: 1908505189}
   - component: {fileID: 1908505191}
   - component: {fileID: 1908505188}
+  - component: {fileID: 1908505192}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3670,14 +3671,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 584476189}
+  - {fileID: 567930001}
   m_Father: {fileID: 1363027552}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 760.49994, y: -251.50002}
-  m_SizeDelta: {x: 301.6, y: 56.6}
+  m_AnchoredPosition: {x: 774.25, y: -396}
+  m_SizeDelta: {x: 297.5, y: 129}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908505188
 MonoBehaviour:
@@ -3699,9 +3700,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.3773585, g: 0.07249761, b: 0.069419734, a: 1}
+    m_HighlightedColor: {r: 0.5283019, g: 0.037379846, b: 0.037379846, a: 1}
+    m_PressedColor: {r: 1, g: 0.18396229, b: 0.18396229, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3752,8 +3753,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3781,6 +3782,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e925236c5adab549a21e22ebc6d6ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ads: {fileID: 0}
+  clickb: {fileID: 8300000, guid: a70e10bbe1779fe43b7cb8a8bea11b40, type: 3}
+--- !u!82 &1908505192
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908505186}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1913747274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,6 +4092,51 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9954479
       objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_text
+      value: "Inflije 2 de da\xF1o en el turno."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 29.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5232946312711284551, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -4079,51 +4223,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: d69d02da13b844745b91f5e039c781b4,
         type: 3}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_text
-      value: "Inflije 2 de da\xF1o en el turno."
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 29.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5232946313749215374, guid: a59dd271b2e482640adec0521408c37b,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5232946313543611126, guid: a59dd271b2e482640adec0521408c37b,
         type: 3}
       propertyPath: m_havePropertiesChanged

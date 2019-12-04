@@ -20,7 +20,7 @@ public class Player : Actor
     public AudioClip armor;
     public AudioClip bufdamage;
     public AudioClip endturn;
-
+    public AudioClip alarm;
     //Propios del Combate.
     bool _interactable = false;
 
@@ -54,6 +54,7 @@ public class Player : Actor
 
     public override void Awake()
     {
+        timerHUD.SetActive(!enabled);
         base.Awake();
         timers.enabled = false;
         OnBuffAdded += UpdateBuffDisplay;
@@ -150,7 +151,7 @@ public class Player : Actor
     IEnumerator Colors()
     {
         //CombatManager.match.Turns.Peek() == this;
-        for (float i = 1; i >= -0.7f; i = 0.7f)
+        for (float i = 1; i >= -0.7f; i = 0.4f)
         {
             timers.color = Color.red;
             yield return new WaitForSeconds(0.08f);

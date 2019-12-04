@@ -9,9 +9,12 @@ public class SlotsGeneral : MonoBehaviour
     public GameObject effect;
     public bool startEffect = false;
     public Vector3 startPos;
+    public AudioSource asd;
+    public AudioClip fusion;
 
     void Awake()
     {
+        asd = GetComponent<AudioSource>();
         startPos = effect.transform.position;
         var slotsInChild = GetComponentsInChildren<Slot>();
         foreach (var item in slotsInChild)
@@ -23,7 +26,9 @@ public class SlotsGeneral : MonoBehaviour
         if (startEffect)
         {
             if (Vector3.Distance(effect.transform.position, new Vector3(effect.transform.position.x, -7f, effect.transform.position.z)) >= 0.01f)
+            {
                 effect.transform.position = Vector3.Lerp(effect.transform.position, new Vector3(effect.transform.position.x, -7f, effect.transform.position.z),Time.deltaTime);
+            }
         }
         else
         {
@@ -50,6 +55,8 @@ public class SlotsGeneral : MonoBehaviour
                     fusioned.DeckID = carta1.Stats.IDCardFusioned;
                     fusioned.LoadCardDisplayInfo();
                     StartCoroutine(SendCard(fusioned));
+                    asd.clip = fusion;
+                    asd.Play();
                 }
             }
         }
@@ -62,6 +69,7 @@ public class SlotsGeneral : MonoBehaviour
         toSend.CardEffect(toSend.Owner, toSend.Rival, toSend.Stats, toSend.DeckID);
         toSend.shaderStart = true;
         toSend.canvas.SetActive(false);
+        startEffect = false;
         foreach (var i in toSend.objetos)
             i.SetActive(false);
         Destroy(toSend.gameObject, 2f);
@@ -72,6 +80,5 @@ public class SlotsGeneral : MonoBehaviour
         slots[1].cardInside.Owner.hand.DiscardCard(slots[1].cardInside.DeckID);
         slots[0].cardInside = null;
         slots[1].cardInside = null;
-        startEffect = false;
     }
 }
