@@ -11,8 +11,10 @@ public class CardPreview : MonoBehaviour
     public TextMeshProUGUI description;
     public TextMeshProUGUI cost;
     public TextMeshProUGUI damage;
+    public TextMeshProUGUI fusionName;
     public Image imageCard;
     private Animator anim;
+    public GameObject isFusionable;
     public bool isSelected;
     public LayerMask detect;
     //public AudioSource s;
@@ -45,6 +47,14 @@ public class CardPreview : MonoBehaviour
                 cost.text = cardSelected.cost.text;
                 damage.text = cardSelected.damage.text;
                 imageCard.sprite = cardSelected.image.sprite;
+                if (cardSelected.Stats.canFusion)
+                {
+                    isFusionable.SetActive(true);
+                    var cardFusioned = CardDatabase.GetCardData(cardSelected.Stats.IDFusion);
+                    fusionName.text = cardFusioned.CardName;
+                }
+                else
+                    isFusionable.SetActive(false);
             }
         }
         else
