@@ -137,15 +137,12 @@ public class Enem : Actor
                     inDeck[0].transform.SetParent(handEnemy.transform);
                     inDeck[0].shaderStart = false;
                     inDeck[0].canvas.SetActive(true);
-                    inDeck[0].shaderLerp = 100;
-                    inDeck[0].ShadersOP(100);
-
+                    inDeck[0].anim.enabled = true;
                     foreach (var i in inDeck[0].objetos)
                     {
                         i.SetActive(true);
                     }
                     inDeck[0].transform.rotation = Quaternion.Euler(handEnemy.transform.rotation.x, handEnemy.transform.rotation.y, handEnemy.transform.rotation.z);
-                    inDeck[0].canBeShowed = false;
                     inDeck[0].Stats = null;
                     inDeck.Remove(inDeck[0]);
                 }
@@ -177,6 +174,7 @@ public class Enem : Actor
         //de la mesa al descarte
         else if (cardStateShow == 2)
         {
+            cardSelected.canBeShowed = false;
             cardSelected.shaderStart = true;
             cardSelected.canvas.SetActive(false);
             foreach (var i in cardSelected.objetos)
@@ -210,7 +208,12 @@ public class Enem : Actor
                 for (int i = 0; i < fromDeckToHand.childCount; i++)
                 {
                     inDeck.Add(fromDeckToHand.GetChild(i).GetComponent<Card>());
+                    inDeck[i].shaderLerp = 100;
+                    inDeck[i].ShadersOP(100);
                     inDeck[i].anim.SetTrigger("BackToIdle");
+                    inDeck[i].anim.enabled = false;
+                    inDeck[i].transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+
                 }
                 cardStateShow = 0;
                 toHand = true;
