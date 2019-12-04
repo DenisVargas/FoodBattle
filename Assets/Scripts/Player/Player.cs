@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Actor
 {
@@ -22,6 +23,11 @@ public class Player : Actor
 
     //Propios del Combate.
     bool _interactable = false;
+
+    //Timer - Me rindo del SET/GET 
+    public float time;
+    public Text timers;
+
 
     //========================================= PROPIEDADES ===========================================================
 
@@ -48,7 +54,7 @@ public class Player : Actor
     public override void Awake()
     {
         base.Awake();
-
+        timers.enabled = false;
         OnBuffAdded += UpdateBuffDisplay;
 
 
@@ -86,12 +92,29 @@ public class Player : Actor
         UpdateCombatInterface();
         hand.GetDrawedCards(deck, hand.maxCardsInHand - hand.hand.Count);
         HUD.ShowEndTurnButton(true);
+        time = 20f;
     }
     /// <summary>
     /// Se llama en vez de Update.
     /// </summary>
     public override void UpdateTurn()
     {
+        time = time - 1 * Time.deltaTime;
+        if(time <= 15f)
+        {
+            timers.enabled = true;
+            timers.color = Color.white;
+        }
+        if(time <= 5f)
+        {
+            StartCoroutine(Colors());
+        }
+        if(time <= 0f)
+        {
+            EndTurn();
+            timers.enabled = false;
+        }
+        timers.text = "Time: " + time.ToString("f0");
         UpdateCombatInterface();
     }
     /// <summary>
@@ -113,9 +136,23 @@ public class Player : Actor
         UpdateBuffDisplay();
 
         //LLamo el evento de Actor
+        StopCoroutine(Colors());
         OnEndTurn(this);
         ad.clip = endturn;
         ad.Play();
+    }
+
+    IEnumerator Colors()
+    {
+        for (float i = 1; i >= -0.7f; i = 0.7f)
+        {
+        timers.color = Color.red;
+        yield return new WaitForSeconds(0.08f);
+        timers.color = Color.white;
+        yield return new WaitForSeconds(0.08f);
+        if (time <= 0)
+                break;
+        }
     }
 
     #endregion
